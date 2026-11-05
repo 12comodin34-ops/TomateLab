@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#d93632">
+  <meta name="description" content="TomateLab es un laboratorio especializado en revelado y digitalización de fotografía analógica en blanco y negro. Desde Los Palacios y Villafranca, Sevilla, para toda España.">
+  <meta name="keywords" content="revelado blanco y negro, revelar carretes, laboratorio fotográfico, revelado de carretes por correo, fotografía analógica, Sevilla">
+  <title>TomateLab — Laboratorio analógico en blanco y negro</title>
+  <style>
+    :root {
+      --red: #d93632;
+      --green: #287447;
+      --paper: #f4f0e7;
+      --ink: #171916;
+      --muted: #686a63;
+      --line: rgba(23,25,22,.2);
+      --mono: "DM Mono", "Courier New", monospace;
+      --sans: "Space Grotesk", Arial, sans-serif;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; color: var(--ink); background: var(--paper);
+      font-family: var(--sans); line-height: 1.5;
+      background-image: radial-gradient(rgba(23,25,22,.10) .55px, transparent .55px);
+      background-size: 5px 5px;
+    }
+    body::after {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 10;
+      opacity: .10; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+    }
+    a { color: inherit; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin: auto; }
+    header { border-bottom: 1px solid var(--line); position: relative; z-index: 20; background: rgba(244,240,231,.94); }
+    .nav { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; letter-spacing: -.06em; font-size: 1.45rem; }
+    .brand-mark { width: 35px; height: 35px; border: 3px solid var(--red); border-radius: 50%; display: grid; place-items: center; color: var(--green); font-size: 1rem; letter-spacing: -.1em; transform: rotate(-9deg); }
+    .brand-mark span { transform: rotate(9deg); }
+    nav { display: flex; gap: 28px; align-items: center; }
+    nav a { text-decoration: none; font: 500 .78rem var(--mono); text-transform: uppercase; letter-spacing: .04em; }
+    nav a:hover, nav a.active { color: var(--red); }
+    .menu { display: none; border: 1px solid var(--ink); background: transparent; padding: 9px 12px; font: .75rem var(--mono); text-transform: uppercase; }
+    .eyebrow { font: 500 .72rem var(--mono); text-transform: uppercase; letter-spacing: .13em; color: var(--green); }
+    h1,h2,h3,p { margin-top: 0; }
+    h1 { font-size: clamp(3rem, 8vw, 7.6rem); line-height: .88; letter-spacing: -.085em; max-width: 900px; margin: 22px 0; }
+    h2 { font-size: clamp(2.1rem, 5vw, 4.4rem); line-height: .95; letter-spacing: -.07em; margin-bottom: 22px; }
+    h3 { font-size: 1.25rem; letter-spacing: -.04em; }
+    .hero { padding: 92px 0 76px; display: grid; grid-template-columns: 1.05fr .95fr; gap: 42px; align-items: center; }
+    .hero-copy p { max-width: 540px; font-size: 1.1rem; color: #454740; }
+    .hero-art { min-height: 440px; position: relative; overflow: hidden; background: var(--ink); color: var(--paper); display: flex; align-items: center; justify-content: center; padding: 34px; }
+    .hero-art::before { content:""; position:absolute; inset: 18px; border: 1px solid rgba(244,240,231,.45); }
+    .hero-art::after { content:""; position:absolute; inset:0; opacity:.18; background: repeating-linear-gradient(0deg, transparent 0 5px, rgba(255,255,255,.2) 6px); }
+    .film { position: relative; z-index: 1; width: 78%; transform: rotate(-7deg); border: 12px solid var(--paper); border-left-width: 25px; border-right-width: 25px; padding: 24px 14px; background: #aaa99f; box-shadow: 18px 18px 0 var(--red); }
+    .film::before,.film::after { content:""; position:absolute; top:0; bottom:0; width: 13px; background: radial-gradient(circle, var(--ink) 3px, transparent 3.5px) center 8px / 13px 22px repeat-y; }
+    .film::before { left:-22px; } .film::after { right:-22px; }
+    .photo-placeholder { aspect-ratio: 1.25; background: linear-gradient(135deg,#222 0%,#777 42%,#d4d0c5 43%,#444 75%,#171916 100%); filter: grayscale(1); position: relative; }
+    .photo-placeholder::after { content:"TU FOTOGRAFÍA EN BLANCO Y NEGRO"; position:absolute; left:12px; bottom:12px; color:white; font: .55rem var(--mono); letter-spacing:.1em; }
+    .hero-stamp { position:absolute; z-index:2; right: 8%; bottom: 8%; color: var(--paper); background: var(--red); padding: 12px 15px; transform: rotate(5deg); font: .7rem var(--mono); text-transform: uppercase; }
+    .button { display:inline-flex; align-items:center; justify-content:center; gap:12px; padding:14px 20px; text-decoration:none; text-transform:uppercase; font:500 .76rem var(--mono); letter-spacing:.05em; border:1px solid var(--ink); transition:.2s; }
+    .button.dark { color:var(--paper); background:var(--ink); }
+    .button.red { color:white; background:var(--red); border-color:var(--red); }
+    .button:hover { transform:translateY(-3px); box-shadow:4px 4px 0 var(--green); }
+    .section { padding: 86px 0; border-top:1px solid var(--line); }
+    .intro-grid { display:grid; grid-template-columns:.7fr 1.3fr; gap:60px; }
+    .intro-grid .lead { font-size:clamp(1.35rem,2.5vw,2rem); line-height:1.2; max-width:700px; letter-spacing:-.04em; }
+    .services { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:36px; }
+    .service { border:1px solid var(--line); padding:25px; min-height:220px; background:rgba(244,240,231,.72); }
+    .service .number { font: .75rem var(--mono); color:var(--red); }
+    .service p { color:var(--muted); margin-bottom:0; }
+    .band { background:var(--green); color:var(--paper); padding:66px 0; }
+    .band .eyebrow { color:#f6c9a9; }
+    .band h2 { max-width:750px; }
+    .band p { max-width:620px; color:rgba(255,255,255,.82); font-size:1.08rem; }
+    .location-grid { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
+    .map-card { min-height:300px; background:#d9d4c8; position:relative; overflow:hidden; display:grid; place-items:center; border:1px solid var(--line); }
+    .map-card::before { content:""; position:absolute; inset:-30%; background:repeating-linear-gradient(35deg,transparent 0 42px,rgba(40,116,71,.22) 43px 46px,transparent 47px 82px); transform:rotate(-8deg); }
+    .map-pin { z-index:1; background:var(--red); color:white; padding:16px 18px; border-radius:50% 50% 50% 0; transform:rotate(-45deg); font: .8rem var(--mono); }
+    .map-pin span { display:block; transform:rotate(45deg); }
+    .faq-list { max-width:850px; }
+    details { border-top:1px solid var(--line); padding:20px 0; }
+    details:last-child { border-bottom:1px solid var(--line); }
+    summary { cursor:pointer; font-size:1.12rem; font-weight:600; list-style:none; display:flex; justify-content:space-between; gap:20px; }
+    summary::after { content:"+"; color:var(--red); font:1.4rem var(--mono); }
+    details[open] summary::after { content:"−"; }
+    details p { color:var(--muted); max-width:700px; margin:14px 0 0; }
+    .contact-grid { display:grid; grid-template-columns:.8fr 1.2fr; gap:60px; }
+    form { display:grid; gap:16px; }
+    label { display:grid; gap:7px; font: .72rem var(--mono); text-transform:uppercase; }
+    input,textarea { width:100%; border:1px solid var(--line); background:rgba(255,255,255,.42); padding:13px; color:var(--ink); font: 1rem var(--sans); border-radius:0; }
+    textarea { min-height:130px; resize:vertical; }
+    .notice { font-size:.82rem; color:var(--muted); }
+    footer { background:var(--ink); color:var(--paper); padding:34px 0; }
+    .footer-row { display:flex; justify-content:space-between; gap:20px; align-items:center; }
+    footer p { margin:0; color:rgba(244,240,231,.65); font: .7rem var(--mono); }
+    .footer-links { display:flex; gap:20px; }
+    .footer-links a { color:var(--paper); text-decoration:none; font: .7rem var(--mono); }
+    .page { display:none; }
+    .page.active { display:block; }
+    .subhero { padding:76px 0 48px; }
+    .subhero h1 { font-size:clamp(3.3rem,8vw,6.5rem); }
+    @media(max-width:760px) {
+      .nav { min-height:68px; flex-wrap:wrap; padding:14px 0; }
+      .menu { display:block; }
+      nav { display:none; width:100%; flex-direction:column; align-items:flex-start; padding:12px 0 6px; gap:18px; }
+      nav.open { display:flex; }
+      .hero,.intro-grid,.location-grid,.contact-grid { grid-template-columns:1fr; }
+      .hero { padding:60px 0; gap:30px; }
+      .hero-art { min-height:320px; }
+      .services { grid-template-columns:1fr; }
+      .section { padding:62px 0; }
+      .footer-row { align-items:flex-start; flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#inicio" aria-label="TomateLab, inicio"><span class="brand-mark"><span>00</span></span> tomate<span style="color:var(--red)">lab</span></a>
+    <button class="menu" id="menuBtn" aria-expanded="false">Menú +</button>
+    <nav id="mainNav">
+      <a href="#inicio" data-page="inicio">Inicio</a>
+      <a href="#servicios" data-page="servicios">Qué hacemos</a>
+      <a href="#faq" data-page="faq">Preguntas frecuentes</a>
+      <a href="#contacto" data-page="contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="page active" id="inicio">
+    <section class="wrap hero">
+      <div class="hero-copy">
+        <div class="eyebrow">Laboratorio analógico · Los Palacios, Sevilla</div>
+        <h1>El blanco y negro tiene mucho que contar.</h1>
+        <p>Revelamos y digitalizamos fotografía analógica en blanco y negro. Un laboratorio pequeño, especializado y con mucho cariño por cada fotograma.</p>
+        <a class="button dark" href="#servicios">Descubre el laboratorio <span>↗</span></a>
+      </div>
+      <div class="hero-art" aria-label="Composición gráfica inspirada en una tira de película">
+        <div class="film"><div class="photo-placeholder"></div></div>
+        <div class="hero-stamp">B&W film lab · 001</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap intro-grid">
+        <div><div class="eyebrow">01 / Nuestra especialidad</div></div>
+        <div>
+          <h2>Un laboratorio con una idea clara.</h2>
+          <p class="lead">Nos centramos en una cosa: el revelado y escaneado de carretes en blanco y negro. Porque especializarse también es una forma de cuidar el resultado.</p>
+        </div>
+      </div>
+      <div class="wrap services" id="servicios">
+        <article class="service"><div class="number">01 — REVELADO</div><h3>Revelado B/N</h3><p>El proceso químico que transforma lo que has fotografiado en negativos con carácter.</p></article>
+        <article class="service"><div class="number">02 — DIGITALIZACIÓN</div><h3>Escaneado</h3><p>Pasamos tus negativos a archivos digitales para que puedas ver, compartir y conservar tus fotografías.</p></article>
+        <article class="service"><div class="number">03 — POR CORREO</div><h3>Desde cualquier lugar</h3><p>Estamos en Los Palacios y Villafranca, Sevilla. La idea es recibir carretes de toda España por envío postal.</p></article>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap">
+        <div class="eyebrow">Una especialidad, muchas historias</div>
+        <h2>Tu carrete. Nuestro pequeño laboratorio. Un montón de posibilidades.</h2>
+        <p>La fotografía analógica tiene sus tiempos, sus sorpresas y sus imperfecciones. Aquí queremos darles espacio, con un proceso cuidado y una comunicación clara.</p>
+        <a class="button" href="#contacto" style="border-color:var(--paper);color:var(--paper)">Ponte en contacto ↗</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap location-grid">
+        <div>
+          <div class="eyebrow">02 / Dónde estamos</div>
+          <h2>Desde Los Palacios para toda España.</h2>
+          <p>TomateLab nace en Los Palacios y Villafranca, Sevilla. Un laboratorio local con vocación de llegar a quienes disparan en analógico estén donde estén.</p>
+          <p class="notice">La dirección y las instrucciones de envío se publicarán cuando el servicio de recepción esté confirmado. No envíes carretes todavía.</p>
+        </div>
+        <div class="map-card"><div class="map-pin"><span>TL</span></div></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="page" id="faq">
+    <section class="wrap subhero">
+      <div class="eyebrow">TomateLab / Información</div>
+      <h1>Preguntas<br>frecuentes.</h1>
+      <p class="lead">Lo importante antes de enviar tu carrete.</p>
+    </section>
+    <section class="section">
+      <div class="wrap faq-list">
+        <details><summary>¿Qué tipo de carretes reveláis?</summary><p>TomateLab está planteado como un laboratorio especializado en película fotográfica en blanco y negro. Los formatos y emulsiones admitidos se concretarán antes de abrir el servicio.</p></details>
+        <details><summary>¿Puedo enviaros el carrete desde otra ciudad?</summary><p>La propuesta contempla recibir carretes por correo desde cualquier punto de España. Las instrucciones, dirección de recepción y opciones de devolución se publicarán cuando estén confirmadas.</p></details>
+        <details><summary>¿En qué formato recibiré mis fotografías?</summary><p>La idea es entregar los negativos revelados y los archivos digitalizados. La resolución, el método de entrega y las opciones de descarga se detallarán en las tarifas definitivas.</p></details>
+        <details><summary>¿Cuánto tarda el proceso?</summary><p>Los plazos dependerán del volumen de trabajo y del envío. Publicaremos un tiempo estimado realista antes de aceptar pedidos.</p></details>
+        <details><summary>¿Cuánto cuesta revelar y escanear?</summary><p>Las tarifas se mostrarán aquí cuando estén cerradas. No queremos publicar precios provisionales que después puedan cambiar.</p></details>
+        <details><summary>¿Me devolvéis los negativos?</summary><p>La política de conservación y devolución de negativos se explicará antes de abrir el servicio, junto con los posibles costes de envío.</p></details>
+      </div>
+    </section>
+  </div>
+
+  <div class="page" id="contacto">
+    <section class="wrap subhero">
+      <div class="eyebrow">TomateLab / Hablemos</div>
+      <h1>¿Tienes alguna duda?</h1>
+      <p class="lead">Cuéntanos qué necesitas y te responderemos cuando el canal de contacto esté activo.</p>
+    </section>
+    <section class="section">
+      <div class="wrap contact-grid">
+        <div><h2>Estamos al otro lado.</h2><p>Si tienes preguntas sobre el laboratorio, el proceso o la fotografía analógica, este será tu espacio.</p><p class="notice">Formulario de demostración: todavía no envía ni almacena mensajes.</p></div>
+        <form id="contactForm">
+          <label>Tu nombre<input type="text" name="nombre" placeholder="Cómo te llamas" required></label>
+          <label>Tu email<input type="email" name="email" placeholder="tu@email.com" required></label>
+          <label>¿En qué podemos ayudarte?<textarea name="mensaje" placeholder="Escribe aquí tu mensaje..." required></textarea></label>
+          <button class="button dark" type="submit">Preparar mensaje ↗</button>
+          <p class="notice" id="formNotice" aria-live="polite">El formulario es solo visual. Para recibir mensajes habrá que conectarlo a un servicio y añadir la información de privacidad correspondiente.</p>
+        </form>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <a class="brand" href="#inicio" style="color:var(--paper)"><span class="brand-mark"><span>00</span></span> tomate<span style="color:#f06b5d">lab</span></a>
+    <p>LOS PALACIOS Y VILLAFRANCA · SEVILLA · <span id="year"></span></p>
+    <div class="footer-links"><a href="#faq">FAQ</a><a href="#contacto">CONTACTO</a></div>
+  </div>
+</footer>
+
+<script>
+  (() => {
+    const pages = [...document.querySelectorAll('.page')];
+    const nav = document.getElementById('mainNav');
+    const menuBtn = document.getElementById('menuBtn');
+
+    function showPage() {
+      const requested = (location.hash || '#inicio').slice(1);
+      const pageId = ['inicio','faq','contacto'].includes(requested) ? requested : 'inicio';
+      pages.forEach(page => page.classList.toggle('active', page.id === pageId));
+      document.querySelectorAll('nav a').forEach(link => {
+        link.classList.toggle('active', link.dataset.page === pageId);
+      });
+      nav.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.textContent = 'Menú +';
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    menuBtn.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.textContent = open ? 'Cerrar −' : 'Menú +';
+    });
+    window.addEventListener('hashchange', showPage);
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('contactForm').addEventListener('submit', event => {
+      event.preventDefault();
+      document.getElementById('formNotice').textContent =
+        '¡Gracias! Este formulario todavía es una demostración y no ha enviado ningún mensaje.';
+    });
+    showPage();
+  })();
+</script>
+</body>
+</html>
