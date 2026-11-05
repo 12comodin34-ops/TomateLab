@@ -3,667 +3,213 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="TomateLab es un laboratorio especializado en revelado y escaneado de fotografía analógica en blanco y negro. Desde Los Palacios y Villafranca, Sevilla.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#111111">
-<title>TomateLab — Revelado analógico en blanco y negro</title>
+<meta name="description" content="TomateLab: laboratorio especializado en revelado y escaneado de fotografía analógica en blanco y negro.">
+<title>TomateLab — Revelado analógico</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --black: #111111;
-  --white: #f5f5f5;
-  --red: #d93632;
-  --green: #287447;
-  --font-title: "Special Elite", monospace;
-  --font-body: "Space Grotesk", sans-serif;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background: var(--black);
-  color: var(--white);
-  font-family: var(--font-body);
-  transition: background .8s ease, color .8s ease;
-  overflow-x: hidden;
-}
-
-body.light-mode {
-  background: var(--white);
-  color: var(--black);
-}
-
-/* GRANO FOTOGRÁFICO */
-
-.grain {
-  position: fixed;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
-  pointer-events: none;
-  z-index: 20;
-  opacity: .12;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
-  animation: grainMove .25s steps(2) infinite;
-}
-
-@keyframes grainMove {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(1%, -1%); }
-  50% { transform: translate(-1%, 1%); }
-  75% { transform: translate(1%, 1%); }
-  100% { transform: translate(-1%, -1%); }
-}
-
-/* PERFORACIONES */
-
-.film-holes {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 12px;
-  width: 13px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.film-holes.right {
-  left: auto;
-  right: 12px;
-}
-
-.film-holes span {
-  display: block;
-  width: 12px;
-  height: 18px;
-  border: 1px solid currentColor;
-  border-radius: 2px;
-  opacity: .65;
-}
-
-.film-section {
-  position: relative;
-  overflow: hidden;
-}
-
-.film-section > .inner {
-  padding-left: 55px;
-  padding-right: 55px;
-}
-
-/* NAVEGACIÓN */
-
-header {
-  position: fixed;
-  z-index: 30;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 22px 5%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  mix-blend-mode: difference;
-  color: white;
-}
-
-.logo {
-  color: inherit;
-  text-decoration: none;
-  font-family: var(--font-title);
-  font-size: 25px;
-  letter-spacing: -1px;
-}
-
-.logo span {
-  color: var(--red);
-}
-
-nav {
-  display: flex;
-  gap: 28px;
-}
-
-nav a {
-  color: inherit;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  font-weight: 600;
-}
-
-nav a:hover {
-  text-decoration: underline;
-  text-underline-offset: 5px;
-}
-
-.menu-button {
-  display: none;
-  color: inherit;
-  background: none;
-  border: 0;
-  font: inherit;
-  text-transform: uppercase;
-}
-
-/* PÁGINAS */
-
-.page {
-  display: none;
-  min-height: 100vh;
-}
-
-.page.active {
-  display: block;
-}
-
-/* PORTADA: NEGATIVO */
-
-.hero {
-  min-height: 100vh;
-  background: var(--black);
-  color: var(--white);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  padding: 150px 10% 100px;
-}
-
-.hero-content {
-  max-width: 1000px;
-  margin: auto;
-  width: 100%;
-}
-
-.eyebrow {
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  font-size: 11px;
-  font-weight: 600;
-  margin-bottom: 28px;
-}
-
-.hero h1 {
-  font-family: var(--font-title);
-  font-size: clamp(64px, 12vw, 150px);
-  line-height: .92;
-  font-weight: 400;
-  letter-spacing: -5px;
-}
-
-.hero h1 span {
-  color: var(--red);
-}
-
-.hero-description {
-  max-width: 420px;
-  margin-top: 40px;
-  font-size: 16px;
-  line-height: 1.7;
-}
-
-.hero-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  margin-top: 100px;
-  gap: 20px;
-}
-
-.hero-bottom p {
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.scroll-indicator {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.scroll-indicator span {
-  display: block;
-  width: 45px;
-  height: 1px;
-  background: var(--red);
-}
-
-/* SECCIÓN DE REVELADO */
-
-.develop {
-  min-height: 100vh;
-  background: var(--red);
-  color: var(--white);
-  padding: 150px 10%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 8%;
-}
-
-.develop h2,
-.final-section h2,
-.services h2 {
-  font-family: var(--font-title);
-  font-weight: 400;
-  font-size: clamp(42px, 6vw, 78px);
-  line-height: 1.05;
-}
-
-.develop p {
-  margin-top: 25px;
-  line-height: 1.8;
-  max-width: 450px;
-}
-
-.photo-frame {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  background: #333;
-  overflow: hidden;
-  border: 12px solid var(--black);
-  box-shadow: 0 15px 40px rgba(0,0,0,.2);
-}
-
-.photo-placeholder {
-  width: 100%;
-  height: 100%;
-  background:
-    linear-gradient(135deg, #111 0%, #555 45%, #222 100%);
-  filter: grayscale(1) contrast(1.2);
-  transform: scale(1.08);
-  transition: filter 2s ease, transform 2s ease;
-}
-
-.photo-placeholder::after {
-  content: "TU FOTOGRAFÍA";
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  color: white;
-  font-family: var(--font-title);
-  font-size: 18px;
-  letter-spacing: 2px;
-}
-
-.photo-frame.revealed .photo-placeholder {
-  filter: grayscale(1) contrast(1.5);
-  transform: scale(1);
-}
-
-.frame-caption {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
-  font-size: 9px;
-  letter-spacing: 2px;
-  color: white;
-  z-index: 1;
-}
-
-/* FIJADO */
-
-.final-section {
-  min-height: 100vh;
-  background: var(--white);
-  color: var(--black);
-  padding: 150px 10%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8%;
-  align-items: center;
-}
-
-.final-section .photo-frame {
-  border-color: var(--black);
-}
-
-.final-section .photo-placeholder {
-  background:
-    linear-gradient(145deg, #111 0%, #888 50%, #222 100%);
-}
-
-.final-section h2 span {
-  color: var(--green);
-}
-
-.final-section p {
-  margin-top: 25px;
-  max-width: 450px;
-  line-height: 1.8;
-}
-
-/* SERVICIOS */
-
-.services {
-  background: var(--white);
-  color: var(--black);
-  padding: 120px 10%;
-}
-
-.section-label {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  margin-bottom: 25px;
-}
-
-.services h2 {
-  max-width: 700px;
-  margin-bottom: 65px;
-}
-
-.service-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  border-top: 1px solid var(--black);
-}
-
-.service {
-  padding: 35px 30px 35px 0;
-  border-bottom: 1px solid var(--black);
-}
-
-.service:nth-child(odd) {
-  border-right: 1px solid var(--black);
-}
-
-.service:nth-child(even) {
-  padding-left: 30px;
-}
-
-.service-number {
-  color: var(--red);
-  font-family: var(--font-title);
-  font-size: 18px;
-}
-
-.service h3 {
-  margin: 18px 0 12px;
-  font-size: 23px;
-  font-weight: 500;
-}
-
-.service p {
-  max-width: 390px;
-  line-height: 1.7;
-  font-size: 14px;
-}
-
-/* UBICACIÓN */
-
-.location {
-  padding: 120px 10%;
-  background: var(--green);
-  color: var(--white);
-}
-
-.location h2 {
-  font-family: var(--font-title);
-  font-size: clamp(40px, 7vw, 85px);
-  font-weight: 400;
-  line-height: 1;
-  max-width: 850px;
-}
-
-.location p {
-  max-width: 500px;
-  line-height: 1.8;
-  margin-top: 30px;
-}
-
-.location .eyebrow {
-  margin-bottom: 30px;
-}
-
-/* BOTONES Y ENLACES */
-
-.text-link {
-  display: inline-block;
-  color: inherit;
-  text-decoration: none;
-  border-bottom: 1px solid currentColor;
-  padding-bottom: 8px;
-  margin-top: 30px;
-  text-transform: uppercase;
-  font-size: 11px;
-  letter-spacing: 2px;
-  font-weight: 600;
-}
-
-.text-link:hover {
-  color: var(--red);
-}
-
-/* FAQ */
-
-.subpage {
-  min-height: 100vh;
-  padding: 170px 10% 100px;
-  background: var(--white);
-  color: var(--black);
-}
-
-.subpage h1 {
-  font-family: var(--font-title);
-  font-size: clamp(55px, 9vw, 110px);
-  font-weight: 400;
-  margin-bottom: 60px;
-}
-
-.faq-item {
-  border-top: 1px solid var(--black);
-  padding: 25px 0;
-}
-
-.faq-item:last-child {
-  border-bottom: 1px solid var(--black);
-}
-
-.faq-item h3 {
-  font-size: 19px;
-  font-weight: 500;
-  margin-bottom: 12px;
-}
-
-.faq-item p {
-  max-width: 700px;
-  line-height: 1.8;
-  font-size: 14px;
-}
-
-/* CONTACTO */
-
-.contact-intro {
-  max-width: 650px;
-  line-height: 1.8;
-  margin-bottom: 50px;
-}
-
-.contact-note {
-  border-left: 4px solid var(--green);
-  padding: 15px 20px;
-  max-width: 650px;
-  line-height: 1.7;
-  font-size: 14px;
-}
-
-/* PIE */
-
-footer {
-  background: var(--black);
-  color: var(--white);
-  padding: 55px 10%;
-  display: flex;
-  justify-content: space-between;
-  gap: 30px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-footer .logo {
-  font-size: 22px;
-}
-
-footer p {
-  font-size: 11px;
-  letter-spacing: 1px;
-  line-height: 1.8;
-}
-
-/* APARICIÓN AL DESPLAZARSE */
-
-.reveal {
-  opacity: 0;
-  transform: translateY(35px);
-  transition: opacity 1s ease, transform 1s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* RESPONSIVE */
-
-@media (max-width: 760px) {
-  header {
-    padding: 18px 6%;
+  --black:#111;
+  --white:#f5f5f5;
+  --red:#d93632;
+  --green:#287447;
+  --type:"Courier Prime",monospace;
+  --body:"Space Grotesk",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--black);font-family:var(--body);overflow-x:hidden}
+a{color:inherit}
+
+/* Grano estático */
+.grain{
+  position:fixed;inset:0;z-index:50;pointer-events:none;opacity:.065;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Cabecera */
+header{
+  position:fixed;z-index:40;top:0;left:0;width:100%;
+  padding:20px 6%;display:flex;align-items:center;
+  justify-content:space-between;background:rgba(17,17,17,.94);color:white;
+}
+.logo{font:700 24px var(--type);text-decoration:none;letter-spacing:-1px}
+.logo span{color:var(--red)}
+nav{display:flex;gap:30px}
+nav a{text-decoration:none;color:white;text-transform:uppercase;font-size:11px;letter-spacing:1.5px}
+nav a:hover{color:var(--red)}
+.menu-button{display:none;background:none;border:0;color:white;font:inherit}
+
+/* Páginas */
+.page{display:none;min-height:100vh}
+.page.active{display:block}
+
+/* Perforaciones */
+.film-rail{
+  position:absolute;top:0;bottom:0;left:12px;width:17px;
+  display:flex;flex-direction:column;justify-content:space-around;
+  pointer-events:none;z-index:3
+}
+.film-rail.right{left:auto;right:12px}
+.film-rail span{width:12px;height:18px;border:1px solid currentColor;border-radius:2px;opacity:.65}
+
+/* Secuencia negativo-revelado-positivo */
+.reveal-sequence{height:240vh;background:var(--black);color:var(--white);position:relative}
+.reveal-sticky{
+  position:sticky;top:0;height:100svh;min-height:580px;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:110px 9% 65px;overflow:hidden
+}
+.sequence-top,.sequence-bottom{
+  position:absolute;left:9%;right:9%;display:flex;
+  justify-content:space-between;align-items:center;
+  font-size:10px;letter-spacing:2px;text-transform:uppercase
+}
+.sequence-top{top:110px}
+.sequence-top span:last-child{color:var(--red)}
+.sequence-bottom{bottom:30px}
+.sequence-content{
+  display:grid;grid-template-columns:.85fr 1.15fr;
+  align-items:center;gap:6%;max-width:1250px;width:100%;margin:auto
+}
+.sequence-copy{position:relative;min-height:300px}
+.stage{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  justify-content:center;transition:opacity .15s linear
+}
+.stage h1,.stage h2{
+  font:400 clamp(48px,6.5vw,88px)/.98 var(--type);letter-spacing:-3px
+}
+.stage p{margin-top:25px;max-width:390px;font-size:15px;line-height:1.8}
+.stage-number{font-size:11px;letter-spacing:2px;color:var(--red);margin-bottom:22px}
+.stage-positive .stage-number{color:var(--green)}
+.stage-positive{opacity:0}
+.sequence-image{
+  position:relative;width:100%;aspect-ratio:3/2;
+  border:12px solid var(--white);background:#222;overflow:hidden
+}
+.sequence-image img{
+  display:block;width:100%;height:100%;object-fit:contain;
+  filter:grayscale(1) invert(1)
+}
+.image-caption{
+  position:absolute;bottom:12px;left:15px;color:white;
+  font:10px var(--type);letter-spacing:2px;text-shadow:0 1px 5px black
+}
+.progress-track{width:100px;height:2px;background:#777}
+.progress-track span{display:block;width:0;height:100%;background:var(--red)}
+
+/* Presentación */
+.intro{padding:140px 10%;background:var(--white)}
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:10%;align-items:start}
+.kicker{font:12px var(--type);letter-spacing:2px;text-transform:uppercase;margin-bottom:25px}
+.intro h2,.services h2,.location h2{
+  font:400 clamp(42px,6vw,76px)/1.04 var(--type);letter-spacing:-2px
+}
+.intro h2 span,.services h2 span{color:var(--red)}
+.intro-copy{max-width:490px;font-size:16px;line-height:1.9}
+.intro-copy p+p{margin-top:20px}
+
+/* Servicios */
+.services{padding:130px 10%;background:var(--black);color:var(--white)}
+.services h2{max-width:800px;margin-bottom:75px}
+.service-list{border-top:1px solid #777}
+.service-row{
+  display:grid;grid-template-columns:80px 1fr 1fr;gap:25px;
+  padding:35px 0;border-bottom:1px solid #777
+}
+.service-index{font:18px var(--type);color:var(--red)}
+.service-row h3{font-size:23px;font-weight:500}
+.service-row p{font-size:14px;line-height:1.8;color:#ddd;max-width:450px}
+
+/* Ubicación */
+.location{position:relative;overflow:hidden;padding:140px 10%;background:var(--green);color:white}
+.location h2{max-width:900px}
+.location p{max-width:530px;line-height:1.9;margin-top:30px}
+.location a{
+  display:inline-block;margin-top:35px;text-decoration:none;
+  text-transform:uppercase;letter-spacing:2px;font-size:11px;
+  border-bottom:1px solid white;padding-bottom:9px
+}
+
+/* Cierre */
+.closing{
+  padding:100px 10%;display:flex;justify-content:space-between;
+  align-items:end;gap:30px;background:var(--white)
+}
+.closing h2{font:400 clamp(38px,5vw,65px)/1.1 var(--type)}
+.closing a{
+  background:var(--red);color:white;padding:17px 23px;
+  text-decoration:none;text-transform:uppercase;font-size:11px;
+  letter-spacing:1.5px;white-space:nowrap
+}
+
+/* FAQ y contacto */
+.subpage{min-height:100vh;padding:155px 10% 110px;background:var(--white)}
+.subpage h1{font:400 clamp(55px,9vw,105px)/1 var(--type);margin-bottom:65px}
+.faq-item{max-width:850px;padding:28px 0;border-top:1px solid}
+.faq-item:last-child{border-bottom:1px solid}
+.faq-item h3{font-size:19px;margin-bottom:12px}
+.faq-item p,.contact-copy{font-size:14px;line-height:1.9;max-width:700px}
+.contact-copy{font-size:16px;margin-bottom:35px}
+.contact-placeholder{max-width:650px;padding:22px;border-left:4px solid var(--green);line-height:1.8}
+
+/* Pie */
+footer{
+  padding:45px 6%;background:var(--black);color:white;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:25px
+}
+footer p{font-size:10px;letter-spacing:1.5px;line-height:1.8}
+
+/* Aparición */
+.reveal{opacity:0;transform:translateY(25px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:760px){
+  header{padding:17px 6%}
+  .menu-button{display:block;cursor:pointer;font-size:11px}
+  nav{
+    display:none;position:absolute;top:65px;right:6%;padding:25px;
+    background:var(--black);flex-direction:column;gap:22px;min-width:150px
   }
-
-  nav {
-    display: none;
-    position: absolute;
-    top: 65px;
-    right: 6%;
-    background: var(--black);
-    color: var(--white);
-    padding: 25px;
-    flex-direction: column;
-    gap: 22px;
-  }
-
-  nav.open {
-    display: flex;
-  }
-
-  .menu-button {
-    display: block;
-    cursor: pointer;
-    font-size: 11px;
-  }
-
-  .hero {
-    padding: 130px 9% 70px;
-  }
-
-  .hero h1 {
-    letter-spacing: -3px;
-  }
-
-  .hero-bottom {
-    align-items: start;
-    flex-direction: column;
-    margin-top: 70px;
-  }
-
-  .develop,
-  .final-section {
-    grid-template-columns: 1fr;
-    padding: 110px 9%;
-  }
-
-  .photo-frame {
-    max-width: 440px;
-  }
-
-  .services,
-  .location {
-    padding: 100px 9%;
-  }
-
-  .service-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .service:nth-child(odd) {
-    border-right: 0;
-  }
-
-  .service:nth-child(even) {
-    padding-left: 0;
-  }
-
-  .subpage {
-    padding: 140px 9% 80px;
-  }
-
-  footer {
-    padding: 45px 9%;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .film-holes {
-    left: 5px;
-  }
-
-  .film-holes.right {
-    right: 5px;
-  }
-
-  .film-section > .inner {
-    padding-left: 25px;
-    padding-right: 25px;
-  }
+  nav.open{display:flex}
+  .reveal-sequence{height:210vh}
+  .reveal-sticky{padding:105px 8% 65px;min-height:550px}
+  .sequence-top,.sequence-bottom{left:8%;right:8%;font-size:8px}
+  .sequence-top{top:90px}
+  .sequence-content{grid-template-columns:1fr;gap:20px}
+  .sequence-copy{min-height:190px}
+  .stage h1,.stage h2{font-size:clamp(44px,11vw,65px)}
+  .stage p{font-size:13px;margin-top:14px}
+  .stage-number{margin-bottom:12px}
+  .sequence-image{aspect-ratio:4/3;border-width:7px}
+  .intro,.services,.location,.subpage{padding:100px 8%}
+  .intro-grid{grid-template-columns:1fr;gap:35px}
+  .service-row{grid-template-columns:40px 1fr;gap:15px}
+  .service-row p{grid-column:2}
+  .closing{padding:80px 8%;align-items:flex-start;flex-direction:column}
+  footer{padding:40px 8%;align-items:flex-start;flex-direction:column}
+  .film-rail{left:3px}
+  .film-rail.right{right:3px}
 }
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    scroll-behavior: auto !important;
-    animation: none !important;
-    transition: none !important;
-  }
-
-  .reveal {
-    opacity: 1;
-    transform: none;
-  }
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
 }
 </style>
 </head>
 
 <body>
-
 <div class="grain"></div>
 
 <header>
   <a href="#inicio" class="logo" data-page="inicio">TOMATE<span>LAB</span></a>
-
-  <button class="menu-button" id="menuButton" aria-label="Abrir menú">
-    MENÚ +
-  </button>
-
+  <button class="menu-button" id="menuButton" aria-expanded="false">MENÚ +</button>
   <nav id="navigation">
     <a href="#inicio" data-page="inicio">Inicio</a>
     <a href="#faq" data-page="faq">FAQ</a>
@@ -671,221 +217,142 @@ footer p {
   </nav>
 </header>
 
-<!-- INICIO -->
-
 <main id="inicio" class="page active">
 
-  <section class="hero film-section" id="negative">
-    <div class="film-holes">
-      <span></span><span></span><span></span><span></span>
-      <span></span><span></span><span></span><span></span>
-      <span></span><span></span><span></span>
+  <section class="reveal-sequence" id="revealSequence">
+    <div class="film-rail">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
     </div>
-    <div class="film-holes right">
-      <span></span><span></span><span></span><span></span>
-      <span></span><span></span><span></span><span></span>
-      <span></span><span></span><span></span>
+    <div class="film-rail right">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
     </div>
 
-    <div class="hero-content">
-      <p class="eyebrow">Laboratorio analógico · Sevilla</p>
+    <div class="reveal-sticky">
+      <div class="sequence-top">
+        <span>TomateLab / Sevilla</span>
+        <span id="stageLabel">01 — Negativo</span>
+      </div>
 
-      <h1>Todo<br>empieza<br>en un <span>negativo.</span></h1>
+      <div class="sequence-content">
+        <div class="sequence-copy">
+          <div class="stage stage-negative" id="negativeText">
+            <span class="stage-number">01 / NEGATIVO</span>
+            <h1>Todo empieza en un negativo.</h1>
+            <p>Una fotografía todavía invisible. Un pequeño fragmento de tiempo esperando a aparecer.</p>
+          </div>
 
-      <p class="hero-description">
-        Revelado y escaneado especializado en blanco y negro.
-        Recuperamos lo que has fotografiado, fotograma a fotograma.
-      </p>
-
-      <div class="hero-bottom">
-        <p>TomateLab — Los Palacios y Villafranca</p>
-        <div class="scroll-indicator">
-          <p>Desliza para revelar</p>
-          <span></span>
+          <div class="stage stage-positive" id="positiveText">
+            <span class="stage-number">03 / POSITIVO</span>
+            <h2>Y de pronto, vuelve a existir.</h2>
+            <p>Revelamos y escaneamos tus carretes en blanco y negro. Fotograma a fotograma.</p>
+          </div>
         </div>
+
+        <div class="sequence-image">
+          <img
+            id="filmPhoto"
+            src="Paula%20Lopez%20Bordallo_1094.JPG"
+            alt="Fotografía analógica en blanco y negro"
+          >
+          <span class="image-caption">35 MM / TOMATELAB</span>
+        </div>
+      </div>
+
+      <div class="sequence-bottom">
+        <span>Desliza para revelar</span>
+        <div class="progress-track"><span id="progressBar"></span></div>
+        <span id="progressNumber">00%</span>
       </div>
     </div>
   </section>
 
-  <section class="develop film-section" id="develop">
-    <div class="film-holes">
-      <span></span><span></span><span></span><span></span>
-      <span></span><span></span><span></span><span></span>
-    </div>
-
-    <div class="reveal">
-      <p class="eyebrow">01 / Revelado</p>
-      <h2>La imagen está ahí. Solo hay que hacerla aparecer.</h2>
-      <p>
-        Trabajamos con película fotográfica en blanco y negro.
-        Cuidamos el proceso de revelado para conservar el carácter
-        de cada negativo y obtener un resultado consistente.
-      </p>
-    </div>
-
-    <div class="photo-frame reveal">
-      <div class="photo-placeholder"></div>
-      <span class="frame-caption">35 MM / FRAME 001</span>
+  <section class="intro">
+    <div class="intro-grid">
+      <div class="reveal">
+        <p class="kicker">El laboratorio</p>
+        <h2>Nos gusta la fotografía que <span>se siente.</span></h2>
+      </div>
+      <div class="intro-copy reveal">
+        <p>TomateLab es un laboratorio especializado en revelado y escaneado de fotografía analógica en blanco y negro.</p>
+        <p>Trabajamos con película fotográfica porque creemos que cada carrete guarda algo más que imágenes: guarda momentos, accidentes y pequeñas historias.</p>
+        <p>Nuestro objetivo es cuidar ese proceso y devolver tus fotografías con el carácter que las hace únicas.</p>
+      </div>
     </div>
   </section>
 
-  <section class="final-section film-section" id="fixing">
-    <div class="film-holes">
-      <span></span><span></span><span></span><span></span>
-      <span></span><span></span><span></span><span></span>
-    </div>
-
-    <div class="photo-frame reveal">
-      <div class="photo-placeholder"></div>
-      <span class="frame-caption">IMAGE / FIXED</span>
-    </div>
-
-    <div class="reveal">
-      <p class="eyebrow">02 / Fijado</p>
-      <h2>Del negativo a una imagen que <span>permanece.</span></h2>
-      <p>
-        Después del revelado, digitalizamos tus fotografías para
-        que puedas conservarlas, compartirlas y volver a ellas.
-        Sin perder de vista lo que hace especial a la fotografía analógica.
-      </p>
-    </div>
-  </section>
-
-  <section class="services" id="servicios">
-    <p class="section-label">03 / El laboratorio</p>
-    <h2>Especialistas en blanco y negro. Sin más vueltas.</h2>
-
-    <div class="service-grid">
-      <article class="service reveal">
-        <span class="service-number">01</span>
-        <h3>Revelado</h3>
-        <p>
-          Revelado químico de película fotográfica en blanco y negro.
-          Un proceso cuidado desde el primer baño hasta el secado.
-        </p>
+  <section class="services">
+    <p class="kicker">02 / Qué hacemos</p>
+    <h2>Un laboratorio dedicado al <span>blanco y negro.</span></h2>
+    <div class="service-list">
+      <article class="service-row reveal">
+        <span class="service-index">01</span><h3>Revelado</h3>
+        <p>Procesamos película fotográfica en blanco y negro, cuidando cada etapa del revelado.</p>
       </article>
-
-      <article class="service reveal">
-        <span class="service-number">02</span>
-        <h3>Escaneado</h3>
-        <p>
-          Digitalización de tus negativos para que puedas acceder
-          a tus fotografías en formato digital.
-        </p>
+      <article class="service-row reveal">
+        <span class="service-index">02</span><h3>Escaneado</h3>
+        <p>Digitalizamos tus negativos para que puedas guardar, compartir e imprimir tus fotografías.</p>
       </article>
-
-      <article class="service reveal">
-        <span class="service-number">03</span>
-        <h3>Carretes</h3>
-        <p>
-          Una selección de película en blanco y negro para quienes
-          disfrutan fotografiando en analógico.
-        </p>
+      <article class="service-row reveal">
+        <span class="service-index">03</span><h3>Carretes</h3>
+        <p>Una selección de película en blanco y negro para seguir fotografiando en analógico.</p>
       </article>
-
-      <article class="service reveal">
-        <span class="service-number">04</span>
-        <h3>Por correo</h3>
-        <p>
-          Estamos en Los Palacios y Villafranca, pero queremos
-          acercar el revelado analógico a fotógrafos de toda España.
-        </p>
+      <article class="service-row reveal">
+        <span class="service-index">04</span><h3>Recepción por correo</h3>
+        <p>Queremos recibir carretes desde cualquier punto de España. Los detalles de envío se publicarán cuando estén confirmados.</p>
       </article>
     </div>
   </section>
 
-  <section class="location film-section">
-    <div class="film-holes">
-      <span></span><span></span><span></span><span></span>
-      <span></span><span></span><span></span><span></span>
-    </div>
-
-    <p class="eyebrow">04 / Dónde estamos</p>
-    <h2>Un pequeño laboratorio. Muchas fotografías por revelar.</h2>
-    <p>
-      TomateLab nace en Los Palacios y Villafranca, Sevilla.
-      Desde aquí queremos ofrecer nuestro servicio de revelado
-      y escaneado en blanco y negro a fotógrafos de cualquier
-      punto de España.
-    </p>
-    <a href="#contacto" data-page="contacto" class="text-link">
-      Ponte en contacto
-    </a>
+  <section class="location">
+    <p class="kicker">03 / Dónde estamos</p>
+    <h2>Desde Los Palacios. Para fotógrafos de todas partes.</h2>
+    <p>TomateLab nace en Los Palacios y Villafranca, Sevilla. Desde aquí queremos acercar el revelado analógico en blanco y negro a quienes fotografían en cualquier rincón de España.</p>
+    <a href="#contacto" data-page="contacto">Contacto →</a>
   </section>
 
+  <section class="closing">
+    <h2>¿Tienes un carrete<br>esperando?</h2>
+    <a href="#contacto" data-page="contacto">Hablemos de fotografía</a>
+  </section>
 </main>
-
-<!-- FAQ -->
 
 <main id="faq" class="page">
   <section class="subpage">
-    <p class="section-label">Información / Preguntas frecuentes</p>
+    <p class="kicker">Información / TomateLab</p>
     <h1>Antes de<br>revelar.</h1>
-
-    <div class="faq-item">
+    <article class="faq-item">
       <h3>¿Qué tipo de película reveláis?</h3>
-      <p>
-        TomateLab está especializado en película fotográfica
-        en blanco y negro. Los formatos y procesos concretos
-        se detallarán en las condiciones del servicio.
-      </p>
-    </div>
-
-    <div class="faq-item">
+      <p>Estamos especializados en película fotográfica en blanco y negro. Los formatos admitidos se especificarán en las condiciones del servicio.</p>
+    </article>
+    <article class="faq-item">
       <h3>¿También escaneáis los negativos?</h3>
-      <p>
-        Sí. El servicio contempla la digitalización de las
-        fotografías reveladas. Aquí indicaremos las opciones
-        de resolución y entrega disponibles.
-      </p>
-    </div>
-
-    <div class="faq-item">
+      <p>Sí. El proyecto contempla el servicio de escaneado de las fotografías una vez reveladas.</p>
+    </article>
+    <article class="faq-item">
       <h3>¿Puedo enviar mis carretes desde otra ciudad?</h3>
-      <p>
-        La idea es ofrecer recepción por correo desde toda España.
-        Los procedimientos y direcciones de envío se publicarán
-        cuando estén confirmados.
-      </p>
-    </div>
-
-    <div class="faq-item">
-      <h3>¿Cuánto tarda el proceso?</h3>
-      <p>
-        Los plazos dependerán del volumen de trabajo y del proceso
-        solicitado. Publicaremos los tiempos estimados antes de
-        habilitar el servicio.
-      </p>
-    </div>
-
-    <div class="faq-item">
-      <h3>¿Qué ocurre con mis negativos?</h3>
-      <p>
-        La política de conservación y devolución de negativos
-        se explicará claramente junto con las condiciones
-        del servicio.
-      </p>
-    </div>
+      <p>Queremos ofrecer recepción por correo desde toda España. Publicaremos las instrucciones y opciones de envío cuando estén confirmadas.</p>
+    </article>
+    <article class="faq-item">
+      <h3>¿Cuánto tarda el revelado?</h3>
+      <p>Los plazos se indicarán antes de habilitar el servicio y dependerán del volumen de trabajo.</p>
+    </article>
+    <article class="faq-item">
+      <h3>¿Qué pasa con mis negativos?</h3>
+      <p>Las condiciones de conservación y devolución de negativos estarán explicadas antes de realizar cualquier pedido.</p>
+    </article>
   </section>
 </main>
 
-<!-- CONTACTO -->
-
 <main id="contacto" class="page">
   <section class="subpage">
-    <p class="section-label">Contacto / TomateLab</p>
-    <h1>Hablemos<br>de fotografía.</h1>
-
-    <p class="contact-intro">
-      ¿Tienes alguna duda sobre el revelado analógico en blanco y negro?
-      Escríbenos. Estamos preparando todos los detalles del laboratorio.
-    </p>
-
-    <div class="contact-note">
+    <p class="kicker">Contacto / TomateLab</p>
+    <h1>Hablemos de<br>fotografía.</h1>
+    <p class="contact-copy">¿Tienes alguna pregunta sobre el revelado analógico en blanco y negro? Queremos saber de ti.</p>
+    <div class="contact-placeholder">
       <strong>Contacto en preparación.</strong><br>
-      Esta sección es provisional. Antes de publicar la web habrá
-      que incorporar un medio de contacto real y revisar cómo se
-      gestionan los mensajes y los datos recibidos.
+      Aquí incorporaremos el correo o formulario definitivo cuando estén preparados los canales de atención.
     </div>
   </section>
 </main>
@@ -897,16 +364,12 @@ footer p {
 </footer>
 
 <script>
-/* NAVEGACIÓN ENTRE LAS TRES PÁGINAS */
-
 const pages = document.querySelectorAll(".page");
-const navLinks = document.querySelectorAll("[data-page]");
 const navigation = document.getElementById("navigation");
 const menuButton = document.getElementById("menuButton");
 
-function showPage(pageId) {
-  const target = document.getElementById(pageId);
-
+function showPage(id) {
+  const target = document.getElementById(id);
   if (!target) return;
 
   pages.forEach(page => page.classList.remove("active"));
@@ -914,56 +377,116 @@ function showPage(pageId) {
 
   navigation.classList.remove("open");
   menuButton.textContent = "MENÚ +";
+  menuButton.setAttribute("aria-expanded", "false");
+  window.scrollTo({top:0,behavior:"auto"});
 
-  window.scrollTo({ top: 0, behavior: "smooth" });
-
-  if (pageId === "inicio") {
-    document.body.classList.remove("light-mode");
-    observeReveals();
-  } else {
-    document.body.classList.add("light-mode");
+  if (id === "inicio") {
+    observeElements();
+    updateReveal();
   }
 }
 
-navLinks.forEach(link => {
+document.querySelectorAll("[data-page]").forEach(link => {
   link.addEventListener("click", event => {
-    const pageId = link.dataset.page;
-
-    if (!pageId) return;
-
     event.preventDefault();
-    history.pushState(null, "", "#" + pageId);
-    showPage(pageId);
+    const id = link.dataset.page;
+    history.pushState(null, "", "#" + id);
+    showPage(id);
   });
 });
 
 window.addEventListener("popstate", () => {
-  const pageId = location.hash.replace("#", "") || "inicio";
-  showPage(pageId);
+  showPage(location.hash.slice(1) || "inicio");
 });
 
 menuButton.addEventListener("click", () => {
-  navigation.classList.toggle("open");
-  menuButton.textContent =
-    navigation.classList.contains("open") ? "CERRAR −" : "MENÚ +";
+  const open = navigation.classList.toggle("open");
+  menuButton.textContent = open ? "CERRAR −" : "MENÚ +";
+  menuButton.setAttribute("aria-expanded", String(open));
 });
 
-/* APARICIÓN DE CONTENIDO */
+/* TRANSICIÓN DE NEGATIVO A POSITIVO */
+const sequence = document.getElementById("revealSequence");
+const photo = document.getElementById("filmPhoto");
+const negativeText = document.getElementById("negativeText");
+const positiveText = document.getElementById("positiveText");
+const stageLabel = document.getElementById("stageLabel");
+const progressBar = document.getElementById("progressBar");
+const progressNumber = document.getElementById("progressNumber");
 
-let revealObserver;
+let framePending = false;
 
-function observeReveals() {
-  if (revealObserver) revealObserver.disconnect();
+function updateReveal() {
+  if (!document.getElementById("inicio").classList.contains("active")) return;
+  if (framePending) return;
 
-  revealObserver = new IntersectionObserver(entries => {
+  framePending = true;
+
+  requestAnimationFrame(() => {
+    const rect = sequence.getBoundingClientRect();
+    const total = sequence.offsetHeight - window.innerHeight;
+    const travelled = Math.min(total, Math.max(0, -rect.top));
+    const progress = total > 0 ? travelled / total : 0;
+
+    photo.style.filter = `grayscale(1) invert(${1 - progress})`;
+
+    progressBar.style.width = `${progress * 100}%`;
+    progressNumber.textContent = `${Math.round(progress * 100)}%`;
+
+    const negativeOpacity = Math.max(0, 1 - progress / 0.48);
+    const positiveOpacity = Math.max(0, Math.min(1, (progress - 0.52) / 0.48));
+
+    negativeText.style.opacity = negativeOpacity;
+    positiveText.style.opacity = positiveOpacity;
+
+    if (progress < 0.35) {
+      stageLabel.textContent = "01 — Negativo";
+    } else if (progress < 0.75) {
+      stageLabel.textContent = "02 — Revelado";
+    } else {
+      stageLabel.textContent = "03 — Positivo";
+    }
+
+    framePending = false;
+  });
+}
+
+window.addEventListener("scroll", updateReveal, {passive:true});
+window.addEventListener("resize", updateReveal);
+
+/* APARICIÓN DE SECCIONES */
+let observer;
+
+function observeElements() {
+  if (!("IntersectionObserver" in window)) {
+    document.querySelectorAll(".reveal").forEach(el => el.classList.add("visible"));
+    return;
+  }
+
+  if (observer) observer.disconnect();
+
+  observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add("visible");
-        revealObserver.unobserve(entry.target);
+        observer.unobserve(entry.target);
       }
     });
-  }, {
-    threshold: 0.2
-  });
+  }, {threshold:.12});
 
-  document.querySelectorAll("#inicio .reveal:not(.visibl
+  document.querySelectorAll("#inicio .reveal:not(.visible)")
+    .forEach(el => observer.observe(el));
+}
+
+/* AVISO SI NO SE ENCUENTRA LA FOTO */
+photo.addEventListener("error", () => {
+  console.error("No se ha encontrado Paula Lopez Bordallo_1094.JPG. Comprueba que esté junto a index.html.");
+});
+
+const initialPage = location.hash.slice(1);
+showPage(["inicio","faq","contacto"].includes(initialPage) ? initialPage : "inicio");
+observeElements();
+updateReveal();
+</script>
+</body>
+</html>
