@@ -5,61 +5,66 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#111111">
-<meta name="description" content="TomateLab: laboratorio especializado en revelado y escaneado de fotografía analógica en blanco y negro.">
-<title>TomateLab — Revelado analógico</title>
+<meta name="description" content="TomateLab. Revelado y escaneado de carretes analógicos en blanco y negro. Envíos desde toda España.">
+<title>TomateLab — Revelado en blanco y negro</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root {
-  --black:#111;
-  --white:#f5f5f5;
-  --red:#d93632;
+:root{
+  --black:#111111;
+  --white:#F5F5F5;
+  --red:#D93632;
   --green:#287447;
   --type:"Courier Prime",monospace;
   --body:"Space Grotesk",sans-serif;
 }
+
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--white);color:var(--black);font-family:var(--body);overflow-x:hidden}
 a{color:inherit}
 
-/* Grano estático */
+/* GRANO */
 .grain{
   position:fixed;inset:0;z-index:50;pointer-events:none;opacity:.065;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Cabecera */
+/* CABECERA */
 header{
   position:fixed;z-index:40;top:0;left:0;width:100%;
   padding:20px 6%;display:flex;align-items:center;
-  justify-content:space-between;background:rgba(17,17,17,.94);color:white;
+  justify-content:space-between;background:rgba(17,17,17,.96);color:white;
 }
 .logo{font:700 24px var(--type);text-decoration:none;letter-spacing:-1px}
 .logo span{color:var(--red)}
-nav{display:flex;gap:30px}
-nav a{text-decoration:none;color:white;text-transform:uppercase;font-size:11px;letter-spacing:1.5px}
-nav a:hover{color:var(--red)}
+header nav{display:flex;gap:30px}
+header nav a{
+  text-decoration:none;color:white;text-transform:uppercase;
+  font-size:11px;letter-spacing:1.5px
+}
+header nav a:hover{color:var(--red)}
 .menu-button{display:none;background:none;border:0;color:white;font:inherit}
 
-/* Páginas */
-.page{display:none;min-height:100vh}
-.page.active{display:block}
-
-/* Perforaciones */
+/* PERFORACIONES */
 .film-rail{
   position:absolute;top:0;bottom:0;left:12px;width:17px;
   display:flex;flex-direction:column;justify-content:space-around;
   pointer-events:none;z-index:3
 }
 .film-rail.right{left:auto;right:12px}
-.film-rail span{width:12px;height:18px;border:1px solid currentColor;border-radius:2px;opacity:.65}
+.film-rail span{
+  width:12px;height:18px;border:1px solid currentColor;
+  border-radius:2px;opacity:.65
+}
 
-/* Secuencia negativo-revelado-positivo */
-.reveal-sequence{height:240vh;background:var(--black);color:var(--white);position:relative}
+/* REVELADO */
+.reveal-sequence{
+  height:240vh;background:var(--black);color:var(--white);position:relative
+}
 .reveal-sticky{
   position:sticky;top:0;height:100svh;min-height:580px;
   display:flex;flex-direction:column;justify-content:center;
@@ -83,12 +88,14 @@ nav a:hover{color:var(--red)}
   justify-content:center;transition:opacity .15s linear
 }
 .stage h1,.stage h2{
-  font:400 clamp(48px,6.5vw,88px)/.98 var(--type);letter-spacing:-3px
+  font:400 clamp(48px,6.5vw,88px)/.98 var(--type);
+  letter-spacing:-3px
 }
-.stage p{margin-top:25px;max-width:390px;font-size:15px;line-height:1.8}
-.stage-number{font-size:11px;letter-spacing:2px;color:var(--red);margin-bottom:22px}
-.stage-positive .stage-number{color:var(--green)}
+.stage-number{
+  font-size:11px;letter-spacing:2px;color:var(--red);margin-bottom:22px
+}
 .stage-positive{opacity:0}
+.stage-positive .stage-number{color:var(--green)}
 .sequence-image{
   position:relative;width:100%;aspect-ratio:3/2;
   border:12px solid var(--white);background:#222;overflow:hidden
@@ -104,80 +111,207 @@ nav a:hover{color:var(--red)}
 .progress-track{width:100px;height:2px;background:#777}
 .progress-track span{display:block;width:0;height:100%;background:var(--red)}
 
-/* Presentación */
-.intro{padding:140px 10%;background:var(--white)}
-.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:10%;align-items:start}
-.kicker{font:12px var(--type);letter-spacing:2px;text-transform:uppercase;margin-bottom:25px}
-.intro h2,.services h2,.location h2{
-  font:400 clamp(42px,6vw,76px)/1.04 var(--type);letter-spacing:-2px
+/* PRECIOS */
+.pricing{padding:130px 10% 120px;background:var(--white)}
+.section-kicker{
+  font:12px var(--type);letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:25px
 }
-.intro h2 span,.services h2 span{color:var(--red)}
-.intro-copy{max-width:490px;font-size:16px;line-height:1.9}
-.intro-copy p+p{margin-top:20px}
-
-/* Servicios */
-.services{padding:130px 10%;background:var(--black);color:var(--white)}
-.services h2{max-width:800px;margin-bottom:75px}
-.service-list{border-top:1px solid #777}
-.service-row{
-  display:grid;grid-template-columns:80px 1fr 1fr;gap:25px;
-  padding:35px 0;border-bottom:1px solid #777
+.pricing h2{
+  font:400 clamp(43px,6vw,76px)/1.02 var(--type);
+  letter-spacing:-2px;max-width:850px
 }
-.service-index{font:18px var(--type);color:var(--red)}
-.service-row h3{font-size:23px;font-weight:500}
-.service-row p{font-size:14px;line-height:1.8;color:#ddd;max-width:450px}
-
-/* Ubicación */
-.location{position:relative;overflow:hidden;padding:140px 10%;background:var(--green);color:white}
-.location h2{max-width:900px}
-.location p{max-width:530px;line-height:1.9;margin-top:30px}
-.location a{
-  display:inline-block;margin-top:35px;text-decoration:none;
-  text-transform:uppercase;letter-spacing:2px;font-size:11px;
-  border-bottom:1px solid white;padding-bottom:9px
+.pricing h2 span{color:var(--red)}
+.pricing-intro{
+  max-width:620px;margin-top:30px;font-size:17px;line-height:1.8
+}
+.price-list{margin-top:75px;border-top:1px solid var(--black)}
+.price-row{
+  display:grid;grid-template-columns:1fr auto;gap:25px;
+  align-items:center;padding:30px 0;border-bottom:1px solid var(--black)
+}
+.price-name{font:400 clamp(23px,3vw,34px) var(--type)}
+.price-description{font-size:13px;margin-top:8px;color:#555}
+.price-amount{
+  font:400 clamp(30px,4vw,43px) var(--type);white-space:nowrap
 }
 
-/* Cierre */
+/* ACLARACIONES */
+.details{
+  background:var(--black);color:var(--white);
+  padding:110px 10% 120px
+}
+.details h2{
+  font:400 clamp(38px,5vw,62px)/1.05 var(--type);
+  max-width:750px;margin-bottom:65px
+}
+.details-list{border-top:1px solid #777}
+.detail-row{
+  display:grid;grid-template-columns:55px 1fr;gap:20px;
+  padding:25px 0;border-bottom:1px solid #777
+}
+.detail-number{font:16px var(--type);color:var(--red)}
+.detail-row p{font-size:15px;line-height:1.8;max-width:750px}
+
+/* INSTAGRAM */
+.instagram{
+  background:var(--red);color:white;padding:120px 10%;
+  position:relative;overflow:hidden
+}
+.instagram .section-kicker{color:#f5d5d3}
+.instagram h2{
+  font:400 clamp(45px,7vw,88px)/.98 var(--type);
+  letter-spacing:-3px;max-width:900px
+}
+.instagram p{
+  margin-top:30px;font-size:16px;line-height:1.8;max-width:550px
+}
+.instagram a{
+  display:inline-block;margin-top:35px;padding-bottom:8px;
+  border-bottom:1px solid white;text-decoration:none;
+  text-transform:uppercase;font-size:12px;letter-spacing:2px
+}
+
+/* FORMULARIO */
+.order-section{
+  padding:120px 10%;background:var(--white)
+}
+.order-heading{
+  display:grid;grid-template-columns:1fr 1fr;gap:50px;
+  align-items:end;margin-bottom:65px
+}
+.order-heading h2{
+  font:400 clamp(48px,7vw,82px)/.95 var(--type);
+  letter-spacing:-3px
+}
+.order-heading p{font-size:15px;line-height:1.8;max-width:430px}
+.order-form{max-width:900px}
+.form-section{padding:35px 0;border-top:1px solid var(--black)}
+.form-section:last-of-type{border-bottom:1px solid var(--black)}
+.form-section h3{
+  font:400 25px var(--type);margin-bottom:25px
+}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.field{display:flex;flex-direction:column;gap:9px}
+.field.full{grid-column:1/-1}
+.field label,.field-label{
+  font-size:11px;text-transform:uppercase;letter-spacing:1.3px
+}
+.field input,.field select,.field textarea{
+  width:100%;padding:14px 12px;border:1px solid #999;
+  border-radius:0;background:transparent;color:var(--black);
+  font:14px var(--body);min-height:48px
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  outline:2px solid var(--green);outline-offset:2px
+}
+.field textarea{resize:vertical;min-height:90px}
+.field small{font-size:11px;color:#666;line-height:1.5}
+
+/* OPCIONES DE PACK */
+.pack-options{display:grid;gap:12px}
+.pack-option{
+  display:grid;grid-template-columns:24px 1fr auto;gap:14px;
+  align-items:center;border:1px solid #999;padding:19px;
+  cursor:pointer;transition:border-color .2s,background .2s
+}
+.pack-option:has(input:checked){
+  border:2px solid var(--red);background:#f0e9e5;padding:18px
+}
+.pack-option input{accent-color:var(--red);width:17px;height:17px}
+.pack-option strong{font:400 20px var(--type)}
+.pack-option small{display:block;margin-top:5px;color:#666;font-size:12px}
+.pack-price{font:400 22px var(--type);white-space:nowrap}
+
+.iso-panel{
+  display:none;margin-top:25px;padding:25px;
+  border-left:3px solid var(--green);background:#eaeae5
+}
+.iso-panel.visible{display:block}
+.iso-panel h4{font:400 19px var(--type);margin-bottom:20px}
+.iso-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.iso-select{display:flex;flex-direction:column;gap:8px}
+.iso-select label{font-size:11px;text-transform:uppercase;letter-spacing:1px}
+.iso-select select{
+  padding:12px;border:1px solid #999;background:var(--white);
+  font:14px var(--body);width:100%
+}
+
+/* RESUMEN Y PAGO */
+.order-summary{
+  margin-top:30px;padding:25px;background:var(--black);color:var(--white)
+}
+.order-summary h4{font:400 19px var(--type);margin-bottom:15px}
+.summary-line{
+  display:flex;justify-content:space-between;gap:20px;
+  padding:8px 0;font-size:14px
+}
+.summary-total{
+  border-top:1px solid #777;margin-top:12px;padding-top:18px;
+  display:flex;justify-content:space-between;font:400 24px var(--type)
+}
+.payment-info{
+  margin-top:30px;padding:25px;border:1px solid var(--red);
+  line-height:1.8;font-size:13px
+}
+.payment-info strong{font:400 18px var(--type);display:block;margin-bottom:10px}
+.consent{
+  display:flex;align-items:flex-start;gap:12px;margin-top:25px;
+  font-size:12px;line-height:1.6
+}
+.consent input{margin-top:3px;accent-color:var(--green)}
+.submit-button{
+  display:block;width:100%;margin-top:30px;padding:20px;
+  border:0;background:var(--red);color:white;
+  font:400 16px var(--type);letter-spacing:1.5px;
+  text-transform:uppercase;cursor:not-allowed;opacity:.65
+}
+.form-status{margin-top:15px;font-size:12px;line-height:1.6;color:#666}
+
+/* DESPEDIDA Y PIE */
 .closing{
-  padding:100px 10%;display:flex;justify-content:space-between;
-  align-items:end;gap:30px;background:var(--white)
+  padding:65px 10%;background:var(--white);
+  display:flex;justify-content:space-between;align-items:center;gap:25px
 }
-.closing h2{font:400 clamp(38px,5vw,65px)/1.1 var(--type)}
-.closing a{
-  background:var(--red);color:white;padding:17px 23px;
-  text-decoration:none;text-transform:uppercase;font-size:11px;
-  letter-spacing:1.5px;white-space:nowrap
-}
-
-/* FAQ y contacto */
-.subpage{min-height:100vh;padding:155px 10% 110px;background:var(--white)}
-.subpage h1{font:400 clamp(55px,9vw,105px)/1 var(--type);margin-bottom:65px}
-.faq-item{max-width:850px;padding:28px 0;border-top:1px solid}
-.faq-item:last-child{border-bottom:1px solid}
-.faq-item h3{font-size:19px;margin-bottom:12px}
-.faq-item p,.contact-copy{font-size:14px;line-height:1.9;max-width:700px}
-.contact-copy{font-size:16px;margin-bottom:35px}
-.contact-placeholder{max-width:650px;padding:22px;border-left:4px solid var(--green);line-height:1.8}
-
-/* Pie */
+.closing p{font:400 clamp(20px,3vw,30px) var(--type)}
+.tomato{color:var(--red)}
 footer{
-  padding:45px 6%;background:var(--black);color:white;
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:25px
+  padding:35px 6%;background:var(--black);color:white;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:25px
 }
 footer p{font-size:10px;letter-spacing:1.5px;line-height:1.8}
 
-/* Aparición */
-.reveal{opacity:0;transform:translateY(25px);transition:opacity .8s ease,transform .8s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
+/* CONFIRMACIÓN DE PEDIDO */
+.order-confirmation[hidden]{display:none}
+.order-confirmation{
+  position:fixed;inset:0;z-index:100;background:rgba(17,17,17,.88);
+  display:flex;align-items:center;justify-content:center;padding:22px
+}
+.confirmation-panel{
+  width:min(100%,650px);max-height:90vh;overflow:auto;
+  background:var(--white);color:var(--black);padding:clamp(28px,6vw,55px);
+  border-top:7px solid var(--red)
+}
+.confirmation-panel h2{
+  font:400 clamp(34px,5vw,54px)/1.02 var(--type);margin:15px 0 20px
+}
+.confirmation-panel p,.confirmation-panel li{font-size:14px;line-height:1.8}
+.confirmation-panel ul{padding-left:20px;margin:20px 0}
+.confirmation-close{
+  margin-top:15px;padding:14px 24px;border:0;background:var(--black);
+  color:white;font:14px var(--type);text-transform:uppercase;cursor:pointer
+}
 
+/* MÓVIL */
 @media(max-width:760px){
   header{padding:17px 6%}
   .menu-button{display:block;cursor:pointer;font-size:11px}
-  nav{
+  header nav{
     display:none;position:absolute;top:65px;right:6%;padding:25px;
     background:var(--black);flex-direction:column;gap:22px;min-width:150px
   }
-  nav.open{display:flex}
+  header nav.open{display:flex}
   .reveal-sequence{height:210vh}
   .reveal-sticky{padding:105px 8% 65px;min-height:550px}
   .sequence-top,.sequence-bottom{left:8%;right:8%;font-size:8px}
@@ -185,21 +319,19 @@ footer p{font-size:10px;letter-spacing:1.5px;line-height:1.8}
   .sequence-content{grid-template-columns:1fr;gap:20px}
   .sequence-copy{min-height:190px}
   .stage h1,.stage h2{font-size:clamp(44px,11vw,65px)}
-  .stage p{font-size:13px;margin-top:14px}
-  .stage-number{margin-bottom:12px}
   .sequence-image{aspect-ratio:4/3;border-width:7px}
-  .intro,.services,.location,.subpage{padding:100px 8%}
-  .intro-grid{grid-template-columns:1fr;gap:35px}
-  .service-row{grid-template-columns:40px 1fr;gap:15px}
-  .service-row p{grid-column:2}
-  .closing{padding:80px 8%;align-items:flex-start;flex-direction:column}
-  footer{padding:40px 8%;align-items:flex-start;flex-direction:column}
+  .pricing,.details,.instagram,.order-section{padding:95px 8%}
+  .price-row{gap:12px}
+  .price-description{font-size:12px}
+  .detail-row{grid-template-columns:35px 1fr}
+  .order-heading{grid-template-columns:1fr;gap:20px}
+  .field-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .iso-grid{grid-template-columns:1fr}
+  .closing{padding:55px 8%}
+  footer{padding:35px 8%;align-items:flex-start;flex-direction:column}
   .film-rail{left:3px}
   .film-rail.right{right:3px}
-}
-@media(prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  .reveal{opacity:1;transform:none;transition:none}
 }
 </style>
 </head>
@@ -208,17 +340,17 @@ footer p{font-size:10px;letter-spacing:1.5px;line-height:1.8}
 <div class="grain"></div>
 
 <header>
-  <a href="#inicio" class="logo" data-page="inicio">TOMATE<span>LAB</span></a>
+  <a href="#inicio" class="logo">TOMATE<span>LAB</span></a>
   <button class="menu-button" id="menuButton" aria-expanded="false">MENÚ +</button>
   <nav id="navigation">
-    <a href="#inicio" data-page="inicio">Inicio</a>
-    <a href="#faq" data-page="faq">FAQ</a>
-    <a href="#contacto" data-page="contacto">Contacto</a>
+    <a href="#precios">Precios</a>
+    <a href="#pedido">Pedir</a>
   </nav>
 </header>
 
-<main id="inicio" class="page active">
+<main id="inicio">
 
+  <!-- FOTO: NEGATIVO A POSITIVO -->
   <section class="reveal-sequence" id="revealSequence">
     <div class="film-rail">
       <span></span><span></span><span></span><span></span><span></span>
@@ -232,21 +364,19 @@ footer p{font-size:10px;letter-spacing:1.5px;line-height:1.8}
     <div class="reveal-sticky">
       <div class="sequence-top">
         <span>TomateLab / Sevilla</span>
-        <span id="stageLabel">01 — Negativo</span>
+        <span id="stageLabel">01 — Revelando</span>
       </div>
 
       <div class="sequence-content">
         <div class="sequence-copy">
-          <div class="stage stage-negative" id="negativeText">
-            <span class="stage-number">01 / NEGATIVO</span>
-            <h1>Todo empieza en un negativo.</h1>
-            <p>Una fotografía todavía invisible. Un pequeño fragmento de tiempo esperando a aparecer.</p>
+          <div class="stage" id="negativeText">
+            <span class="stage-number">01 / TU CARRETE</span>
+            <h1>Tus fotos merecen salir del carrete.</h1>
           </div>
 
           <div class="stage stage-positive" id="positiveText">
-            <span class="stage-number">03 / POSITIVO</span>
-            <h2>Y de pronto, vuelve a existir.</h2>
-            <p>Revelamos y escaneamos tus carretes en blanco y negro. Fotograma a fotograma.</p>
+            <span class="stage-number">02 / TOMATELAB</span>
+            <h2>El blanco y negro tiene mucho que decir.</h2>
           </div>
         </div>
 
@@ -268,225 +398,434 @@ footer p{font-size:10px;letter-spacing:1.5px;line-height:1.8}
     </div>
   </section>
 
-  <section class="intro">
-    <div class="intro-grid">
-      <div class="reveal">
-        <p class="kicker">El laboratorio</p>
-        <h2>Nos gusta la fotografía que <span>se siente.</span></h2>
-      </div>
-      <div class="intro-copy reveal">
-        <p>TomateLab es un laboratorio especializado en revelado y escaneado de fotografía analógica en blanco y negro.</p>
-        <p>Trabajamos con película fotográfica porque creemos que cada carrete guarda algo más que imágenes: guarda momentos, accidentes y pequeñas historias.</p>
-        <p>Nuestro objetivo es cuidar ese proceso y devolver tus fotografías con el carácter que las hace únicas.</p>
-      </div>
+  <!-- SERVICIO Y PRECIOS -->
+  <section class="pricing" id="precios">
+    <p class="section-kicker">Revelado + escaneado</p>
+    <h2>No pares de disparar.<br><span>Sigue experimentando.</span></h2>
+    <p class="pricing-intro">
+      Tú haces las fotos. Nosotros revelamos y escaneamos tus carretes en blanco y negro para que puedas seguir fotografiando.
+    </p>
+
+    <div class="price-list">
+      <article class="price-row">
+        <div>
+          <h3 class="price-name">Sin carrete</h3>
+          <p class="price-description">Revelado y escaneado de tu propio carrete.</p>
+        </div>
+        <p class="price-amount">16 €</p>
+      </article>
+
+      <article class="price-row">
+        <div>
+          <h3 class="price-name">+1 carrete</h3>
+          <p class="price-description">Revelado, escaneado y un carrete nuevo.</p>
+        </div>
+        <p class="price-amount">22 €</p>
+      </article>
+
+      <article class="price-row">
+        <div>
+          <h3 class="price-name">+3 carretes</h3>
+          <p class="price-description">Revelado, escaneado y tres carretes nuevos.</p>
+        </div>
+        <p class="price-amount">34 €</p>
+      </article>
     </div>
   </section>
 
-  <section class="services">
-    <p class="kicker">02 / Qué hacemos</p>
-    <h2>Un laboratorio dedicado al <span>blanco y negro.</span></h2>
-    <div class="service-list">
-      <article class="service-row reveal">
-        <span class="service-index">01</span><h3>Revelado</h3>
-        <p>Procesamos película fotográfica en blanco y negro, cuidando cada etapa del revelado.</p>
+  <!-- ACLARACIONES -->
+  <section class="details">
+    <p class="section-kicker">Lo que debes saber</p>
+    <h2>Así funciona TomateLab.</h2>
+
+    <div class="details-list">
+      <article class="detail-row">
+        <span class="detail-number">01</span>
+        <p>El precio incluye la devolución de tus negativos.</p>
       </article>
-      <article class="service-row reveal">
-        <span class="service-index">02</span><h3>Escaneado</h3>
-        <p>Digitalizamos tus negativos para que puedas guardar, compartir e imprimir tus fotografías.</p>
+      <article class="detail-row">
+        <span class="detail-number">02</span>
+        <p>Recibirás tus fotografías escaneadas a través de un enlace de descarga.</p>
       </article>
-      <article class="service-row reveal">
-        <span class="service-index">03</span><h3>Carretes</h3>
-        <p>Una selección de película en blanco y negro para seguir fotografiando en analógico.</p>
+      <article class="detail-row">
+        <span class="detail-number">03</span>
+        <p>Tu carrete estará revelado en un plazo máximo de una semana desde su recepción.</p>
       </article>
-      <article class="service-row reveal">
-        <span class="service-index">04</span><h3>Recepción por correo</h3>
-        <p>Queremos recibir carretes desde cualquier punto de España. Los detalles de envío se publicarán cuando estén confirmados.</p>
+      <article class="detail-row">
+        <span class="detail-number">04</span>
+        <p>Los carretes que ponemos a tu disposición son de 36 exposiciones, en blanco y negro y disponibles en ISO 100, 200 y 400.</p>
+      </article>
+      <article class="detail-row">
+        <span class="detail-number">05</span>
+        <p>Revelamos carretes de toda España, incluidas las islas y el territorio español fuera de la península.</p>
       </article>
     </div>
   </section>
 
-  <section class="location">
-    <p class="kicker">03 / Dónde estamos</p>
-    <h2>Desde Los Palacios. Para fotógrafos de todas partes.</h2>
-    <p>TomateLab nace en Los Palacios y Villafranca, Sevilla. Desde aquí queremos acercar el revelado analógico en blanco y negro a quienes fotografían en cualquier rincón de España.</p>
-    <a href="#contacto" data-page="contacto">Contacto →</a>
+  <!-- INSTAGRAM -->
+  <section class="instagram">
+    <p class="section-kicker">Tu próxima historia</p>
+    <h2>Queremos ser tu excusa para salir a hacer fotos.</h2>
+    <p>
+      Síguenos en Instagram, donde compartimos las historias de nuestros carretes.
+      Que la tuya sea la siguiente.
+    </p>
+    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+      Síguenos en Instagram →
+    </a>
   </section>
 
+  <!-- FORMULARIO -->
+  <section class="order-section" id="pedido">
+    <div class="order-heading">
+      <div>
+        <p class="section-kicker">TomateLab / Pedidos</p>
+        <h2>REVELA<br><span style="color:var(--red)">+</span> REPITE.</h2>
+      </div>
+      <p>
+        Un carrete nunca es suficiente. Elige tu pack, prepara tu próximo carrete y sigue experimentando.
+      </p>
+    </div>
+
+    <form class="order-form" id="orderForm">
+
+      <div class="form-section">
+        <h3>01 / Tus datos</h3>
+        <div class="field-grid">
+          <div class="field full">
+            <label for="customerName">Nombre y apellidos</label>
+            <input id="customerName" name="nombre" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="customerEmail">Correo electrónico</label>
+            <input id="customerEmail" name="correo" type="email" autocomplete="email" required placeholder="nombre@correo.com">
+            <small>Te enviaremos la confirmación y las instrucciones de envío.</small>
+          </div>
+          <div class="field">
+            <label for="customerPhone">Teléfono de contacto</label>
+            <input id="customerPhone" name="telefono" type="tel" autocomplete="tel" required placeholder="Tu número de teléfono">
+          </div>
+          <div class="field full">
+            <label for="customerAddress">Dirección para la devolución de tus negativos</label>
+            <textarea id="customerAddress" name="direccion_devolucion" autocomplete="street-address" required placeholder="Calle, número, piso, código postal, localidad y provincia"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>02 / Tu carrete</h3>
+        <div class="field-grid">
+          <div class="field">
+            <label for="filmFormat">Formato del carrete que envías</label>
+            <input id="filmFormat" name="formato_carrete" type="text" placeholder="Ej. 35 mm" required>
+            <small>Indica el formato del carrete que quieres revelar.</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>03 / Elige tu pack</h3>
+
+        <div class="pack-options">
+          <label class="pack-option">
+            <input type="radio" name="pack" value="sin" data-price="16" required>
+            <span>
+              <strong>Sin carrete</strong>
+              <small>Revelado y escaneado de tu carrete.</small>
+            </span>
+            <span class="pack-price">16 €</span>
+          </label>
+
+          <label class="pack-option">
+            <input type="radio" name="pack" value="uno" data-price="22">
+            <span>
+              <strong>+1 carrete</strong>
+              <small>Revelado, escaneado y un carrete nuevo.</small>
+            </span>
+            <span class="pack-price">22 €</span>
+          </label>
+
+          <label class="pack-option">
+            <input type="radio" name="pack" value="tres" data-price="34">
+            <span>
+              <strong>+3 carretes</strong>
+              <small>Revelado, escaneado y tres carretes nuevos.</small>
+            </span>
+            <span class="pack-price">34 €</span>
+          </label>
+        </div>
+
+        <div class="iso-panel" id="isoOne">
+          <h4>Elige la sensibilidad de tu carrete</h4>
+          <div class="iso-grid">
+            <div class="iso-select">
+              <label for="isoSingle">Sensibilidad</label>
+              <select id="isoSingle" name="iso_uno">
+                <option value="">Seleccionar ISO</option>
+                <option value="100">ISO 100</option>
+                <option value="200">ISO 200</option>
+                <option value="400">ISO 400</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="iso-panel" id="isoThree">
+          <h4>Elige la sensibilidad de cada carrete</h4>
+          <div class="iso-grid">
+            <div class="iso-select">
+              <label for="isoThree1">Carrete 1</label>
+              <select id="isoThree1" name="iso_tres_1">
+                <option value="">Seleccionar ISO</option>
+                <option value="100">ISO 100</option>
+                <option value="200">ISO 200</option>
+                <option value="400">ISO 400</option>
+              </select>
+            </div>
+            <div class="iso-select">
+              <label for="isoThree2">Carrete 2</label>
+              <select id="isoThree2" name="iso_tres_2">
+                <option value="">Seleccionar ISO</option>
+                <option value="100">ISO 100</option>
+                <option value="200">ISO 200</option>
+                <option value="400">ISO 400</option>
+              </select>
+            </div>
+            <div class="iso-select">
+              <label for="isoThree3">Carrete 3</label>
+              <select id="isoThree3" name="iso_tres_3">
+                <option value="">Seleccionar ISO</option>
+                <option value="100">ISO 100</option>
+                <option value="200">ISO 200</option>
+                <option value="400">ISO 400</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="order-summary">
+          <h4>Resumen del pedido</h4>
+          <div class="summary-line">
+            <span>Pack seleccionado</span>
+            <span id="summaryPack">—</span>
+          </div>
+          <div class="summary-line">
+            <span>Carretes incluidos</span>
+            <span id="summaryFilms">—</span>
+          </div>
+          <div class="summary-total">
+            <span>Total</span>
+            <span id="summaryTotal">— €</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>04 / Método de pago</h3>
+        <div class="payment-info">
+          <strong>Transferencia bancaria</strong>
+          Por el momento, el único método de pago que admitimos es la transferencia bancaria.
+
+          Una vez realizado el pedido, dispondrás de 24 horas para efectuar el pago. Si no recibimos la transferencia dentro de ese plazo, el pedido quedará anulado.
+
+          <p style="margin-top:12px">
+            Los datos bancarios y las instrucciones de pago aparecerán al finalizar el pedido.
+          </p>
+        </div>
+
+        <label class="consent">
+          <input type="checkbox" id="privacyConsent" name="acepta_privacidad" required>
+          <span>He leído la <a href="privacidad.html" target="_blank" rel="noopener noreferrer">Política de privacidad</a> y entiendo cómo se tratarán mis datos para gestionar el pedido.</span>
+        </label>
+
+        <label class="consent">
+          <input type="checkbox" id="paymentConsent" name="acepta_pago" required>
+          <span>He leído y acepto las condiciones de pago y el plazo de 24 horas para realizar la transferencia.</span>
+        </label>
+
+        <button class="submit-button" type="button" disabled>
+          Finalizar compra
+        </button>
+        <p class="form-status">
+          Formulario en preparación. Todavía no registra pedidos ni envía correos. La ventana de confirmación se mostrará cuando conectemos el sistema de pedidos.
+        </p>
+      </div>
+    </form>
+  </section>
+
+  <!-- CONFIRMACIÓN: se mostrará cuando el sistema externo confirme el registro del pedido -->
+  <section class="order-confirmation" id="orderConfirmation" role="dialog" aria-modal="true" aria-labelledby="confirmationTitle" hidden>
+    <div class="confirmation-panel">
+      <p class="section-kicker">TomateLab / Pedido recibido</p>
+      <h2 id="confirmationTitle">Tu próximo carrete ya está en marcha.</h2>
+      <p>Hemos registrado tu pedido <strong id="confirmationOrderNumber"></strong>.</p>
+      <ul>
+        <li>Recibirás en tu correo electrónico la confirmación y los datos para realizar la transferencia.</li>
+        <li>Cuando comprobemos el pago, te enviaremos por correo las instrucciones y la dirección a la que debes enviar tus carretes.</li>
+        <li>Conserva tu número de pedido: tendrás que incluirlo en el paquete.</li>
+      </ul>
+      <button type="button" class="confirmation-close" id="closeConfirmation">Cerrar</button>
+    </div>
+  </section>
+
+  <!-- DESPEDIDA -->
   <section class="closing">
-    <h2>¿Tienes un carrete<br>esperando?</h2>
-    <a href="#contacto" data-page="contacto">Hablemos de fotografía</a>
-  </section>
-</main>
-
-<main id="faq" class="page">
-  <section class="subpage">
-    <p class="kicker">Información / TomateLab</p>
-    <h1>Antes de<br>revelar.</h1>
-    <article class="faq-item">
-      <h3>¿Qué tipo de película reveláis?</h3>
-      <p>Estamos especializados en película fotográfica en blanco y negro. Los formatos admitidos se especificarán en las condiciones del servicio.</p>
-    </article>
-    <article class="faq-item">
-      <h3>¿También escaneáis los negativos?</h3>
-      <p>Sí. El proyecto contempla el servicio de escaneado de las fotografías una vez reveladas.</p>
-    </article>
-    <article class="faq-item">
-      <h3>¿Puedo enviar mis carretes desde otra ciudad?</h3>
-      <p>Queremos ofrecer recepción por correo desde toda España. Publicaremos las instrucciones y opciones de envío cuando estén confirmadas.</p>
-    </article>
-    <article class="faq-item">
-      <h3>¿Cuánto tarda el revelado?</h3>
-      <p>Los plazos se indicarán antes de habilitar el servicio y dependerán del volumen de trabajo.</p>
-    </article>
-    <article class="faq-item">
-      <h3>¿Qué pasa con mis negativos?</h3>
-      <p>Las condiciones de conservación y devolución de negativos estarán explicadas antes de realizar cualquier pedido.</p>
-    </article>
-  </section>
-</main>
-
-<main id="contacto" class="page">
-  <section class="subpage">
-    <p class="kicker">Contacto / TomateLab</p>
-    <h1>Hablemos de<br>fotografía.</h1>
-    <p class="contact-copy">¿Tienes alguna pregunta sobre el revelado analógico en blanco y negro? Queremos saber de ti.</p>
-    <div class="contact-placeholder">
-      <strong>Contacto en preparación.</strong><br>
-      Aquí incorporaremos el correo o formulario definitivo cuando estén preparados los canales de atención.
-    </div>
+    <p>Un saludo desde Los Palacios y Villafranca <span class="tomato">🍅</span></p>
   </section>
 </main>
 
 <footer>
-  <a href="#inicio" data-page="inicio" class="logo">TOMATE<span>LAB</span></a>
+  <a href="#inicio" class="logo">TOMATE<span>LAB</span></a>
   <p>REVELADO ANALÓGICO EN BLANCO Y NEGRO<br>LOS PALACIOS Y VILLAFRANCA · SEVILLA</p>
-  <p>© TOMATELAB</p>
+  <p><a href="privacidad.html">Política de privacidad</a><br>© TOMATELAB</p>
 </footer>
 
 <script>
-const pages = document.querySelectorAll(".page");
-const navigation = document.getElementById("navigation");
-const menuButton = document.getElementById("menuButton");
+/* MENÚ */
+const navigation=document.getElementById("navigation");
+const menuButton=document.getElementById("menuButton");
 
-function showPage(id) {
-  const target = document.getElementById(id);
-  if (!target) return;
+menuButton.addEventListener("click",()=>{
+  const open=navigation.classList.toggle("open");
+  menuButton.textContent=open?"CERRAR −":"MENÚ +";
+  menuButton.setAttribute("aria-expanded",String(open));
+});
 
-  pages.forEach(page => page.classList.remove("active"));
-  target.classList.add("active");
-
-  navigation.classList.remove("open");
-  menuButton.textContent = "MENÚ +";
-  menuButton.setAttribute("aria-expanded", "false");
-  window.scrollTo({top:0,behavior:"auto"});
-
-  if (id === "inicio") {
-    observeElements();
-    updateReveal();
-  }
-}
-
-document.querySelectorAll("[data-page]").forEach(link => {
-  link.addEventListener("click", event => {
-    event.preventDefault();
-    const id = link.dataset.page;
-    history.pushState(null, "", "#" + id);
-    showPage(id);
+navigation.querySelectorAll("a").forEach(link=>{
+  link.addEventListener("click",()=>{
+    navigation.classList.remove("open");
+    menuButton.textContent="MENÚ +";
+    menuButton.setAttribute("aria-expanded","false");
   });
 });
 
-window.addEventListener("popstate", () => {
-  showPage(location.hash.slice(1) || "inicio");
-});
+/* NEGATIVO A POSITIVO */
+const sequence=document.getElementById("revealSequence");
+const photo=document.getElementById("filmPhoto");
+const negativeText=document.getElementById("negativeText");
+const positiveText=document.getElementById("positiveText");
+const stageLabel=document.getElementById("stageLabel");
+const progressBar=document.getElementById("progressBar");
+const progressNumber=document.getElementById("progressNumber");
 
-menuButton.addEventListener("click", () => {
-  const open = navigation.classList.toggle("open");
-  menuButton.textContent = open ? "CERRAR −" : "MENÚ +";
-  menuButton.setAttribute("aria-expanded", String(open));
-});
+let framePending=false;
 
-/* TRANSICIÓN DE NEGATIVO A POSITIVO */
-const sequence = document.getElementById("revealSequence");
-const photo = document.getElementById("filmPhoto");
-const negativeText = document.getElementById("negativeText");
-const positiveText = document.getElementById("positiveText");
-const stageLabel = document.getElementById("stageLabel");
-const progressBar = document.getElementById("progressBar");
-const progressNumber = document.getElementById("progressNumber");
+function updateReveal(){
+  if(framePending)return;
+  framePending=true;
 
-let framePending = false;
+  requestAnimationFrame(()=>{
+    const rect=sequence.getBoundingClientRect();
+    const total=sequence.offsetHeight-window.innerHeight;
+    const travelled=Math.min(total,Math.max(0,-rect.top));
+    const progress=total>0?travelled/total:0;
 
-function updateReveal() {
-  if (!document.getElementById("inicio").classList.contains("active")) return;
-  if (framePending) return;
+    photo.style.filter=`grayscale(1) invert(${1-progress})`;
+    progressBar.style.width=`${progress*100}%`;
+    progressNumber.textContent=`${Math.round(progress*100)}%`;
 
-  framePending = true;
+    negativeText.style.opacity=Math.max(0,1-progress/0.48);
+    positiveText.style.opacity=Math.max(0,Math.min(1,(progress-0.52)/0.48));
 
-  requestAnimationFrame(() => {
-    const rect = sequence.getBoundingClientRect();
-    const total = sequence.offsetHeight - window.innerHeight;
-    const travelled = Math.min(total, Math.max(0, -rect.top));
-    const progress = total > 0 ? travelled / total : 0;
-
-    photo.style.filter = `grayscale(1) invert(${1 - progress})`;
-
-    progressBar.style.width = `${progress * 100}%`;
-    progressNumber.textContent = `${Math.round(progress * 100)}%`;
-
-    const negativeOpacity = Math.max(0, 1 - progress / 0.48);
-    const positiveOpacity = Math.max(0, Math.min(1, (progress - 0.52) / 0.48));
-
-    negativeText.style.opacity = negativeOpacity;
-    positiveText.style.opacity = positiveOpacity;
-
-    if (progress < 0.35) {
-      stageLabel.textContent = "01 — Negativo";
-    } else if (progress < 0.75) {
-      stageLabel.textContent = "02 — Revelado";
-    } else {
-      stageLabel.textContent = "03 — Positivo";
+    if(progress<0.35){
+      stageLabel.textContent="01 — Revelando";
+    }else if(progress<0.75){
+      stageLabel.textContent="02 — Revelado";
+    }else{
+      stageLabel.textContent="03 — Positivo";
     }
 
-    framePending = false;
+    framePending=false;
   });
 }
 
-window.addEventListener("scroll", updateReveal, {passive:true});
-window.addEventListener("resize", updateReveal);
+window.addEventListener("scroll",updateReveal,{passive:true});
+window.addEventListener("resize",updateReveal);
 
-/* APARICIÓN DE SECCIONES */
-let observer;
-
-function observeElements() {
-  if (!("IntersectionObserver" in window)) {
-    document.querySelectorAll(".reveal").forEach(el => el.classList.add("visible"));
-    return;
-  }
-
-  if (observer) observer.disconnect();
-
-  observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {threshold:.12});
-
-  document.querySelectorAll("#inicio .reveal:not(.visible)")
-    .forEach(el => observer.observe(el));
-}
-
-/* AVISO SI NO SE ENCUENTRA LA FOTO */
-photo.addEventListener("error", () => {
+photo.addEventListener("error",()=>{
   console.error("No se ha encontrado Paula Lopez Bordallo_1094.JPG. Comprueba que esté junto a index.html.");
 });
 
-const initialPage = location.hash.slice(1);
-showPage(["inicio","faq","contacto"].includes(initialPage) ? initialPage : "inicio");
-observeElements();
+/* VENTANA DE CONFIRMACIÓN
+   El sistema externo deberá llamar a showOrderConfirmation(numeroPedido)
+   únicamente después de registrar correctamente el pedido. */
+const confirmation=document.getElementById("orderConfirmation");
+const confirmationOrderNumber=document.getElementById("confirmationOrderNumber");
+const closeConfirmation=document.getElementById("closeConfirmation");
+
+function showOrderConfirmation(orderNumber){
+  if(!orderNumber) return;
+  confirmationOrderNumber.textContent=orderNumber;
+  confirmation.hidden=false;
+  closeConfirmation.focus();
+}
+window.showOrderConfirmation=showOrderConfirmation;
+
+function hideOrderConfirmation(){
+  confirmation.hidden=true;
+}
+closeConfirmation.addEventListener("click",hideOrderConfirmation);
+confirmation.addEventListener("click",event=>{
+  if(event.target===confirmation) hideOrderConfirmation();
+});
+
+/* FORMULARIO: PACKS Y SENSIBILIDADES */
+const packRadios=document.querySelectorAll('input[name="pack"]');
+const isoOne=document.getElementById("isoOne");
+const isoThree=document.getElementById("isoThree");
+const isoSingle=document.getElementById("isoSingle");
+const isoThree1=document.getElementById("isoThree1");
+const isoThree2=document.getElementById("isoThree2");
+const isoThree3=document.getElementById("isoThree3");
+
+const summaryPack=document.getElementById("summaryPack");
+const summaryFilms=document.getElementById("summaryFilms");
+const summaryTotal=document.getElementById("summaryTotal");
+
+function updatePack(){
+  const selected=document.querySelector('input[name="pack"]:checked');
+  const value=selected?selected.value:"";
+
+  isoOne.classList.toggle("visible",value==="uno");
+  isoThree.classList.toggle("visible",value==="tres");
+
+  isoSingle.required=value==="uno";
+  isoThree1.required=value==="tres";
+  isoThree2.required=value==="tres";
+  isoThree3.required=value==="tres";
+
+  if(value!=="uno")isoSingle.value="";
+  if(value!=="tres"){
+    isoThree1.value="";
+    isoThree2.value="";
+    isoThree3.value="";
+  }
+
+  if(value==="sin"){
+    summaryPack.textContent="Sin carrete";
+    summaryFilms.textContent="0";
+    summaryTotal.textContent="16 €";
+  }else if(value==="uno"){
+    summaryPack.textContent="+1 carrete";
+    summaryFilms.textContent="1";
+    summaryTotal.textContent="22 €";
+  }else if(value==="tres"){
+    summaryPack.textContent="+3 carretes";
+    summaryFilms.textContent="3";
+    summaryTotal.textContent="34 €";
+  }else{
+    summaryPack.textContent="—";
+    summaryFilms.textContent="—";
+    summaryTotal.textContent="— €";
+  }
+}
+
+packRadios.forEach(radio=>{
+  radio.addEventListener("change",updatePack);
+});
+
 updateReveal();
+updatePack();
 </script>
 </body>
 </html>
