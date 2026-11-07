@@ -118,7 +118,7 @@ section.content{padding:90px 0}
 .social{background-color:var(--white);color:var(--black);background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 190 190' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='socialgrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.74' numOctaves='5' seed='53' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23socialgrain)' opacity='.28'/%3E%3C/svg%3E"),radial-gradient(ellipse at 8% 50%,rgba(227,59,50,.22),transparent 46%),radial-gradient(ellipse at 92% 50%,rgba(40,116,71,.22),transparent 46%);background-size:155px 155px,cover,cover;background-blend-mode:soft-light,normal,normal}
 .social-panel{display:grid;grid-template-columns:1fr auto;gap:35px;align-items:center;padding:38px 0;border-top:1px solid rgba(21,21,21,.35);border-bottom:1px solid rgba(21,21,21,.35);background:transparent;color:var(--black)}
 .social h2{font:600 clamp(38px,4.8vw,60px)/1.02 var(--display);letter-spacing:-.02em;margin:12px 0 16px;max-width:760px}
-.social p{max-width:550px;margin:0;font-size:14px;color:#55524c}
+  .social p{max-width:550px;margin:0;font-size:14px;color:#55524c}
 .social .button{white-space:nowrap}
 /* Pedido */
 .order{background-color:var(--paper);background-image:radial-gradient(ellipse at 0% 18%,rgba(227,59,50,.15),transparent 34%),radial-gradient(ellipse at 100% 82%,rgba(40,116,71,.16),transparent 38%)}
@@ -128,99 +128,130 @@ section.content{padding:90px 0}
 .form-inner{padding:clamp(20px,4vw,38px)}
 .form-section{padding:27px 0;border-top:1px solid rgba(21,21,21,.22)}
 .form-section:first-child{border-top:0;padding-top:0}
-  ```html
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">02 / REVELADO Y ESCANEADO</div>
-          <h2>Elige cómo revelar.</h2>
+.form-section h3{font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;margin:0 0 20px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field.full{grid-column:1/-1}
+.field label,.field-label{font:700 10px var(--sans);text-transform:uppercase;letter-spacing:.09em}
+.field input,.field textarea,.field select{width:100%;border:1px solid #aaa;background:rgba(255,255,255,.72);padding:12px;color:var(--black);border-radius:0;min-height:46px;font:400 14px var(--sans)}
+.field input:focus,.field textarea:focus,.field select:focus{outline:1px solid var(--green);outline-offset:2px}
+.field textarea{min-height:88px;resize:vertical}
+.field small{font-size:11px;color:#666}
+.packs{display:grid;gap:10px}
+.pack{display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:center;padding:16px;border:1px solid #aaa;cursor:pointer;background:rgba(255,255,255,.72)}
+.pack:has(input:checked){border:1px solid var(--red);background:#f7efeb}
+.pack input{accent-color:var(--red)}
+.pack strong{font:600 21px var(--display)}
+.pack small{display:block;font-size:11px;color:#555}
+.pack b{font:600 23px var(--display);white-space:nowrap}
+.iso-panel{display:none;margin-top:18px;padding:18px;border:1px solid rgba(40,116,71,.45);background:rgba(40,116,71,.055)}
+.iso-panel.visible{display:block}
+.iso-panel h4{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;margin:0 0 15px}
+.iso-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.summary{margin-top:22px;padding:20px;background:var(--black);color:white}
+.summary h4{font:600 11px var(--sans);margin:0 0 12px;text-transform:uppercase;letter-spacing:.1em}
+.summary-line,.summary-total{display:flex;justify-content:space-between;gap:16px;padding:6px 0;font-size:12px}
+.summary-line[hidden]{display:none}
+.summary-total{border-top:1px solid #777;margin-top:10px;padding-top:14px;font:600 25px var(--display)}
+.payment{padding:17px;border:1px solid rgba(227,59,50,.65);font-size:13px;line-height:1.7}
+.payment strong{display:block;font:700 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+.consent{display:flex;gap:10px;align-items:flex-start;margin-top:17px;font-size:11px;line-height:1.6}
+.consent input{margin-top:4px;accent-color:var(--green)}
+.submit{width:100%;margin-top:23px;padding:16px;background:var(--red);color:white;border:1px solid var(--red);font:700 11px var(--sans);text-transform:uppercase;letter-spacing:.1em;opacity:.55;cursor:not-allowed}
+.form-note{font-size:11px;color:#666;margin:12px 0 0}
+/* Pie */
+.footer{background:var(--black);color:var(--white);padding:35px 0}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.footer p{font:600 9px var(--sans);line-height:1.8;letter-spacing:.1em}
+.footer a{font-size:12px}
+.footer .brand{font-size:19px}
+.closing{padding:34px 20px;background:var(--red);color:var(--white);text-align:center;border-top:1px solid var(--black)}
+.closing p{margin:0;font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase}
+.closing .tomato{display:inline-block;margin-left:7px;font-size:22px;vertical-align:middle}
+@media(max-width:800px){
+  .wrap{width:min(100% - 36px,620px)}
+  .intro-layout{grid-template-columns:1fr;grid-template-rows:auto auto auto;grid-template-areas:"hero" "photo" "reveal";gap:0}
+  .hero-copy{min-height:54vh;padding:42px 0 24px}
+  .hero-art{grid-row:auto;position:sticky;top:82px;height:auto;min-height:0;align-self:start;margin:0 8px;padding:10px 10px 20px}
+  .reveal-copy{min-height:48vh;padding:48px 0 58px}
+  .intro-story{padding-bottom:40vh}
+  .section-head{display:block;text-align:left!important}
+  .section-head p{margin-top:16px;text-align:left!important}
+  .price-grid{grid-template-columns:1fr}
+  .card-body{min-height:150px}
+  .detail-grid{grid-template-columns:1fr}
+  .social-panel{grid-template-columns:1fr;gap:22px}
+  .social .button{justify-self:start}
+  .navlinks{display:none;position:absolute;top:69px;right:18px;background:var(--black);border:1px solid rgba(245,243,235,.5);padding:18px;flex-direction:column;gap:18px}
+  .navlinks.open{display:flex}
+  .menu{display:block}
+}
+@media(max-width:520px){
+  .wrap{width:calc(100% - 30px)}
+  .hero-copy h1{font-size:54px}
+  section.content{padding:68px 0}
+  .hero-copy{min-height:54vh}
+  .hero-art{top:76px}
+  .reveal-copy{min-height:44vh}
+  .fields{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .iso-grid{grid-template-columns:1fr}
+  .pack{grid-template-columns:20px 1fr auto;padding:12px}
+  .pack b{font-size:20px}
+  .photo-frame{padding:10px}
+  .photo-caption{font-size:8px}
+  .footer-inner{align-items:flex-start;flex-direction:column}
+}
+
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="wrap nav">
+    <a class="brand" href="#inicio">TOMATE<b>LAB</b></a>
+    <button class="menu" id="menuButton" aria-expanded="false" aria-controls="navLinks">MENÚ +</button>
+    <nav class="navlinks" id="navLinks">
+      <a href="#servicios">Servicios</a><a href="#laboratorio">El laboratorio</a><a href="#pedido">Pedir</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="intro-story" id="inicio-story">
+    <div class="wrap intro-layout">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="led"></span> LABORATORIO FOTOGRÁFICO / SEVILLA</div>
+        <h1>Tus fotos merecen salir <span>del carrete.</span></h1>
+        <p>Revelado y escaneado de fotografía analógica en blanco y negro. Tú disparas; nosotros nos encargamos del resto.</p>
+        <a class="button" href="#servicios">Explorar servicios <span>↘</span></a>
+      </div>
+      <div class="hero-art" id="revealStage">
+        <div class="window photo-window">
+          <div class="windowbar"><span>FOTOGRAMA / 001</span><span>35 MM</span></div>
+          <div class="photo-frame">
+            <img id="revealImage" src="Paula%20Lopez%20Bordallo_1094.JPG" alt="Fotografía analógica en blanco y negro que pasa de negativo a positivo" fetchpriority="high">
+            <div class="reveal-sweep" aria-hidden="true"></div>
+            <div class="photo-caption"><span>BLANCO Y NEGRO</span><span>NEGATIVO → POSITIVO</span></div>
+          </div>
+          <div class="film-edge"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
         </div>
-        <p>Todos los packs incluyen revelado y escaneado en blanco y negro. Elige si necesitas también carretes nuevos.</p>
+        <div class="hero-status">FOTOGRAFÍA ANALÓGICA</div>
       </div>
-      <div class="price-grid">
-        <article class="price-card">
-          <div class="card-top"><span>PACK 01</span><span>REVELADO</span></div>
-          <div class="card-body"><h3>Ya tengo carrete</h3><p>Revelado y escaneado de tu carrete en blanco y negro.</p><div class="price">16€</div></div>
-          <div class="card-bottom"></div>
-        </article>
-        <article class="price-card">
-          <div class="card-top"><span>PACK 02</span><span>+ 1 CARRETE</span></div>
-          <div class="card-body"><h3>Un carrete más</h3><p>Revelado y escaneado + 1 carrete nuevo.</p><div class="price">22€</div></div>
-          <div class="card-bottom"></div>
-        </article>
-        <article class="price-card">
-          <div class="card-top"><span>PACK 03</span><span>+ 3 CARRETES</span></div>
-          <div class="card-body"><h3>Para rato</h3><p>Revelado y escaneado + 3 carretes nuevos.</p><div class="price">34€</div></div>
-          <div class="card-bottom"></div>
-        </article>
+            <div class="reveal-copy">
+        <div class="eyebrow">01 / DEL NEGATIVO AL POSITIVO</div>
+        <h2>El blanco y negro tiene mucho que decir.</h2>
+        <p>Del negativo a la imagen. El proceso de revelado transforma poco a poco lo que estaba oculto en el carrete.</p>
+        <div class="reveal-controls"><span id="revealState">NEGATIVO</span><div class="reveal-track"><span id="revealProgress"></span></div><span id="revealPercent">00%</span></div>
       </div>
-      <p class="form-note">IVA incluido. Los gastos de envío se calculan por separado.</p>
     </div>
   </section>
 
-  <section class="content details" id="laboratorio">
+  <section class="content pricing" id="servicios">
     <div class="wrap">
       <div class="section-head">
-        <div><div class="eyebrow">03 / TOMATELAB</div><h2>Un laboratorio a tu ritmo.</h2></div>
-        <p>El proceso es sencillo. Tú haces las fotos y nosotros les damos una segunda vida.</p>
-      </div>
-      <div class="detail-grid">
-        <article class="detail-card"><span class="detail-num">01</span><p>Elige el pack que mejor encaje con lo que necesitas.</p></article>
-        <article class="detail-card"><span class="detail-num">02</span><p>Completa tus datos para que sepamos dónde devolverte los negativos.</p></article>
-        <article class="detail-card"><span class="detail-num">03</span><p>Recibirás en tu correo las instrucciones para preparar y enviar tus carretes.</p></article>
-        <article class="detail-card"><span class="detail-num">04</span><p>Revelamos y escaneamos tus fotografías en blanco y negro.</p></article>
-        <article class="detail-card"><span class="detail-num">05</span><p>Te enviamos tus fotografías digitalizadas y tus negativos de vuelta.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="content social" id="instagram">
-    <div class="wrap">
-      <div class="social-panel">
-        <div>
-          <div class="eyebrow">04 / SIGUE EL PROCESO</div>
-          <h2>El carrete no termina cuando haces la última foto.</h2>
-          <p>Ideas, fotografías y pequeñas historias desde nuestro laboratorio.</p>
-        </div>
-        <a class="button" href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram ↗</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="content order" id="pedido">
-    <div class="wrap">
-      <div class="section-head">
-        <div><div class="eyebrow">05 / EMPEZAMOS</div><h2>Prepara tu pedido.</h2></div>
-      </div>
-      <p class="order-intro">Déjanos tus datos y selecciona tu pack. Después recibirás por correo las instrucciones para hacernos llegar tus carretes.</p>
-
-      <div class="window order-window">
-        <div class="windowbar"><span>FORMULARIO DE PEDIDO</span><span>TOMATELAB / 001</span></div>
-        <div class="form-inner">
-          <form id="orderForm">
-            <div class="form-section">
-              <h3>01 / Tus datos</h3>
-              <div class="fields">
-                <div class="field"><label for="customerName">Nombre y apellidos</label><input id="customerName" name="name" required autocomplete="name"></div>
-                <div class="field"><label for="customerEmail">Correo electrónico</label><input id="customerEmail" name="email" type="email" required autocomplete="email"></div>
-                <div class="field"><label for="customerPhone">Teléfono de contacto</label><input id="customerPhone" name="phone" type="tel" required autocomplete="tel"></div>
-                <div class="field"><label for="customerAddress">Dirección de devolución</label><input id="customerAddress" name="address" required autocomplete="street-address"></div>
-                <div class="field full"><small>Utilizaremos estos datos para gestionar tu pedido y devolverte los negativos.</small></div>
-              </div>
-            </div>
-
-            <div class="form-section">
-              <h3>02 / Elige tu pack</h3>
-              <div class="packs">
-                <label class="pack"><input type="radio" name="pack" value="16" data-label="Revelado sin carrete" required><span><strong>Ya tengo carrete</strong><small>Revelado y escaneado</small></span><b>16€</b></label>
-                <label class="pack"><input type="radio" name="pack" value="22" data-label="Pack + 1 carrete"><span><strong>Un carrete más</strong><small>Revelado, escaneado + 1 carrete</small></span><b>22€</b></label>
-                <label class="pack"><input type="radio" name="pack" value="34" data-label="Pack + 3 carretes"><span><strong>Para rato</strong><small>Revelado, escaneado + 3 carretes</small></span><b>34€</b></label>
-              </div>
-              <div class="iso-panel" id="isoPanel">
-                <h4>ISO de los carretes nuevos</h4>
-                <div class="iso-grid" id="isoGrid"></div>
-              </div>
-            </div>
-          <div><div class="tag">02 / NUESTROS PACKS</div><h2>No pares de disparar.<br>Sigue experimentando.</h2></div>
+        <div><div class="tag">02 / NUESTROS PACKS</div><h2>No pares de disparar.<br>Sigue experimentando.</h2></div>
         <p>Revelamos y escaneamos tus carretes en blanco y negro. Elige la opción que mejor encaje con tu próxima sesión.</p>
       </div>
       <div class="price-grid">
@@ -348,33 +379,22 @@ section.content{padding:90px 0}
   </div>
 </footer>
 
-<div class="modal" id="orderConfirmation" role="dialog" aria-modal="true" aria-labelledby="confirmationTitle" hidden>
-  <div class="modal-box">
-      <div class="eyebrow">TOMATELAB / PEDIDO RECIBIDO</div>
-    <h2 id="confirmationTitle">Tu próximo carrete ya está en marcha.</h2>
-    <p>Hemos registrado tu pedido <strong id="confirmationOrderNumber"></strong>.</p>
-    <ul>
-      <li>Recibirás en tu correo electrónico la confirmación y los datos para realizar la transferencia.</li>
-      <li>Cuando comprobemos el pago, te enviaremos por correo las instrucciones y la dirección a la que debes enviar tus carretes.</li>
-      <li>Conserva tu número de pedido: tendrás que incluirlo en el paquete.</li>
-    </ul>
-    <button class="button" id="closeConfirmation" type="button">Cerrar ventana</button>
-  </div>
-</div>
-
 <script>
+// Menú móvil: ambos elementos se comprueban antes de añadir eventos.
 const menuButton=document.getElementById("menuButton");
-const navLinks=document.getElementById("navLinks");
-menuButton.addEventListener("click",()=>{
-  const opened=navLinks.classList.toggle("open");
-  menuButton.setAttribute("aria-expanded",String(opened));
-  menuButton.textContent=opened?"CERRAR −":"MENÚ +";
-});
-navLinks.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{
-  navLinks.classList.remove("open");
-  menuButton.setAttribute("aria-expanded","false");
-  menuButton.textContent="MENÚ +";
-}));
+const navLinks=document.querySelector(".navlinks");
+if(menuButton && navLinks){
+  menuButton.addEventListener("click",()=>{
+    const opened=navLinks.classList.toggle("open");
+    menuButton.setAttribute("aria-expanded",String(opened));
+    menuButton.textContent=opened?"CERRAR −":"MENÚ +";
+  });
+  navLinks.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{
+    navLinks.classList.remove("open");
+    menuButton.setAttribute("aria-expanded","false");
+    menuButton.textContent="MENÚ +";
+  }));
+}
 
 // Revelado automático: la fotografía pasa de negativo a positivo en 3 segundos.
 const revealImage=document.getElementById("revealImage");
@@ -409,11 +429,13 @@ function startReveal(){
 }
 
 // Comienza al cargar la fotografía, sin depender del scroll.
-renderReveal(0);
-if(revealImage.complete && revealImage.naturalWidth>0){
-  startReveal();
-}else{
-  revealImage.addEventListener("load",startReveal,{once:true});
+if(revealImage && revealProgress && revealPercent && revealState){
+  renderReveal(0);
+  if(revealImage.complete && revealImage.naturalWidth>0){
+    startReveal();
+  }else{
+    revealImage.addEventListener("load",startReveal,{once:true});
+  }
 }
 
 // Selección de pack, carretes adicionales e IVA incluido.
@@ -460,18 +482,6 @@ extraFilms.addEventListener("input",()=>{
 });
 updatePack();
 
-// Preparado para conectarse a un backend. No se debe mostrar hasta que el pedido
-// esté realmente registrado y el servidor devuelva un número de pedido.
-function showOrderConfirmation(orderNumber){
-  if(!orderNumber)return;
-  document.getElementById("confirmationOrderNumber").textContent=orderNumber;
-  document.getElementById("orderConfirmation").hidden=false;
-  document.getElementById("closeConfirmation").focus();
-}
-window.showOrderConfirmation=showOrderConfirmation;
-document.getElementById("closeConfirmation").addEventListener("click",()=>{
-  document.getElementById("orderConfirmation").hidden=true;
-});
 </script>
 </body>
 </html>
