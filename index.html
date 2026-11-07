@@ -28,13 +28,13 @@ a{color:inherit}
 button,input,select,textarea{font:inherit}
 button,a{-webkit-tap-highlight-color:transparent}
 .grain{
-  position:fixed;inset:0;z-index:20;pointer-events:none;opacity:.13;
+  position:fixed;inset:0;z-index:20;pointer-events:none;opacity:.24;
   background-image:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='3' seed='17' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='.72'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='4' seed='17' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='.72'/%3E%3C/svg%3E"),
     radial-gradient(ellipse at 16% 20%,rgba(227,59,50,.10),transparent 43%),
     radial-gradient(ellipse at 82% 76%,rgba(40,116,71,.09),transparent 46%);
-  background-size:190px 190px,100% 100%,100% 100%;
-  mix-blend-mode:multiply;
+  background-size:125px 125px,100% 100%,100% 100%;
+  mix-blend-mode:soft-light;
 }
 .wrap{width:min(1160px,calc(100% - 64px));margin:auto}
 .eyebrow,.tag,.button,.film-label,.mono{font-family:var(--sans)}
@@ -51,11 +51,10 @@ button,a{-webkit-tap-highlight-color:transparent}
 .windowbar{min-height:34px;background:var(--black);color:var(--white);display:flex;align-items:center;justify-content:space-between;padding:8px 14px;font:700 10px var(--mono);letter-spacing:.12em;text-transform:uppercase}
 .windowbar .lights{display:none}
 /* Apertura: una fotografía continua entre los dos bloques */
-.intro-story{position:relative;overflow:clip;background-color:var(--white);background-image:radial-gradient(ellipse at 8% 18%,rgba(227,59,50,.23),transparent 39%),radial-gradient(ellipse at 90% 40%,rgba(40,116,71,.20),transparent 43%),radial-gradient(ellipse at 48% 100%,rgba(21,21,21,.11),transparent 48%)}
-.intro-story:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.28;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 260 260' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4' seed='9' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");background-size:180px 180px;mix-blend-mode:multiply}
-.intro-layout{position:relative;display:grid;grid-template-columns:.9fr 1.1fr;gap:46px;align-items:stretch}
-.intro-copy{min-width:0;display:flex;flex-direction:column;position:relative;z-index:2}
-.hero-copy{min-height:72vh;padding:42px 0;display:flex;flex-direction:column;justify-content:center}
+.intro-story{position:relative;overflow:clip;background-color:var(--white);background-image:radial-gradient(ellipse at 8% 18%,rgba(227,59,50,.34),transparent 42%),radial-gradient(ellipse at 90% 40%,rgba(40,116,71,.31),transparent 46%),radial-gradient(ellipse at 48% 100%,rgba(21,21,21,.19),transparent 52%)}
+.intro-story:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.52;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 260 260' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='5' seed='9' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.9'/%3E%3C/svg%3E");background-size:135px 135px;mix-blend-mode:soft-light}
+.intro-layout{position:relative;display:grid;grid-template-columns:.9fr 1.1fr;grid-template-rows:85vh 85vh;grid-template-areas:"hero photo" "reveal photo";gap:0 46px;align-items:stretch}
+.hero-copy{grid-area:hero;min-width:0;min-height:85vh;padding:42px 0;display:flex;flex-direction:column;justify-content:center}
 .eyebrow{font:700 10px var(--mono);letter-spacing:.13em;text-transform:uppercase;display:flex;align-items:center;gap:10px}
 .led{width:7px;height:7px;background:var(--green);display:inline-block;border-radius:50%}
 .hero-copy h1{font:600 clamp(48px,6.2vw,82px)/.98 var(--display);letter-spacing:-.055em;margin:24px 0 22px;max-width:590px}
@@ -63,17 +62,19 @@ button,a{-webkit-tap-highlight-color:transparent}
 .hero-copy>p{font-size:16px;max-width:460px;margin:0 0 30px;color:#45433f}
 .button{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:13px 18px;background:var(--red);color:white;border:1px solid var(--red);font:700 11px var(--mono);text-transform:uppercase;text-decoration:none;letter-spacing:.08em;transition:background .2s,color .2s}
 .button:hover{background:var(--black);border-color:var(--black)}
-.hero-art{position:sticky;top:105px;align-self:start;height:calc(100vh - 145px);min-height:430px;display:flex;align-items:center;padding:20px 18px 26px;z-index:1}
+.hero-art{grid-area:photo;grid-row:1 / 3;position:sticky;top:105px;align-self:start;height:calc(100vh - 145px);min-height:430px;display:flex;align-items:center;padding:20px 18px 26px;z-index:1}
 .hero-art:before{content:"";position:absolute;inset:7% -5%;background:radial-gradient(ellipse at 15% 20%,rgba(227,59,50,.28),transparent 45%),radial-gradient(ellipse at 83% 76%,rgba(40,116,71,.24),transparent 48%),radial-gradient(ellipse at 50% 50%,rgba(21,21,21,.14),transparent 62%);filter:blur(20px);transform:rotate(-5deg);pointer-events:none}
 .photo-window{position:relative;width:100%;transform:rotate(-.6deg);background:var(--black);box-shadow:0 22px 55px rgba(21,21,21,.2)}
 .photo-frame{padding:15px;background:#171717;position:relative;overflow:hidden}
-.photo-frame:after{content:"";position:absolute;inset:15px;pointer-events:none;opacity:calc(.34 * (1 - var(--reveal-progress,0)));background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' seed='21' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:145px 145px;mix-blend-mode:screen}
+.photo-frame:after{content:"";position:absolute;inset:15px;pointer-events:none;opacity:calc(.72 * (1 - var(--reveal-progress,0)));background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.05' numOctaves='5' seed='21' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:145px 145px;mix-blend-mode:screen}
 .photo-frame img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;filter:grayscale(1) invert(1) contrast(1.12);background:#555;will-change:filter;transition:none}
+.reveal-sweep{position:absolute;z-index:2;top:15px;bottom:45px;left:calc(var(--reveal-progress,0) * 100% - 13%);width:27%;pointer-events:none;opacity:.78;background:radial-gradient(ellipse at 45% 50%,rgba(245,243,235,.48),rgba(227,59,50,.20) 34%,rgba(40,116,71,.16) 58%,transparent 76%);filter:blur(13px);mix-blend-mode:screen}
+.reveal-sweep:after{content:"";position:absolute;inset:-10px;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='5' seed='31' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)' opacity='.95'/%3E%3C/svg%3E");background-size:95px 95px;opacity:.7;mix-blend-mode:soft-light}
 .photo-caption{display:flex;justify-content:space-between;gap:12px;color:var(--white);padding-top:12px;font:700 9px var(--mono);letter-spacing:.1em;text-transform:uppercase}
 .film-edge{display:flex;justify-content:space-between;gap:7px;padding:8px 10px;background:var(--black)}
 .film-edge span{height:12px;flex:1;border:1px solid rgba(245,243,235,.75);border-radius:2px;opacity:.75}
 .hero-status{position:absolute;right:0;bottom:12%;background:var(--green);color:white;padding:9px 13px;border:1px solid var(--green);font:700 10px var(--mono);letter-spacing:.08em;text-transform:uppercase}
-.reveal-copy{min-height:72vh;padding:45px 0;display:flex;flex-direction:column;justify-content:center;position:relative}
+.reveal-copy{grid-area:reveal;min-width:0;min-height:85vh;padding:45px 0;display:flex;flex-direction:column;justify-content:center;position:relative}
 .reveal-copy h2{font:600 clamp(40px,5vw,64px)/1.02 var(--display);letter-spacing:-.05em;margin:15px 0 20px;max-width:460px}
 .reveal-copy p{max-width:390px;color:#45433f}
 .reveal-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;max-width:330px;font:700 9px var(--mono);letter-spacing:.1em;text-transform:uppercase}
@@ -106,9 +107,11 @@ section.content{padding:90px 0}
 .details .section-head p{color:rgba(245,243,235,.68)}
 .details .tag:before{background:var(--green)}
 .detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 28px;position:relative;z-index:1;border-top:1px solid rgba(245,243,235,.28)}
-.detail-card{border-bottom:1px solid rgba(245,243,235,.28);padding:21px 4px;display:grid;grid-template-columns:40px 1fr;gap:14px;background:transparent}
-.detail-num{font:600 11px var(--sans);color:#8cc49b;letter-spacing:.08em}
-.detail-card p{margin:0;font-size:14px;color:rgba(245,243,235,.9)}
+.detail-card{position:relative;min-height:132px;margin:14px 0;padding:24px 34px;display:flex;align-items:center;background:rgba(245,243,235,.055);border:1px solid rgba(245,243,235,.52);box-shadow:inset 0 0 0 4px rgba(245,243,235,.035);overflow:hidden}
+.detail-card:before,.detail-card:after{content:"";position:absolute;top:10px;bottom:10px;width:13px;border:1px solid rgba(245,243,235,.55);border-radius:3px;background:repeating-linear-gradient(to bottom,transparent 0 5px,rgba(245,243,235,.78) 5px 11px,transparent 11px 20px)}
+.detail-card:before{left:9px}.detail-card:after{right:9px}
+.detail-num{position:absolute;right:29px;top:13px;font:700 9px var(--mono);color:#8cc49b;letter-spacing:.1em}
+.detail-card p{margin:0;padding-right:34px;font-size:15px;line-height:1.55;color:rgba(245,243,235,.94);max-width:470px}
 /* Instagram */
 .social{background:var(--white);color:var(--black);background-image:radial-gradient(ellipse at 8% 50%,rgba(0,0,0,.045),transparent 42%),radial-gradient(ellipse at 92% 50%,rgba(0,0,0,.035),transparent 42%)}
 .social-panel{display:grid;grid-template-columns:1fr auto;gap:35px;align-items:center;padding:38px 0;border-top:1px solid rgba(21,21,21,.35);border-bottom:1px solid rgba(21,21,21,.35);background:transparent;color:var(--black)}
@@ -172,10 +175,11 @@ section.content{padding:90px 0}
 .modal-box ul{padding-left:20px;margin:16px 0}
 @media(max-width:800px){
   .wrap{width:min(100% - 36px,620px)}
-  .intro-layout{grid-template-columns:1fr;gap:0}
-  .hero-copy{min-height:60vh;padding:42px 0 24px}
-  .hero-art{position:relative;top:auto;height:auto;min-height:0;margin:0 8px 28px;padding:10px 10px 20px}
+  .intro-layout{grid-template-columns:1fr;grid-template-rows:auto auto auto;grid-template-areas:"hero" "photo" "reveal";gap:0}
+  .hero-copy{min-height:54vh;padding:42px 0 24px}
+  .hero-art{grid-row:auto;position:sticky;top:82px;height:auto;min-height:0;align-self:start;margin:0 8px;padding:10px 10px 20px}
   .reveal-copy{min-height:48vh;padding:48px 0 58px}
+  .intro-story{padding-bottom:40vh}
   .section-head{display:block;text-align:left!important}
   .section-head p{margin-top:16px;text-align:left!important}
   .price-grid{grid-template-columns:1fr}
@@ -192,6 +196,7 @@ section.content{padding:90px 0}
   .hero-copy h1{font-size:54px}
   section.content{padding:68px 0}
   .hero-copy{min-height:54vh}
+  .hero-art{top:76px}
   .reveal-copy{min-height:44vh}
   .fields{grid-template-columns:1fr}
   .field.full{grid-column:auto}
@@ -221,34 +226,34 @@ section.content{padding:90px 0}
 <main id="inicio">
   <section class="intro-story" id="inicio-story">
     <div class="wrap intro-layout">
-      <div class="intro-copy">
-        <div class="hero-copy">
-          <div class="eyebrow"><span class="led"></span> LABORATORIO FOTOGRÁFICO / SEVILLA</div>
-          <h1>Tus fotos merecen salir <span>del carrete.</span></h1>
-          <p>Revelado y escaneado de fotografía analógica en blanco y negro. Tú disparas; nosotros nos encargamos del resto.</p>
-          <a class="button" href="#servicios">Explorar servicios <span>↘</span></a>
-        </div>
-        <div class="reveal-copy">
-          <div class="eyebrow">01 / DEL NEGATIVO AL POSITIVO</div>
-          <h2>El blanco y negro tiene mucho que decir.</h2>
-          <p>Del negativo a la imagen. El proceso de revelado transforma poco a poco lo que estaba oculto en el carrete.</p>
-          <div class="reveal-controls"><span id="revealState">NEGATIVO</span><div class="reveal-track"><span id="revealProgress"></span></div><span id="revealPercent">00%</span></div>
-        </div>
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="led"></span> LABORATORIO FOTOGRÁFICO / SEVILLA</div>
+        <h1>Tus fotos merecen salir <span>del carrete.</span></h1>
+        <p>Revelado y escaneado de fotografía analógica en blanco y negro. Tú disparas; nosotros nos encargamos del resto.</p>
+        <a class="button" href="#servicios">Explorar servicios <span>↘</span></a>
       </div>
       <div class="hero-art" id="revealStage">
         <div class="window photo-window">
           <div class="windowbar"><span>FOTOGRAMA / 001</span><span>35 MM</span></div>
           <div class="photo-frame">
             <img id="revealImage" src="Paula%20Lopez%20Bordallo_1094.JPG" alt="Fotografía analógica en blanco y negro que pasa de negativo a positivo">
+            <div class="reveal-sweep" aria-hidden="true"></div>
             <div class="photo-caption"><span>BLANCO Y NEGRO</span><span>NEGATIVO → POSITIVO</span></div>
           </div>
           <div class="film-edge"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
         </div>
         <div class="hero-status">FOTOGRAFÍA ANALÓGICA</div>
       </div>
+      <div class="reveal-copy">
+        <div class="eyebrow">01 / DEL NEGATIVO AL POSITIVO</div>
+        <h2>El blanco y negro tiene mucho que decir.</h2>
+        <p>Del negativo a la imagen. El proceso de revelado transforma poco a poco lo que estaba oculto en el carrete.</p>
+        <div class="reveal-controls"><span id="revealState">NEGATIVO</span><div class="reveal-track"><span id="revealProgress"></span></div><span id="revealPercent">00%</span></div>
+      </div>
     </div>
   </section>
-    <section class="content pricing" id="servicios">
+
+  <section class="content pricing" id="servicios">
     <div class="wrap">
       <div class="section-head">
         <div><div class="tag">02 / NUESTROS PACKS</div><h2>No pares de disparar.<br>Sigue experimentando.</h2></div>
@@ -274,8 +279,7 @@ section.content{padding:90px 0}
       <p class="order-intro" style="margin:30px auto 0;text-align:center">¿Tienes más carretes? Cada revelado adicional cuesta <strong>13 €</strong>.</p>
     </div>
   </section>
-
-  <section class="content details" id="laboratorio">
+    <section class="content details" id="laboratorio">
     <div class="wrap">
       <div class="section-head">
         <div><div class="tag">03 / EL LABORATORIO</div><h2>El laboratorio, en pocas palabras.</h2></div>
@@ -352,7 +356,7 @@ section.content{padding:90px 0}
                 <div class="summary-total"><span>Total</span><span id="summaryTotal">— €</span></div>
               </div>
             </div>
-            <div class="form-section">
+                        <div class="form-section">
               <h3>04 / Método de pago</h3>
               <div class="payment"><strong>Transferencia bancaria</strong>El único método de pago disponible por el momento es la transferencia bancaria. Dispondrás de 24 horas para realizar el pago. Si no recibimos la transferencia dentro de ese plazo, el pedido quedará anulado.<br><br>Los datos bancarios y las instrucciones de pago aparecerán al finalizar el pedido.</div>
               <label class="consent"><input type="checkbox" name="acepta_privacidad" required><span>He leído la <a href="privacidad.html" target="_blank" rel="noopener noreferrer">Política de privacidad</a> y entiendo cómo se tratarán mis datos para gestionar el pedido.</span></label>
@@ -372,7 +376,7 @@ section.content{padding:90px 0}
 
 <footer class="footer">
   <div class="wrap footer-inner">
-        <a class="brand" href="#inicio">TOMATE<b>LAB</b></a>
+    <a class="brand" href="#inicio">TOMATE<b>LAB</b></a>
     <p>REVELADO ANALÓGICO EN BLANCO Y NEGRO<br>LOS PALACIOS Y VILLAFRANCA · SEVILLA</p>
     <a href="privacidad.html">Política de privacidad</a>
     <p>© TOMATELAB</p>
@@ -407,35 +411,41 @@ navLinks.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{
   menuButton.textContent="MENÚ +";
 }));
 
-// Una sola imagen: el revelado avanza durante el recorrido entre los dos bloques.
+// Una sola fotografía: el revelado se desarrolla mientras el bloque de texto entra en pantalla.
 const revealImage=document.getElementById("revealImage");
 const revealProgress=document.getElementById("revealProgress");
 const revealPercent=document.getElementById("revealPercent");
 const revealState=document.getElementById("revealState");
-const introStory=document.getElementById("inicio-story");
+const revealCopy=document.querySelector(".reveal-copy");
 let ticking=false;
+let revealStartTop=0;
+function measureRevealStart(){
+  revealStartTop=revealCopy.getBoundingClientRect().top+window.scrollY;
+}
 function updateReveal(){
   if(ticking)return;
   ticking=true;
   requestAnimationFrame(()=>{
-    const rect=introStory.getBoundingClientRect();
-    const maxTravel=Math.max(1,rect.height-window.innerHeight);
-    const progress=Math.max(0,Math.min(1,-rect.top/maxTravel));
+    const endViewportTop=window.innerHeight*.15;
+    const startViewportTop=revealStartTop-window.scrollY;
+    const travel=Math.max(1,revealStartTop-endViewportTop);
+    const progress=Math.max(0,Math.min(1,(revealStartTop-startViewportTop)/travel));
     const value=Math.round(progress*100);
-    // Cambia gradualmente la inversión, el contraste y la exposición del mismo fotograma.
+    // El mismo fotograma pasa de negativo a positivo durante el tramo visible del relato.
     const inversion=1-progress;
-    const contrast=1.12+(progress*.28);
-    const brightness=.82+(progress*.18);
+    const contrast=1.08+(progress*.34);
+    const brightness=.84+(progress*.16);
     revealImage.style.filter=`grayscale(1) invert(${inversion}) contrast(${contrast}) brightness(${brightness})`;
     document.documentElement.style.setProperty("--reveal-progress",progress);
     revealProgress.style.width=value+"%";
     revealPercent.textContent=String(value).padStart(2,"0")+"%";
-    revealState.textContent=value<12?"NEGATIVO":value<88?"REVELANDO":"POSITIVO";
+    revealState.textContent=value<8?"NEGATIVO":value<96?"REVELANDO":"POSITIVO";
     ticking=false;
   });
 }
+measureRevealStart();
 window.addEventListener("scroll",updateReveal,{passive:true});
-window.addEventListener("resize",updateReveal);
+window.addEventListener("resize",()=>{measureRevealStart();updateReveal();});
 updateReveal();
 
 // Selección de pack, carretes adicionales e IVA incluido.
