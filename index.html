@@ -22,60 +22,43 @@
   --sans:"Space Grotesk",Arial,sans-serif;
   --mono:"Courier Prime",monospace;
 }
-   /* TIRA DE PELÍCULA LATERAL */
+
+/* TIRA LATERAL DE PELÍCULA */
 body{
+  margin:0;
   padding-left:34px;
+  background-color:var(--paper);
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.10'/%3E%3C/svg%3E");
+  color:var(--black);
+  font:16px/1.6 var(--sans);
 }
 
 .film-rail{
   position:fixed;
   inset:0 auto 0 0;
   width:34px;
-  z-index:40;
+  z-index:50;
   display:flex;
   flex-direction:column;
   justify-content:space-around;
   align-items:center;
   padding:12px 0;
-  background:var(--paper);
-  border-right:1px solid rgba(23,24,22,.25);
-  box-shadow:1px 0 0 rgba(255,255,255,.45);
+  background:var(--black);
+  border-right:1px solid var(--black);
   pointer-events:none;
 }
 
 .film-rail span{
   display:block;
-  flex:0 0 27px;
+  flex:0 0 25px;
   width:19px;
-  border-radius:5px;
-  background:var(--black);
-  box-shadow:inset 1px 1px 2px rgba(255,255,255,.12);
+  border-radius:3px;
+  background:var(--paper);
 }
 
-@media(max-width:700px){
-  body{
-     <div class="film-rail" aria-hidden="true">
-  <span></span><span></span><span></span><span></span>
-  <span></span><span></span><span></span><span></span>
-  <span></span><span></span><span></span><span></span>
-  <span></span><span></span><span></span><span></span>
-</div>
-    padding-left:24px;
-  }
-
-  .film-rail{
-    width:24px;
-  }
-
-  .film-rail span{
-    flex-basis:20px;
-    width:14px;
-    border-radius:4px;
-  }
-}
+/* BASE */
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:82px}
-body{margin:0;background:var(--paper);color:var(--black);font:16px/1.6 var(--sans)}
 a{color:inherit}
 button,input,select,textarea{font:inherit}
 button,a{-webkit-tap-highlight-color:transparent}
@@ -89,7 +72,8 @@ button,a{-webkit-tap-highlight-color:transparent}
 .navlinks a{font:700 10px var(--mono);letter-spacing:.12em;text-transform:uppercase;text-decoration:none}
 .navlinks a:hover{color:var(--red)}
 .menu{display:none;background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.55);padding:8px 12px;font:700 10px var(--mono);letter-spacing:.1em}
-/* Sistema editorial: papel, marcos, fichas y numeración. Sin manchas ni degradados. */
+
+/* SISTEMA EDITORIAL */
 .intro-story{background:var(--paper);border-bottom:1px solid var(--line);overflow:hidden}
 .intro-layout{display:grid;grid-template-columns:.92fr 1.08fr;grid-template-rows:minmax(590px,78vh) minmax(310px,42vh);grid-template-areas:"hero photo" "reveal photo";gap:0 52px;align-items:center;position:relative}
 .hero-copy{grid-area:hero;padding:66px 0 26px;align-self:end;min-width:0}
@@ -118,7 +102,8 @@ button,a{-webkit-tap-highlight-color:transparent}
 .reveal-copy{grid-area:reveal;align-self:start;padding:26px 0 50px;border-top:1px solid var(--line);min-width:0}
 .reveal-copy h2{font:600 clamp(34px,4.4vw,57px)/1.02 var(--display);letter-spacing:-.05em;margin:13px 0 14px;max-width:460px}
 .reveal-copy p{max-width:390px;color:#55544e;font-size:13px;margin:0}
-/* Secciones y fichas */
+
+/* SECCIONES Y FICHAS */
 section.content{padding:94px 0}
 .section-head{display:flex;justify-content:space-between;align-items:end;gap:32px;margin-bottom:38px}
 .tag{display:inline-flex;align-items:center;gap:9px;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}
@@ -137,7 +122,7 @@ section.content{padding:94px 0}
 .price small{font:600 22px var(--display)}
 .card-bottom{height:12px;border-top:1px solid var(--line);background:repeating-linear-gradient(90deg,transparent 0 18px,var(--line) 18px 19px)}
 .order-intro{max-width:620px;margin:26px 0 34px;color:#55544e;font-size:13px}
-.details{background:var(--black);color:var(--white)}
+  .details{background:var(--black);color:var(--white)}
 .details .section-head p{color:#c4c2b9}
 .details .tag{color:#c4c2b9}
 .detail-grid{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid rgba(255,255,255,.35);border-bottom:1px solid rgba(255,255,255,.35)}
@@ -200,60 +185,87 @@ section.content{padding:94px 0}
 .modal-box h2{font:600 clamp(38px,5vw,58px)/1.02 var(--display);margin:15px 0}
 .modal-box p,.modal-box li{font-size:14px;line-height:1.7}
 .modal-box ul{padding-left:20px;margin:16px 0}
+
+/* TABLET */
 @media(max-width:900px){
- .intro-layout{grid-template-columns:.9fr 1.1fr;gap:0 28px;grid-template-rows:minmax(540px,70vh) minmax(280px,35vh)}
- .hero-copy h1{font-size:clamp(46px,6vw,68px)}
- .detail-grid{grid-template-columns:repeat(3,1fr)}
- .detail-card:nth-child(3){border-right:0}
- .detail-card:nth-child(n+4){border-top:1px solid rgba(255,255,255,.25)}
-}
-  @media(max-width:700px){
- .wrap{width:min(100% - 36px,620px)}
- .navlinks{display:none;position:absolute;top:69px;right:18px;background:var(--black);border:1px solid rgba(255,255,255,.4);padding:18px;flex-direction:column;gap:18px}
- .navlinks.open{display:flex}
- .menu{display:block}
- .intro-layout{grid-template-columns:1fr;grid-template-rows:auto auto auto;grid-template-areas:"hero" "photo" "reveal";gap:0}
- .hero-copy{padding:54px 0 24px;min-height:0}
- .hero-copy h1{font-size:clamp(52px,13vw,76px)}
- .hero-art{padding:35px 8px 35px;min-height:0}
- .hero-art:before{top:10px;right:4px}
- .photo-window{box-shadow:7px 7px 0 var(--black)}
- .hero-status{right:0;bottom:18px}
- .reveal-copy{padding:30px 0 48px}
- section.content{padding:70px 0}
- .section-head{display:block;margin-bottom:28px}
- .section-head p{margin-top:16px}
- .price-grid{grid-template-columns:1fr}
- .price-card{min-height:250px}
- .card-body{min-height:170px}
- .detail-grid{grid-template-columns:1fr 1fr}
- .detail-card{min-height:170px;border-top:1px solid rgba(255,255,255,.25)}
- .detail-card:nth-child(odd){border-right:1px solid rgba(255,255,255,.25)}
- .detail-card:nth-child(even){border-right:0}
- .detail-card:nth-child(-n+2){border-top:0}
- .social-panel{grid-template-columns:1fr;gap:22px;padding:28px 0}
- .social .button{justify-self:start}
- .order-window{box-shadow:6px 6px 0 var(--black)}
-}
-@media(max-width:520px){
- .wrap{width:calc(100% - 30px)}
- .hero-copy h1{font-size:54px}
- .fields{grid-template-columns:1fr}
- .field.full{grid-column:auto}
- .iso-grid{grid-template-columns:1fr}
- .pack{grid-template-columns:20px 1fr auto;padding:12px}
- .pack:has(input:checked){padding:11px}
- .pack b{font-size:20px}
- .photo-frame{padding:10px}
- .photo-caption{font-size:8px}
- .footer-inner{align-items:flex-start;flex-direction:column}
- .detail-card{padding:16px 13px}
- .detail-card p{font-size:12px}
+  .intro-layout{grid-template-columns:.9fr 1.1fr;gap:0 28px;grid-template-rows:minmax(540px,70vh) minmax(280px,35vh)}
+  .hero-copy h1{font-size:clamp(46px,6vw,68px)}
+  .detail-grid{grid-template-columns:repeat(3,1fr)}
+  .detail-card:nth-child(3){border-right:0}
+  .detail-card:nth-child(n+4){border-top:1px solid rgba(255,255,255,.25)}
 }
 
+/* MÓVIL */
+@media(max-width:700px){
+  body{
+    padding-left:24px;
+  }
+
+  .film-rail{
+    width:24px;
+  }
+
+  .film-rail span{
+    flex-basis:20px;
+    width:14px;
+    border-radius:3px;
+  }
+
+  .wrap{width:min(100% - 36px,620px)}
+  .navlinks{display:none;position:absolute;top:69px;right:18px;background:var(--black);border:1px solid rgba(255,255,255,.4);padding:18px;flex-direction:column;gap:18px}
+  .navlinks.open{display:flex}
+  .menu{display:block}
+  .intro-layout{grid-template-columns:1fr;grid-template-rows:auto auto auto;grid-template-areas:"hero" "photo" "reveal";gap:0}
+  .hero-copy{padding:54px 0 24px;min-height:0}
+  .hero-copy h1{font-size:clamp(52px,13vw,76px)}
+  .hero-art{padding:35px 8px 35px;min-height:0}
+  .hero-art:before{top:10px;right:4px}
+  .photo-window{box-shadow:7px 7px 0 var(--black)}
+  .hero-status{right:0;bottom:18px}
+  .reveal-copy{padding:30px 0 48px}
+  section.content{padding:70px 0}
+  .section-head{display:block;margin-bottom:28px}
+  .section-head p{margin-top:16px}
+  .price-grid{grid-template-columns:1fr}
+  .price-card{min-height:250px}
+  .card-body{min-height:170px}
+  .detail-grid{grid-template-columns:1fr 1fr}
+  .detail-card{min-height:170px;border-top:1px solid rgba(255,255,255,.25)}
+  .detail-card:nth-child(odd){border-right:1px solid rgba(255,255,255,.25)}
+  .detail-card:nth-child(even){border-right:0}
+  .detail-card:nth-child(-n+2){border-top:0}
+  .social-panel{grid-template-columns:1fr;gap:22px;padding:28px 0}
+  .social .button{justify-self:start}
+  .order-window{box-shadow:6px 6px 0 var(--black)}
+}
+
+@media(max-width:520px){
+  .wrap{width:calc(100% - 30px)}
+  .hero-copy h1{font-size:54px}
+  .fields{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .iso-grid{grid-template-columns:1fr}
+  .pack{grid-template-columns:20px 1fr auto;padding:12px}
+  .pack:has(input:checked){padding:11px}
+  .pack b{font-size:20px}
+  .photo-frame{padding:10px}
+  .photo-caption{font-size:8px}
+  .footer-inner{align-items:flex-start;flex-direction:column}
+  .detail-card{padding:16px 13px}
+  .detail-card p{font-size:12px}
+}
 </style>
 </head>
 <body>
+
+<!-- PERFORACIONES DEL CARRETE EN EL LATERAL -->
+<div class="film-rail" aria-hidden="true">
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+</div>
+
 <header class="topbar">
   <div class="wrap nav">
     <a class="brand" href="#inicio">TOMATE<b>LAB</b></a>
@@ -273,6 +285,7 @@ section.content{padding:94px 0}
         <p>Revelado y escaneado de fotografía analógica en blanco y negro. Tú disparas; nosotros nos encargamos del resto.</p>
         <a class="button" href="#servicios">Explorar servicios <span>↘</span></a>
       </div>
+
       <div class="hero-art" id="revealStage">
         <div class="window photo-window">
           <div class="windowbar"><span>FOTOGRAMA / 001</span><span>35 MM</span></div>
@@ -284,6 +297,7 @@ section.content{padding:94px 0}
         </div>
         <div class="hero-status">FOTOGRAFÍA ANALÓGICA</div>
       </div>
+
       <div class="reveal-copy">
         <div class="eyebrow">01 / DEL NEGATIVO AL POSITIVO</div>
         <h2>El blanco y negro tiene mucho que decir.</h2>
@@ -298,23 +312,27 @@ section.content{padding:94px 0}
         <div><div class="tag">02 / NUESTROS PACKS</div><h2>No pares de disparar.<br>Sigue experimentando.</h2></div>
         <p>Revelamos y escaneamos tus carretes en blanco y negro. Elige la opción que mejor encaje con tu próxima sesión.</p>
       </div>
+
       <div class="price-grid">
         <article class="price-card">
           <div class="card-top"><span>PACK 01</span><span>REVELADO + ESCANEADO</span></div>
           <div class="card-body"><h3>Sin carrete</h3><p>Revelado y escaneado de tu propio carrete.</p><div class="price">16 <small>€</small></div></div>
           <div class="card-bottom"></div>
         </article>
+
         <article class="price-card">
           <div class="card-top"><span>PACK 02</span><span>+ 1 CARRETE</span></div>
           <div class="card-body"><h3>+1 carrete</h3><p>Revelado, escaneado y un carrete nuevo.</p><div class="price">22 <small>€</small></div></div>
           <div class="card-bottom"></div>
         </article>
+
         <article class="price-card">
           <div class="card-top"><span>PACK 03</span><span>+ 3 CARRETES</span></div>
           <div class="card-body"><h3>+3 carretes</h3><p>Revelado, escaneado y tres carretes nuevos.</p><div class="price">34 <small>€</small></div></div>
           <div class="card-bottom"></div>
         </article>
       </div>
+
       <p class="order-intro" style="margin:30px auto 0;text-align:center">¿Tienes más carretes? Cada revelado adicional cuesta <strong>13 €</strong>.</p>
     </div>
   </section>
@@ -325,6 +343,7 @@ section.content{padding:94px 0}
         <div><div class="tag">03 / EL LABORATORIO</div><h2>El laboratorio, en pocas palabras.</h2></div>
         <p>Información práctica para que sepas qué ocurre con tus carretes desde que llegan hasta que vuelven a casa.</p>
       </div>
+
       <div class="detail-grid">
         <article class="detail-card"><span class="detail-num">01</span><p>La devolución de tus negativos está incluida.</p></article>
         <article class="detail-card"><span class="detail-num">02</span><p>Recibirás tus fotografías escaneadas a través de un enlace de descarga.</p></article>
@@ -343,13 +362,13 @@ section.content{padding:94px 0}
       </div>
     </div>
   </section>
-
-  <section class="content order" id="pedido">
+    <section class="content order" id="pedido">
     <div class="wrap">
       <div class="section-head">
         <div><div class="tag">05 / TU PEDIDO</div><h2>REVELA <span style="color:var(--red)">+</span> REPITE.</h2></div>
         <p>Elige tu pack y déjanos tus datos. Prepararemos el siguiente paso para que tu carrete llegue al laboratorio.</p>
       </div>
+
       <p class="order-intro">Completa el formulario para configurar tu pedido.</p>
 
       <div class="window order-window">
@@ -365,28 +384,42 @@ section.content{padding:94px 0}
                 <div class="field full"><label for="customerAddress">Dirección para la devolución de tus negativos</label><textarea id="customerAddress" name="direccion_devolucion" autocomplete="street-address" placeholder="Calle, número, piso, código postal, localidad y provincia" required></textarea></div>
               </div>
             </div>
+
             <div class="form-section">
               <h3>02 / Formato de los carretes que envías</h3>
               <div class="field"><label for="filmFormat">Formato</label><input id="filmFormat" name="formato_carrete" placeholder="Ej. 35 mm" required><small>Indica el formato de los carretes que enviarás.</small></div>
             </div>
-                        <div class="form-section">
+
+            <div class="form-section">
               <h3>03 / Selecciona tu pack</h3>
               <div class="packs">
                 <label class="pack"><input type="radio" name="pack" value="sin" required><span><strong>Sin carrete</strong><small>Revelado y escaneado de tu propio carrete.</small></span><b>16 €</b></label>
                 <label class="pack"><input type="radio" name="pack" value="uno"><span><strong>+1 carrete</strong><small>Revelado, escaneado y un carrete nuevo.</small></span><b>22 €</b></label>
                 <label class="pack"><input type="radio" name="pack" value="tres"><span><strong>+3 carretes</strong><small>Revelado, escaneado y tres carretes nuevos.</small></span><b>34 €</b></label>
               </div>
+
               <div class="field" style="margin-top:20px;max-width:420px">
                 <label for="extraFilms">¿Cuántos carretes adicionales quieres revelar? (+13 € cada uno)</label>
                 <input id="extraFilms" name="carretes_adicionales" type="number" min="0" step="1" value="0" inputmode="numeric">
                 <small>El pack ya incluye el revelado de un carrete. Aquí puedes añadir otros carretes propios.</small>
               </div>
-              <div class="iso-panel" id="isoOne"><h4>Selecciona la sensibilidad del carrete nuevo</h4><div class="iso-grid"><div class="field"><label for="isoSingle">Carrete 1</label><select id="isoSingle" name="iso_uno"><option value="">Seleccionar ISO</option><option>100</option><option>200</option><option>400</option></select></div></div></div>
-              <div class="iso-panel" id="isoThree"><h4>Selecciona la sensibilidad de cada carrete nuevo</h4><div class="iso-grid">
-                <div class="field"><label for="isoThree1">Carrete 1</label><select id="isoThree1" name="iso_tres_1"><option value="">Seleccionar ISO</option><option>100</option><option>200</option><option>400</option></select></div>
-                <div class="field"><label for="isoThree2">Carrete 2</label><select id="isoThree2" name="iso_tres_2"><option value="">Seleccionar ISO</option><option>100</option><option>200</option><option>400</option></select></div>
-                <div class="field"><label for="isoThree3">Carrete 3</label><select id="isoThree3" name="iso_tres_3"><option value="">Seleccionar ISO</option><option>100</option><option>200</option><option>400</option></select></div>
-              </div></div>
+
+              <div class="iso-panel" id="isoOne">
+                <h4>Selecciona la sensibilidad del carrete nuevo</h4>
+                <div class="iso-grid">
+                  <div class="field"><label for="isoSingle">Carrete 1</label><select id="isoSingle" name="iso_uno"><option value="">Seleccionar ISO</option><option>100</option><option>200</option><option>400</option></select></div>
+                </div>
+              </div>
+
+              <div class="iso-panel" id="isoThree">
+                <h4>Selecciona la sensibilidad de cada carrete nuevo</h4>
+                <div class="iso-grid">
+                  <div class="field"><label for="isoThree1">Carrete 1</label><select id="isoThree1" name="iso_tres_1"><option value="">Seleccionar ISO</option><option>100</option><option>200</option><option>400</option></select></div>
+                  <div class="field"><label for="isoThree2">Carrete 2</label><select id="isoThree2" name="iso_tres_2"><option value="">Seleccionar ISO</option><option>100</option><option>200</option><option>400</option></select></div>
+                  <div class="field"><label for="isoThree3">Carrete 3</label><select id="isoThree3" name="iso_tres_3"><option value="">Seleccionar ISO</option><option>100</option><option>200</option><option>400</option></select></div>
+                </div>
+              </div>
+
               <div class="summary">
                 <h4>Resumen del pedido</h4>
                 <div class="summary-line"><span>Pack</span><span id="summaryPack">—</span></div>
@@ -396,6 +429,7 @@ section.content{padding:94px 0}
                 <div class="summary-total"><span>Total</span><span id="summaryTotal">— €</span></div>
               </div>
             </div>
+
             <div class="form-section">
               <h3>04 / Método de pago</h3>
               <div class="payment"><strong>Transferencia bancaria</strong>El único método de pago disponible por el momento es la transferencia bancaria. Dispondrás de 24 horas para realizar el pago. Si no recibimos la transferencia dentro de ese plazo, el pedido quedará anulado.<br><br>Los datos bancarios y las instrucciones de pago aparecerán al finalizar el pedido.</div>
@@ -409,6 +443,7 @@ section.content{padding:94px 0}
       </div>
     </div>
   </section>
+
   <section class="closing">
     <p>Un saludo desde Los Palacios y Villafranca <span class="tomato" aria-label="tomate">🍅</span></p>
   </section>
@@ -440,11 +475,13 @@ section.content{padding:94px 0}
 <script>
 const menuButton=document.getElementById("menuButton");
 const navLinks=document.getElementById("navLinks");
+
 menuButton.addEventListener("click",()=>{
   const opened=navLinks.classList.toggle("open");
   menuButton.setAttribute("aria-expanded",String(opened));
   menuButton.textContent=opened?"CERRAR −":"MENÚ +";
 });
+
 navLinks.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{
   navLinks.classList.remove("open");
   menuButton.setAttribute("aria-expanded","false");
@@ -452,7 +489,6 @@ navLinks.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{
 }));
 
 // La fotografía se revela automáticamente en cinco segundos mediante la animación CSS.
-
 // Selección de pack, carretes adicionales e IVA incluido.
 const radios=[...document.querySelectorAll('input[name="pack"]')];
 const one=document.getElementById("isoOne"),three=document.getElementById("isoThree");
@@ -465,6 +501,7 @@ const summaryExtras=document.getElementById("summaryExtras");
 const summaryBase=document.getElementById("summaryBase");
 const summaryVat=document.getElementById("summaryVat");
 const summaryTotal=document.getElementById("summaryTotal");
+
 const money=value=>value.toLocaleString("es-ES",{style:"currency",currency:"EUR"});
 
 function updatePack(){
@@ -497,10 +534,12 @@ function updatePack(){
 }
 
 radios.forEach(r=>r.addEventListener("change",updatePack));
+
 extraFilms.addEventListener("input",()=>{
   if(extraFilms.value!==""&&Number(extraFilms.value)<0)extraFilms.value="0";
   updatePack();
 });
+
 updatePack();
 
 // Preparado para conectarse a un backend. No se debe mostrar hasta que el pedido
@@ -511,11 +550,13 @@ function showOrderConfirmation(orderNumber){
   document.getElementById("orderConfirmation").hidden=false;
   document.getElementById("closeConfirmation").focus();
 }
+
 window.showOrderConfirmation=showOrderConfirmation;
 
 document.getElementById("closeConfirmation").addEventListener("click",()=>{
   document.getElementById("orderConfirmation").hidden=true;
 });
 </script>
+
 </body>
 </html>
