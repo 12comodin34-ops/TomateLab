@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -28,7 +29,7 @@ a{color:inherit}
 button,input,select,textarea{font:inherit}
 button,a{-webkit-tap-highlight-color:transparent}
 .grain{
-  position:fixed;inset:0;z-index:20;pointer-events:none;opacity:.29;
+  position:fixed;inset:0;z-index:20;pointer-events:none;opacity:.13;
   background-image:
     url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='4' seed='17' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='.72'/%3E%3C/svg%3E"),
     radial-gradient(ellipse at 16% 20%,rgba(227,59,50,.10),transparent 43%),
@@ -46,14 +47,41 @@ button,a{-webkit-tap-highlight-color:transparent}
 .navlinks a{font:600 11px var(--sans);text-decoration:none;text-transform:uppercase;letter-spacing:.1em}
 .navlinks a:hover{color:#ff766d}
 .menu{display:none;background:none;border:1px solid rgba(245,243,235,.65);color:var(--white);padding:8px 12px;font:600 11px var(--sans);letter-spacing:.08em}
-/* Marcos fotográficos: líneas finas, sin ventanas de ordenador */
+
+/* Marcos fotográficos */
 .window{background:var(--white);border:1px solid rgba(21,21,21,.35);box-shadow:0 12px 35px rgba(21,21,21,.08)}
 .windowbar{min-height:34px;background:var(--black);color:var(--white);display:flex;align-items:center;justify-content:space-between;padding:8px 14px;font:700 10px var(--mono);letter-spacing:.12em;text-transform:uppercase}
 .windowbar .lights{display:none}
-/* Apertura: degradados cromáticos con grano fotográfico irregular */
-.intro-story{position:relative;overflow:clip;background-color:var(--white);background-image:radial-gradient(ellipse at 7% 17%,rgba(227,59,50,.48),transparent 39%),radial-gradient(ellipse at 91% 38%,rgba(40,116,71,.43),transparent 43%),radial-gradient(ellipse at 52% 92%,rgba(21,21,21,.24),transparent 48%),linear-gradient(118deg,rgba(245,243,235,.92),rgba(233,230,220,.48) 48%,rgba(245,243,235,.86))}
-.intro-story:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.78;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' seed='19' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");background-size:125px 125px;mix-blend-mode:multiply;mask-image:radial-gradient(ellipse at 7% 17%,#000 0%,transparent 40%),radial-gradient(ellipse at 91% 38%,#000 0%,transparent 44%),radial-gradient(ellipse at 52% 92%,#000 0%,transparent 48%);mask-composite:add}
-.intro-layout{position:relative;display:grid;grid-template-columns:.9fr 1.1fr;grid-template-rows:85vh 85vh;grid-template-areas:"hero photo" "reveal photo";gap:0 46px;align-items:stretch}
+
+/* Apertura: degradados suaves y grano orgánico */
+.intro-story{
+  position:relative;
+  overflow:clip;
+  background-color:var(--white);
+  background-image:
+    radial-gradient(ellipse at 8% 18%,rgba(227,59,50,.13),transparent 36%),
+    radial-gradient(ellipse at 91% 76%,rgba(40,116,71,.12),transparent 40%),
+    linear-gradient(118deg,#f5f3eb 0%,#e9e6dc 52%,#f5f3eb 100%);
+}
+.intro-story:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.24;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='4' seed='19' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size:190px 190px;
+  mix-blend-mode:multiply;
+}
+.intro-layout{
+  position:relative;
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+  grid-template-rows:minmax(620px,85vh) minmax(420px,65vh);
+  grid-template-areas:"hero photo" "reveal .";
+  gap:0 46px;
+  align-items:stretch;
+}
 .hero-copy{grid-area:hero;min-width:0;min-height:85vh;padding:42px 0;display:flex;flex-direction:column;justify-content:center}
 .eyebrow{font:700 10px var(--mono);letter-spacing:.13em;text-transform:uppercase;display:flex;align-items:center;gap:10px}
 .led{width:7px;height:7px;background:var(--green);display:inline-block;border-radius:50%}
@@ -62,14 +90,64 @@ button,a{-webkit-tap-highlight-color:transparent}
 .hero-copy>p{font-size:16px;max-width:460px;margin:0 0 30px;color:#45433f}
 .button{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:13px 18px;background:var(--red);color:white;border:1px solid var(--red);font:700 11px var(--mono);text-transform:uppercase;text-decoration:none;letter-spacing:.08em;transition:background .2s,color .2s}
 .button:hover{background:var(--black);border-color:var(--black)}
-.hero-art{grid-area:photo;grid-row:1 / 3;position:sticky;top:105px;align-self:start;height:calc(100vh - 145px);min-height:430px;display:flex;align-items:center;padding:20px 18px 26px;z-index:1}
-.hero-art:before{content:"";position:absolute;inset:4% -8%;background:radial-gradient(ellipse at 13% 24%,rgba(227,59,50,.48),transparent 43%),radial-gradient(ellipse at 86% 78%,rgba(40,116,71,.42),transparent 47%),radial-gradient(ellipse at 50% 50%,rgba(21,21,21,.20),transparent 62%);filter:blur(24px);transform:rotate(-5deg);pointer-events:none}
-.hero-art:after{content:"";position:absolute;inset:3% -7%;z-index:0;pointer-events:none;opacity:.62;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='film'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.96' numOctaves='3' seed='27' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23film)'/%3E%3C/svg%3E");background-size:115px 115px;mix-blend-mode:multiply;mask-image:radial-gradient(ellipse at 13% 24%,#000 0%,transparent 44%),radial-gradient(ellipse at 86% 78%,#000 0%,transparent 48%),radial-gradient(ellipse at 50% 50%,#000 0%,transparent 62%);mask-composite:add}
+
+/* Fotografía: posición normal, sin sticky ni desplazamiento por scroll */
+.hero-art{
+  grid-area:photo;
+  position:relative;
+  top:auto;
+  align-self:center;
+  height:min(72vh,680px);
+  min-height:430px;
+  display:flex;
+  align-items:center;
+  padding:20px 18px 26px;
+  z-index:1;
+}
+.hero-art:before{
+  content:"";
+  position:absolute;
+  inset:4% -7%;
+  background:
+    radial-gradient(ellipse at 18% 24%,rgba(227,59,50,.17),transparent 40%),
+    radial-gradient(ellipse at 84% 78%,rgba(40,116,71,.16),transparent 43%),
+    radial-gradient(ellipse at 52% 48%,rgba(21,21,21,.13),transparent 65%);
+  filter:blur(16px);
+  transform:rotate(-5deg);
+  pointer-events:none;
+}
+.hero-art:after{
+  content:"";
+  position:absolute;
+  inset:3% -7%;
+  z-index:0;
+  pointer-events:none;
+  opacity:.22;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='film'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' seed='27' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23film)'/%3E%3C/svg%3E");
+  background-size:170px 170px;
+  mix-blend-mode:multiply;
+}
 .photo-window{position:relative;z-index:1;width:100%;transform:rotate(-.6deg);background:var(--black);box-shadow:0 22px 55px rgba(21,21,21,.2)}
 .photo-frame{padding:15px;background:#171717;position:relative;overflow:hidden}
-.photo-frame img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;filter:grayscale(1) invert(1) contrast(1.12);background:#555;will-change:filter;transition:none}
-.reveal-sweep{position:absolute;z-index:2;top:15px;bottom:45px;left:calc(var(--reveal-progress,0) * 100% - 13%);width:27%;pointer-events:none;opacity:.78;background:radial-gradient(ellipse at 45% 50%,rgba(245,243,235,.48),rgba(227,59,50,.20) 34%,rgba(40,116,71,.16) 58%,transparent 76%);filter:blur(13px);mix-blend-mode:screen}
-.reveal-sweep:after{content:"";position:absolute;inset:-10px;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='5' seed='31' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)' opacity='.95'/%3E%3C/svg%3E");background-size:95px 95px;opacity:.7;mix-blend-mode:soft-light}
+
+/* Revelado automático de negativo a positivo en cinco segundos */
+@keyframes filmDevelop{
+  0%{filter:grayscale(1) invert(1) contrast(1.08)}
+  100%{filter:grayscale(1) invert(0) contrast(1.08)}
+}
+.photo-frame img{
+  display:block;
+  width:100%;
+  aspect-ratio:4/3;
+  object-fit:cover;
+  filter:grayscale(1) invert(1) contrast(1.08);
+  animation:filmDevelop 5s ease-in-out forwards;
+  background:#555;
+  will-change:filter;
+}
+@media(prefers-reduced-motion:reduce){
+  .photo-frame img{animation:none;filter:grayscale(1) contrast(1.08)}
+}
 .photo-caption{display:flex;justify-content:space-between;gap:12px;color:var(--white);padding-top:12px;font:700 9px var(--mono);letter-spacing:.1em;text-transform:uppercase}
 .film-edge{display:flex;justify-content:space-between;gap:7px;padding:8px 10px;background:var(--black)}
 .film-edge span{height:12px;flex:1;border:1px solid rgba(245,243,235,.75);border-radius:2px;opacity:.75}
@@ -77,9 +155,7 @@ button,a{-webkit-tap-highlight-color:transparent}
 .reveal-copy{grid-area:reveal;min-width:0;min-height:85vh;padding:45px 0;display:flex;flex-direction:column;justify-content:center;position:relative}
 .reveal-copy h2{font:600 clamp(40px,5vw,64px)/1.02 var(--display);letter-spacing:-.05em;margin:15px 0 20px;max-width:460px}
 .reveal-copy p{max-width:390px;color:#45433f}
-.reveal-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;max-width:330px;font:700 9px var(--mono);letter-spacing:.1em;text-transform:uppercase}
-.reveal-track{height:2px;background:rgba(21,21,21,.22);flex:1}
-.reveal-track span{display:block;height:100%;width:0;background:var(--red)}
+
 /* Secciones */
 section.content{padding:90px 0}
 .section-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:38px}
@@ -87,12 +163,29 @@ section.content{padding:90px 0}
 .section-head p{max-width:390px;margin:0;font-size:14px;color:#55524c}
 .tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;display:inline-flex;align-items:center;gap:9px}
 .tag:before{content:"";width:20px;height:1px;background:var(--red)}
+
 /* Precios */
 .pricing{background:var(--paper)}
 .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.price-card{border:1px solid rgba(21,21,21,.35);background-color:var(--white);background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' seed='33' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='.34'/%3E%3C/svg%3E"),radial-gradient(ellipse at 100% 100%,rgba(21,21,21,.10),transparent 66%);background-size:145px 145px,cover;background-blend-mode:soft-light,normal;position:relative;overflow:hidden}
-.price-card:nth-child(2){background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='5' seed='37' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='.42'/%3E%3C/svg%3E"),radial-gradient(ellipse at 12% 15%,rgba(227,59,50,.30),transparent 58%),linear-gradient(145deg,rgba(255,255,255,.90),rgba(233,230,220,.78));background-size:145px 145px,cover,cover;background-blend-mode:soft-light,normal,normal}
-.price-card:nth-child(3){background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='5' seed='41' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='.42'/%3E%3C/svg%3E"),radial-gradient(ellipse at 88% 18%,rgba(40,116,71,.34),transparent 58%),linear-gradient(145deg,rgba(255,255,255,.90),rgba(224,226,216,.78));background-size:145px 145px,cover,cover;background-blend-mode:soft-light,normal,normal}
+.price-card{
+  border:1px solid rgba(21,21,21,.35);
+  background-color:var(--white);
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' seed='33' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='.30'/%3E%3C/svg%3E"),radial-gradient(ellipse at 100% 100%,rgba(21,21,21,.075),transparent 68%);
+  background-size:165px 165px,cover;
+  background-blend-mode:soft-light,normal;
+  position:relative;
+  overflow:hidden;
+}
+.price-card:nth-child(2){
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='4' seed='37' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain2)' opacity='.28'/%3E%3C/svg%3E"),radial-gradient(ellipse at 12% 15%,rgba(227,59,50,.11),transparent 58%),linear-gradient(145deg,rgba(255,255,255,.92),rgba(233,230,220,.82));
+  background-size:165px 165px,cover,cover;
+  background-blend-mode:soft-light,normal,normal;
+}
+.price-card:nth-child(3){
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain3'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' seed='41' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain3)' opacity='.28'/%3E%3C/svg%3E"),radial-gradient(ellipse at 88% 18%,rgba(40,116,71,.12),transparent 58%),linear-gradient(145deg,rgba(255,255,255,.92),rgba(233,230,220,.82));
+  background-size:165px 165px,cover,cover;
+  background-blend-mode:soft-light,normal,normal;
+}
 .card-top{padding:12px 16px;background:var(--black);color:white;font:700 9px var(--mono);letter-spacing:.12em;text-transform:uppercase;display:flex;justify-content:space-between}
 .card-body{padding:25px 22px 26px;min-height:195px;display:flex;flex-direction:column}
 .card-body h3{font:600 30px/1 var(--display);margin:0 0 10px}
@@ -100,28 +193,59 @@ section.content{padding:90px 0}
 .price{font:600 43px/1 var(--display);margin-top:auto;padding-top:25px;letter-spacing:-.02em}
 .price small{font:500 16px var(--sans)}
 .card-bottom{height:9px;background:linear-gradient(90deg,rgba(21,21,21,.05),rgba(21,21,21,.18),rgba(21,21,21,.04))}
+
 /* Laboratorio */
-.details{background-color:var(--black);background-image:radial-gradient(ellipse at 4% 88%,rgba(227,59,50,.20),transparent 42%),radial-gradient(ellipse at 92% 14%,rgba(40,116,71,.34),transparent 48%),linear-gradient(125deg,#151515,#1c211d 58%,#151515);color:var(--white);position:relative;overflow:hidden}
-.details:after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.28;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='darkgrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.76' numOctaves='5' seed='47' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23darkgrain)'/%3E%3C/svg%3E");background-size:165px 165px;mix-blend-mode:soft-light}
+.details{
+  background-color:var(--black);
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 190 190' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='darkgrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.76' numOctaves='4' seed='47' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23darkgrain)' opacity='.20'/%3E%3C/svg%3E"),radial-gradient(ellipse at 4% 88%,rgba(227,59,50,.10),transparent 42%),radial-gradient(ellipse at 92% 14%,rgba(40,116,71,.13),transparent 48%),linear-gradient(125deg,#151515,#1a1c19 58%,#151515);
+  background-size:180px 180px,cover,cover,cover;
+  background-blend-mode:soft-light,normal,normal,normal;
+  color:var(--white);
+  position:relative;
+  overflow:hidden;
+}
+.details:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.28;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='darkgrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.76' numOctaves='5' seed='47' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23darkgrain)'/%3E%3C/svg%3E");
+  background-size:165px 165px;
+  mix-blend-mode:soft-light;
+}
 .details .section-head{position:relative;z-index:1}
 .details .section-head p{color:rgba(245,243,235,.68)}
 .details .tag:before{background:var(--green)}
 .detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 28px;position:relative;z-index:1;border-top:1px solid rgba(245,243,235,.28)}
-.detail-card{position:relative;min-height:142px;margin:14px 0;padding:31px 34px;display:flex;align-items:center;background:radial-gradient(ellipse at 92% 15%,rgba(40,116,71,.25),transparent 58%),linear-gradient(110deg,rgba(245,243,235,.075),rgba(245,243,235,.025));border:1px solid rgba(245,243,235,.52);box-shadow:inset 0 0 0 4px rgba(245,243,235,.035);overflow:hidden}
-.detail-card:nth-child(3n + 2){background:radial-gradient(ellipse at 8% 80%,rgba(227,59,50,.22),transparent 58%),linear-gradient(110deg,rgba(245,243,235,.075),rgba(245,243,235,.025))}
-.detail-card:nth-child(3n){background:radial-gradient(ellipse at 82% 15%,rgba(40,116,71,.28),transparent 58%),linear-gradient(110deg,rgba(245,243,235,.075),rgba(245,243,235,.025))}
+.detail-card{position:relative;min-height:142px;margin:14px 0;padding:31px 34px;display:flex;align-items:center;background:radial-gradient(ellipse at 92% 15%,rgba(40,116,71,.10),transparent 58%),linear-gradient(110deg,rgba(245,243,235,.065),rgba(245,243,235,.018));border:1px solid rgba(245,243,235,.52);box-shadow:inset 0 0 0 4px rgba(245,243,235,.025);overflow:hidden}
+.detail-card:nth-child(3n + 2){background:radial-gradient(ellipse at 8% 80%,rgba(227,59,50,.09),transparent 58%),linear-gradient(110deg,rgba(245,243,235,.065),rgba(245,243,235,.018))}
+.detail-card:nth-child(3n){background:radial-gradient(ellipse at 82% 15%,rgba(40,116,71,.11),transparent 58%),linear-gradient(110deg,rgba(245,243,235,.065),rgba(245,243,235,.018))}
 .detail-card:before,.detail-card:after{content:"";position:absolute;left:14px;right:14px;height:8px;border:0;border-radius:2px;background:repeating-linear-gradient(to right,transparent 0 7px,rgba(245,243,235,.92) 7px 19px,transparent 19px 30px);opacity:.9}
 .detail-card:before{top:9px}.detail-card:after{bottom:9px}
 .detail-num{position:absolute;right:29px;top:13px;font:700 9px var(--mono);color:#8cc49b;letter-spacing:.1em}
 .detail-card p{margin:0;padding-right:34px;font-size:15px;line-height:1.55;color:rgba(245,243,235,.94);max-width:470px}
+
 /* Instagram */
-.social{background-color:var(--white);color:var(--black);background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 190 190' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='socialgrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.74' numOctaves='5' seed='53' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23socialgrain)' opacity='.28'/%3E%3C/svg%3E"),radial-gradient(ellipse at 8% 50%,rgba(227,59,50,.22),transparent 46%),radial-gradient(ellipse at 92% 50%,rgba(40,116,71,.22),transparent 46%);background-size:155px 155px,cover,cover;background-blend-mode:soft-light,normal,normal}
+.social{
+  background-color:var(--white);
+  color:var(--black);
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 190 190' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='socialgrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.74' numOctaves='4' seed='53' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23socialgrain)' opacity='.22'/%3E%3C/svg%3E"),radial-gradient(ellipse at 8% 50%,rgba(227,59,50,.10),transparent 46%),radial-gradient(ellipse at 92% 50%,rgba(40,116,71,.10),transparent 46%);
+  background-size:170px 170px,cover,cover;
+  background-blend-mode:soft-light,normal,normal;
+}
 .social-panel{display:grid;grid-template-columns:1fr auto;gap:35px;align-items:center;padding:38px 0;border-top:1px solid rgba(21,21,21,.35);border-bottom:1px solid rgba(21,21,21,.35);background:transparent;color:var(--black)}
 .social h2{font:600 clamp(38px,4.8vw,60px)/1.02 var(--display);letter-spacing:-.02em;margin:12px 0 16px;max-width:760px}
-  .social p{max-width:550px;margin:0;font-size:14px;color:#55524c}
+.social p{max-width:550px;margin:0;font-size:14px;color:#55524c}
 .social .button{white-space:nowrap}
+
 /* Pedido */
-.order{background-color:var(--paper);background-image:radial-gradient(ellipse at 0% 18%,rgba(227,59,50,.15),transparent 34%),radial-gradient(ellipse at 100% 82%,rgba(40,116,71,.16),transparent 38%)}
+.order{
+  background-color:var(--paper);
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 190 190' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='ordergrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.74' numOctaves='4' seed='61' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23ordergrain)' opacity='.20'/%3E%3C/svg%3E"),radial-gradient(ellipse at 0% 18%,rgba(227,59,50,.09),transparent 36%),radial-gradient(ellipse at 100% 82%,rgba(40,116,71,.10),transparent 38%);
+  background-size:170px 170px,cover,cover;
+  background-blend-mode:soft-light,normal,normal;
+}
 .order-intro{max-width:620px;margin:-12px 0 35px;color:#55524c}
 .order-window{max-width:900px;margin:0 auto}
 .order-window .windowbar{background:var(--black)}
@@ -159,6 +283,7 @@ section.content{padding:90px 0}
 .consent input{margin-top:4px;accent-color:var(--green)}
 .submit{width:100%;margin-top:23px;padding:16px;background:var(--red);color:white;border:1px solid var(--red);font:700 11px var(--sans);text-transform:uppercase;letter-spacing:.1em;opacity:.55;cursor:not-allowed}
 .form-note{font-size:11px;color:#666;margin:12px 0 0}
+
 /* Pie */
 .footer{background:var(--black);color:var(--white);padding:35px 0}
 .footer-inner{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
@@ -168,473 +293,17 @@ section.content{padding:90px 0}
 .closing{padding:34px 20px;background:var(--red);color:var(--white);text-align:center;border-top:1px solid var(--black)}
 .closing p{margin:0;font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase}
 .closing .tomato{display:inline-block;margin-left:7px;font-size:22px;vertical-align:middle}
+
+/* Confirmación */
+.modal[hidden]{display:none}
+.modal{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.82);display:grid;place-items:center;padding:20px}
+.modal-box{width:min(620px,100%);background:var(--white);border:1px solid var(--black);padding:clamp(24px,5vw,42px)}
+.modal-box h2{font:600 clamp(38px,5vw,58px)/1.02 var(--display);margin:15px 0}
+.modal-box p,.modal-box li{font-size:14px;line-height:1.7}
+.modal-box ul{padding-left:20px;margin:16px 0}
+
 @media(max-width:800px){
   .wrap{width:min(100% - 36px,620px)}
   .intro-layout{grid-template-columns:1fr;grid-template-rows:auto auto auto;grid-template-areas:"hero" "photo" "reveal";gap:0}
   .hero-copy{min-height:54vh;padding:42px 0 24px}
-  .hero-art{grid-row:auto;position:sticky;top:82px;height:auto;min-height:0;align-self:start;margin:0 8px;padding:10px 10px 20px}
-  .reveal-copy{min-height:48vh;padding:48px 0 58px}
-  .intro-story{padding-bottom:40vh}
-  .section-head{display:block;text-align:left!important}
-  .section-head p{margin-top:16px;text-align:left!important}
-  .price-grid{grid-template-columns:1fr}
-  .card-body{min-height:150px}
-  .detail-grid{grid-template-columns:1fr}
-  .social-panel{grid-template-columns:1fr;gap:22px}
-  .social .button{justify-self:start}
-  .navlinks{display:none;position:absolute;top:69px;right:18px;background:var(--black);border:1px solid rgba(245,243,235,.5);padding:18px;flex-direction:column;gap:18px}
-  .navlinks.open{display:flex}
-  .menu{display:block}
-}
-@media(max-width:520px){
-  .wrap{width:calc(100% - 30px)}
-  .hero-copy h1{font-size:54px}
-  section.content{padding:68px 0}
-  .hero-copy{min-height:54vh}
-  .hero-art{top:76px}
-  .reveal-copy{min-height:44vh}
-  .fields{grid-template-columns:1fr}
-  .field.full{grid-column:auto}
-  .iso-grid{grid-template-columns:1fr}
-  .pack{grid-template-columns:20px 1fr auto;padding:12px}
-  .pack b{font-size:20px}
-  .photo-frame{padding:10px}
-  .photo-caption{font-size:8px}
-  .footer-inner{align-items:flex-start;flex-direction:column}
-}
-/* TOMATELAB — AJUSTE DE COMPOSICIÓN */
-.intro-layout{
-  grid-template-columns:.9fr 1.1fr;
-  grid-template-rows:minmax(85vh,auto) auto;
-  grid-template-areas:
-    "hero photo"
-    "reveal reveal";
-  align-items:stretch;
-}
-
-.hero-copy{
-  min-height:85vh;
-}
-
-.hero-art{
-  grid-row:auto;
-  position:relative;
-  top:auto;
-  align-self:center;
-  height:auto;
-  min-height:430px;
-}
-
-.reveal-copy{
-  min-height:42vh;
-}
-
-@media(max-width:800px){
-  .intro-layout{
-    grid-template-columns:1fr;
-    grid-template-rows:auto auto auto;
-    grid-template-areas:
-      "hero"
-      "photo"
-      "reveal";
-  }
-
-  .hero-art{
-    position:relative;
-    top:auto;
-    height:auto;
-    min-height:0;
-    margin:0 8px;
-  }
-
-  .intro-story{
-    padding-bottom:0;
-  }
-}
-  /* TOMATELAB — DEGRADADOS ORGÁNICOS */
-
-/* Fondo principal */
-.intro-story{
-  background-color:var(--black);
-  background-image:
-    radial-gradient(ellipse at 12% 35%,
-      rgba(227,59,50,.95) 0%,
-      rgba(227,59,50,.48) 22%,
-      transparent 52%),
-    radial-gradient(ellipse at 82% 18%,
-      rgba(40,116,71,.95) 0%,
-      rgba(40,116,71,.52) 25%,
-      transparent 58%),
-    radial-gradient(ellipse at 60% 88%,
-      rgba(245,243,235,.34) 0%,
-      transparent 42%),
-    linear-gradient(125deg,#151515,#287447 48%,#151515);
-
-  background-size:160% 160%;
-  background-position:center;
-}
-
-/* Grano más visible y orgánico */
-.intro-story:before{
-  opacity:.9;
-  background-size:105px 105px;
-  mix-blend-mode:soft-light;
-}
-
-/* Resplandor detrás de la fotografía */
-.hero-art:before{
-  inset:-8% -12%;
-  background:
-    radial-gradient(ellipse at 15% 25%,
-      rgba(227,59,50,.95),transparent 48%),
-    radial-gradient(ellipse at 85% 25%,
-      rgba(40,116,71,.95),transparent 48%),
-    radial-gradient(ellipse at 50% 85%,
-      rgba(245,243,235,.42),transparent 55%),
-    radial-gradient(ellipse at 50% 50%,
-      rgba(21,21,21,.8),transparent 70%);
-  filter:blur(38px);
-  transform:rotate(-5deg);
-}
-
-/* Tarjetas con manchas de color difuminadas */
-.price-card{
-  background-image:
-    radial-gradient(ellipse at 15% 20%,
-      rgba(227,59,50,.48),transparent 58%),
-    radial-gradient(ellipse at 90% 85%,
-      rgba(40,116,71,.48),transparent 62%),
-    linear-gradient(135deg,#f5f3eb,#e9e6dc);
-}
-
-.price-card:nth-child(2){
-  background-image:
-    radial-gradient(ellipse at 85% 15%,
-      rgba(227,59,50,.62),transparent 58%),
-    radial-gradient(ellipse at 15% 90%,
-      rgba(40,116,71,.52),transparent 62%),
-    linear-gradient(135deg,#f5f3eb,#e9e6dc);
-}
-
-.price-card:nth-child(3){
-  background-image:
-    radial-gradient(ellipse at 10% 20%,
-      rgba(40,116,71,.65),transparent 58%),
-    radial-gradient(ellipse at 90% 90%,
-      rgba(227,59,50,.42),transparent 62%),
-    linear-gradient(135deg,#f5f3eb,#e9e6dc);
-}
-
-/* Fondo oscuro del laboratorio */
-.details{
-  background-image:
-    radial-gradient(ellipse at 10% 20%,
-      rgba(227,59,50,.48),transparent 48%),
-    radial-gradient(ellipse at 90% 75%,
-      rgba(40,116,71,.62),transparent 52%),
-    radial-gradient(ellipse at 50% 50%,
-      rgba(245,243,235,.10),transparent 55%),
-    linear-gradient(125deg,#151515,#202820,#151515);
-}
-
-/* Degradados de la sección social */
-.social{
-  background-image:
-    radial-gradient(ellipse at 5% 20%,
-      rgba(227,59,50,.48),transparent 52%),
-    radial-gradient(ellipse at 95% 80%,
-      rgba(40,116,71,.48),transparent 55%),
-    linear-gradient(135deg,#f5f3eb,#e9e6dc);
-}
-
-/* Degradados de la sección de pedido */
-.order{
-  background-image:
-    radial-gradient(ellipse at 0% 10%,
-      rgba(227,59,50,.42),transparent 48%),
-    radial-gradient(ellipse at 100% 90%,
-      rgba(40,116,71,.42),transparent 52%),
-    linear-gradient(135deg,#e9e6dc,#f5f3eb);
-}
-</style>
-</head>
-<body>
-<div class="grain" aria-hidden="true"></div>
-
-<header class="topbar">
-  <div class="wrap nav">
-    <a class="brand" href="#inicio">TOMATE<b>LAB</b></a>
-    <button class="menu" id="menuButton" aria-expanded="false" aria-controls="navLinks">MENÚ +</button>
-    <nav class="navlinks" id="navLinks">
-      <a href="#servicios">Servicios</a><a href="#laboratorio">El laboratorio</a><a href="#pedido">Pedir</a>
-    </nav>
-  </div>
-</header>
-
-<main id="inicio">
-  <section class="intro-story" id="inicio-story">
-    <div class="wrap intro-layout">
-      <div class="hero-copy">
-        <div class="eyebrow"><span class="led"></span> LABORATORIO FOTOGRÁFICO / SEVILLA</div>
-        <h1>Tus fotos merecen salir <span>del carrete.</span></h1>
-        <p>Revelado y escaneado de fotografía analógica en blanco y negro. Tú disparas; nosotros nos encargamos del resto.</p>
-        <a class="button" href="#servicios">Explorar servicios <span>↘</span></a>
-      </div>
-      <div class="hero-art" id="revealStage">
-        <div class="window photo-window">
-          <div class="windowbar"><span>FOTOGRAMA / 001</span><span>35 MM</span></div>
-          <div class="photo-frame">
-            <img id="revealImage" src="Paula%20Lopez%20Bordallo_1094.JPG" alt="Fotografía analógica en blanco y negro que pasa de negativo a positivo" fetchpriority="high">
-            <div class="reveal-sweep" aria-hidden="true"></div>
-            <div class="photo-caption"><span>BLANCO Y NEGRO</span><span>NEGATIVO → POSITIVO</span></div>
-          </div>
-          <div class="film-edge"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-        </div>
-        <div class="hero-status">FOTOGRAFÍA ANALÓGICA</div>
-      </div>
-            <div class="reveal-copy">
-        <div class="eyebrow">01 / DEL NEGATIVO AL POSITIVO</div>
-        <h2>El blanco y negro tiene mucho que decir.</h2>
-        <p>Del negativo a la imagen. El proceso de revelado transforma poco a poco lo que estaba oculto en el carrete.</p>
-        <div class="reveal-controls"><span id="revealState">NEGATIVO</span><div class="reveal-track"><span id="revealProgress"></span></div><span id="revealPercent">00%</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="content pricing" id="servicios">
-    <div class="wrap">
-      <div class="section-head">
-        <div><div class="tag">02 / NUESTROS PACKS</div><h2>No pares de disparar.<br>Sigue experimentando.</h2></div>
-        <p>Revelamos y escaneamos tus carretes en blanco y negro. Elige la opción que mejor encaje con tu próxima sesión.</p>
-      </div>
-      <div class="price-grid">
-        <article class="price-card">
-          <div class="card-top"><span>PACK 01</span><span>REVELADO + ESCANEADO</span></div>
-          <div class="card-body"><h3>Sin carrete</h3><p>Revelado y escaneado de tu propio carrete.</p><div class="price">16 <small>€</small></div></div>
-          <div class="card-bottom"></div>
-        </article>
-        <article class="price-card">
-          <div class="card-top"><span>PACK 02</span><span>+ 1 CARRETE</span></div>
-          <div class="card-body"><h3>+1 carrete</h3><p>Revelado, escaneado y un carrete nuevo.</p><div class="price">22 <small>€</small></div></div>
-          <div class="card-bottom"></div>
-        </article>
-        <article class="price-card">
-          <div class="card-top"><span>PACK 03</span><span>+ 3 CARRETES</span></div>
-          <div class="card-body"><h3>+3 carretes</h3><p>Revelado, escaneado y tres carretes nuevos.</p><div class="price">34 <small>€</small></div></div>
-          <div class="card-bottom"></div>
-        </article>
-      </div>
-      <p class="order-intro" style="margin:30px auto 0;text-align:center">¿Tienes más carretes? Cada revelado adicional cuesta <strong>13 €</strong>.</p>
-    </div>
-  </section>
-
-  <section class="content details" id="laboratorio">
-    <div class="wrap">
-      <div class="section-head">
-        <div><div class="tag">03 / EL LABORATORIO</div><h2>El laboratorio, en pocas palabras.</h2></div>
-        <p>Información práctica para que sepas qué ocurre con tus carretes desde que llegan hasta que vuelven a casa.</p>
-      </div>
-      <div class="detail-grid">
-        <article class="detail-card"><span class="detail-num">01</span><p>La devolución de tus negativos está incluida.</p></article>
-        <article class="detail-card"><span class="detail-num">02</span><p>Recibirás tus fotografías escaneadas a través de un enlace de descarga.</p></article>
-        <article class="detail-card"><span class="detail-num">03</span><p>El plazo máximo es de una semana desde la recepción de tus carretes.</p></article>
-        <article class="detail-card"><span class="detail-num">04</span><p>Los carretes que ponemos a tu disposición son de 36 exposiciones, en blanco y negro, ISO 100, 200 y 400.</p></article>
-        <article class="detail-card"><span class="detail-num">05</span><p>Servicio para toda España, incluidas las islas y los territorios españoles fuera de la península.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="content social">
-    <div class="wrap">
-      <div class="social-panel">
-        <div><div class="tag">04 / SÍGUENOS</div><h2>Queremos ser tu excusa para salir a hacer fotos.</h2><p>Síguenos en Instagram, donde compartimos las historias de nuestros carretes. Que la tuya sea la siguiente.</p></div>
-        <a class="button" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="content order" id="pedido">
-    <div class="wrap">
-      <div class="section-head">
-        <div><div class="tag">05 / TU PEDIDO</div><h2>REVELA <span style="color:var(--red)">+</span> REPITE.</h2></div>
-        <p>Elige tu pack y déjanos tus datos. Prepararemos el siguiente paso para que tu carrete llegue al laboratorio.</p>
-      </div>
-      <p class="order-intro">Completa el formulario para configurar tu pedido.</p>
-
-      <div class="window order-window">
-        <div class="windowbar"><span>TOMATELAB / PEDIDOS</span><span class="lights"><i></i><i></i><i></i></span></div>
-        <div class="form-inner">
-          <form id="orderForm">
-            <div class="form-section">
-              <h3>01 / Datos de contacto</h3>
-              <div class="fields">
-                <div class="field full"><label for="customerName">Nombre y apellidos</label><input id="customerName" name="nombre" autocomplete="name" required></div>
-                <div class="field"><label for="customerEmail">Correo electrónico</label><input id="customerEmail" name="correo" type="email" autocomplete="email" placeholder="nombre@correo.com" required><small>Te enviaremos la confirmación y las instrucciones de envío.</small></div>
-                <div class="field"><label for="customerPhone">Teléfono de contacto</label><input id="customerPhone" name="telefono" type="tel" autocomplete="tel" required></div>
-                <div class="field full"><label for="customerAddress">Dirección para la devolución de tus negativos</label><textarea id="customerAddress" name="direccion_devolucion" autocomplete="street-address" placeholder="Calle, número, piso, código postal, localidad y provincia" required></textarea></div>
-              </div>
-            </div>
-            <div class="form-section">
-              <h3>02 / Formato de los carretes que envías</h3>
-              <div class="field"><label for="filmFormat">Formato</label><input id="filmFormat" name="formato_carrete" placeholder="Ej. 35 mm" required><small>Indica el formato de los carretes que enviarás.</small></div>
-            </div>
-            <div class="form-section">
-              <h3>03 / Selecciona tu pack</h3>
-              <div class="packs">
-                <label class="pack"><input type="radio" name="pack" value="sin" required><span><strong>Sin carrete</strong><small>Revelado y escaneado de tu propio carrete.</small></span><b>16 €</b></label>
-                <label class="pack"><input type="radio" name="pack" value="uno"><span><strong>+1 carrete</strong><small>Revelado, escaneado y un carrete nuevo.</small></span><b>22 €</b></label>
-                <label class="pack"><input type="radio" name="pack" value="tres"><span><strong>+3 carretes</strong><small>Revelado, escaneado y tres carretes nuevos.</small></span><b>34 €</b></label>
-              </div>
-              <div class="field" style="margin-top:20px;max-width:420px">
-                <label for="extraFilms">¿Cuántos carretes adicionales quieres revelar? (+13 € cada uno)</label>
-                <input id="extraFilms" name="carretes_adicionales" type="number" min="0" step="1" value="0" inputmode="numeric">
-                <small>El pack ya incluye el revelado de un carrete. Aquí puedes añadir otros carretes propios.</small>
-              </div>
-              <div class="iso-panel" id="isoOne"><h4>Selecciona la sensibilidad del carrete nuevo</h4><div class="iso-grid"><div class="field"><label for="isoSingle">Carrete 1</label><select id="isoSingle" name="iso_uno"><option value="">Seleccionar ISO</option><option>100</option><option>200</option><option>400</option></select></div></div></div>
-              <div class="iso-panel" id="isoThree"><h4>Selecciona la sensibilidad de cada carrete nuevo</h4><div class="iso-grid">
-                <div class="field"><label for="isoThree1">Carrete 1</label><select id="isoThree1" name="iso_tres_1"><option value="">Seleccionar ISO</option><option>100</option><option>200</option><option>400</option></select></div>
-                <div class="field"><label for="isoThree2">Carrete 2</label><select id="isoThree2" name="iso_tres_2"><option value="">Seleccionar ISO</option><option>100</option><option>200</option><option>400</option></select></div>
-                <div class="field"><label for="isoThree3">Carrete 3</label><select id="isoThree3" name="iso_tres_3"><option value="">Seleccionar ISO</option><option>100</option><option>200</option><option>400</option></select></div>
-              </div></div>
-              <div class="summary">
-                <h4>Resumen del pedido</h4>
-                <div class="summary-line"><span>Pack</span><span id="summaryPack">—</span></div>
-                <div class="summary-line" id="summaryExtrasRow" hidden><span>Revelados adicionales</span><span id="summaryExtras">—</span></div>
-                <div class="summary-line"><span>Base imponible</span><span id="summaryBase">— €</span></div>
-                <div class="summary-line"><span>IVA (21 %, incluido)</span><span id="summaryVat">— €</span></div>
-                <div class="summary-total"><span>Total</span><span id="summaryTotal">— €</span></div>
-              </div>
-            </div>
-            <div class="form-section">
-              <h3>04 / Método de pago</h3>
-              <div class="payment"><strong>Transferencia bancaria</strong>El único método de pago disponible por el momento es la transferencia bancaria. Dispondrás de 24 horas para realizar el pago. Si no recibimos la transferencia dentro de ese plazo, el pedido quedará anulado.<br><br>Los datos bancarios y las instrucciones de pago aparecerán al finalizar el pedido.</div>
-              <label class="consent"><input type="checkbox" name="acepta_privacidad" required><span>He leído la <a href="privacidad.html" target="_blank" rel="noopener noreferrer">Política de privacidad</a> y entiendo cómo se tratarán mis datos para gestionar el pedido.</span></label>
-              <label class="consent"><input type="checkbox" name="acepta_pago" required><span>He leído y acepto las condiciones de pago y el plazo de 24 horas para realizar la transferencia.</span></label>
-              <button class="submit" type="button" disabled>Finalizar compra</button>
-              <p class="form-note">Formulario en preparación. Todavía no registra pedidos ni envía correos. La confirmación aparecerá cuando conectemos el sistema de pedidos.</p>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="closing">
-    <p>Un saludo desde Los Palacios y Villafranca <span class="tomato" aria-label="tomate">🍅</span></p>
-  </section>
-</main>
-
-<footer class="footer">
-  <div class="wrap footer-inner">
-    <a class="brand" href="#inicio">TOMATE<b>LAB</b></a>
-    <p>REVELADO ANALÓGICO EN BLANCO Y NEGRO<br>LOS PALACIOS Y VILLAFRANCA · SEVILLA</p>
-    <a href="privacidad.html">Política de privacidad</a>
-    <p>© TOMATELAB</p>
-  </div>
-</footer>
-
-<script>
-// Menú móvil: ambos elementos se comprueban antes de añadir eventos.
-const menuButton=document.getElementById("menuButton");
-const navLinks=document.querySelector(".navlinks");
-if(menuButton && navLinks){
-  menuButton.addEventListener("click",()=>{
-    const opened=navLinks.classList.toggle("open");
-    menuButton.setAttribute("aria-expanded",String(opened));
-    menuButton.textContent=opened?"CERRAR −":"MENÚ +";
-  });
-  navLinks.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{
-    navLinks.classList.remove("open");
-    menuButton.setAttribute("aria-expanded","false");
-    menuButton.textContent="MENÚ +";
-  }));
-}
-
-// Revelado automático: la fotografía pasa de negativo a positivo en 3 segundos.
-const revealImage=document.getElementById("revealImage");
-const revealProgress=document.getElementById("revealProgress");
-const revealPercent=document.getElementById("revealPercent");
-const revealState=document.getElementById("revealState");
-const revealDuration=3000;
-let revealStarted=false;
-
-function renderReveal(progress){
-  const value=Math.round(progress*100);
-  const inversion=1-progress;
-  const contrast=1.08+(progress*.34);
-  const brightness=.84+(progress*.16);
-  revealImage.style.filter=`grayscale(1) invert(${inversion}) contrast(${contrast}) brightness(${brightness})`;
-  document.documentElement.style.setProperty("--reveal-progress",progress);
-  revealProgress.style.width=value+"%";
-  revealPercent.textContent=String(value).padStart(2,"0")+"%";
-  revealState.textContent=value<8?"NEGATIVO":value<100?"REVELANDO":"POSITIVO";
-}
-
-function startReveal(){
-  if(revealStarted)return;
-  revealStarted=true;
-  const startTime=performance.now();
-  function frame(now){
-    const progress=Math.min(1,(now-startTime)/revealDuration);
-    renderReveal(progress);
-    if(progress<1)requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
-}
-
-// Comienza al cargar la fotografía, sin depender del scroll.
-if(revealImage && revealProgress && revealPercent && revealState){
-  renderReveal(0);
-  if(revealImage.complete && revealImage.naturalWidth>0){
-    startReveal();
-  }else{
-    revealImage.addEventListener("load",startReveal,{once:true});
-  }
-}
-
-// Selección de pack, carretes adicionales e IVA incluido.
-const radios=[...document.querySelectorAll('input[name="pack"]')];
-const one=document.getElementById("isoOne"),three=document.getElementById("isoThree");
-const single=document.getElementById("isoSingle");
-const iso3=[document.getElementById("isoThree1"),document.getElementById("isoThree2"),document.getElementById("isoThree3")];
-const extraFilms=document.getElementById("extraFilms");
-const summaryPack=document.getElementById("summaryPack");
-const summaryExtrasRow=document.getElementById("summaryExtrasRow");
-const summaryExtras=document.getElementById("summaryExtras");
-const summaryBase=document.getElementById("summaryBase");
-const summaryVat=document.getElementById("summaryVat");
-const summaryTotal=document.getElementById("summaryTotal");
-const money=value=>value.toLocaleString("es-ES",{style:"currency",currency:"EUR"});
-function updatePack(){
-  const value=document.querySelector('input[name="pack"]:checked')?.value||"";
-  one.classList.toggle("visible",value==="uno");
-  three.classList.toggle("visible",value==="tres");
-  single.required=value==="uno";
-  iso3.forEach(el=>el.required=value==="tres");
-  if(value!=="uno")single.value="";
-  if(value!=="tres")iso3.forEach(el=>el.value="");
-  const data={
-    sin:{name:"Sin carrete",price:16},
-    uno:{name:"+1 carrete",price:22},
-    tres:{name:"+3 carretes",price:34}
-  }[value];
-  const extraCount=Math.max(0,Math.floor(Number(extraFilms.value)||0));
-  const total=data?data.price+(extraCount*13):0;
-  const base=total/1.21;
-  const vat=total-base;
-  summaryPack.textContent=data?data.name:"—";
-  summaryExtrasRow.hidden=!data||extraCount===0;
-  summaryExtras.textContent=extraCount?`${extraCount} × 13 € = ${money(extraCount*13)}`:"—";
-  summaryBase.textContent=data?money(base):"— €";
-  summaryVat.textContent=data?money(vat):"— €";
-  summaryTotal.textContent=data?money(total):"— €";
-}
-radios.forEach(r=>r.addEventListener("change",updatePack));
-extraFilms.addEventListener("input",()=>{
-  if(extraFilms.value!==""&&Number(extraFilms.value)<0)extraFilms.value="0";
-  updatePack();
-});
-updatePack();
-
-</script>
-</body>
-</html>
+  .hero-art{grid-row:auto;position:relative;top:auto;height:auto;min-height:0;align-sel
