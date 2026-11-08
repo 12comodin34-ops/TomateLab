@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111111">
+<meta name="description" content="TomateLab. Revelado y escaneado de carretes analógicos en blanco y negro.">
+<title>TomateLab — Revelado analógico en blanco y negro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#e33b32;
+  --green:#287447;
+  --black:#151515;
+  --white:#f5f3eb;
+  --paper:#e9e6dc;
+  --display:"Space Grotesk",Arial,sans-serif;
+  --sans:"Space Grotesk",Arial,sans-serif;
+  --mono:"Courier Prime",monospace;
+  --line:1px solid rgba(21,21,21,.28);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--black);font-family:var(--sans);font-size:16px;line-height:1.6}
+a{color:inherit}
+button,input,select,textarea{font:inherit}
+button,a{-webkit-tap-highlight-color:transparent}
+.grain{
+  position:fixed;inset:0;z-index:20;pointer-events:none;opacity:.13;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='4' seed='17' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='.55'/%3E%3C/svg%3E");
+  background-size:125px 125px;
+  mix-blend-mode:soft-light;
+}
+.wrap{width:min(1160px,calc(100% - 64px));margin:auto}
+.eyebrow,.tag,.button,.film-label,.mono{font-family:var(--sans)}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(21,21,21,.97);color:var(--white);border-bottom:1px solid rgba(245,243,235,.22)}
+.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{font:700 22px var(--sans);text-decoration:none;letter-spacing:-1.2px}
+.brand b{color:var(--red);font-weight:700}
+.navlinks{display:flex;gap:28px}
+.navlinks a{font:600 11px var(--sans);text-decoration:none;text-transform:uppercase;letter-spacing:.1em}
+.navlinks a:hover{color:#ff766d}
+.menu{display:none;background:none;border:1px solid rgba(245,243,235,.65);color:var(--white);padding:8px 12px;font:600 11px var(--sans);letter-spacing:.08em}
+/* Marcos fotográficos: líneas finas, sin ventanas de ordenador */
+.window{background:var(--white);border:1px solid rgba(21,21,21,.35);box-shadow:0 12px 35px rgba(21,21,21,.08)}
+.windowbar{min-height:34px;background:var(--black);color:var(--white);display:flex;align-items:center;justify-content:space-between;padding:8px 14px;font:700 10px var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.windowbar .lights{display:none}
+/* Apertura: semitono rojo monocromático, irregular y con densidad variable */
+.intro-story{position:relative;isolation:isolate;overflow:clip;background:var(--white)}
+.intro-story:before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.48;background-image:radial-gradient(ellipse at 20% 35%,rgba(227,59,50,.20),transparent 66%),url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%3Cfilter%20id%3D%22warp%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%22.018%22%20numOctaves%3D%222%22%20seed%3D%2217%22%20result%3D%22noise%22%2F%3E%3CfeDisplacementMap%20in%3D%22SourceGraphic%22%20in2%3D%22noise%22%20scale%3D%2213%22%20xChannelSelector%3D%22R%22%20yChannelSelector%3D%22G%22%2F%3E%3C%2Ffilter%3E%3Cg%20fill%3D%22%23e33b32%22%20filter%3D%22url%28%23warp%29%22%3E%3Ccircle%20cx%3D%2225.4%22%20cy%3D%2276.0%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%2274.9%22%20cy%3D%22144.5%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%2261.8%22%20cy%3D%2277.7%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%2290.5%22%20cy%3D%22151.2%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%2289.4%22%20cy%3D%22127.5%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%2255.3%22%20cy%3D%2242.8%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%224.0%22%20cy%3D%22160.1%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22130.7%22%20cy%3D%22134.1%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22122.8%22%20cy%3D%22130.7%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22107.5%22%20cy%3D%2233.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%2217.8%22%20cy%3D%2266.5%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22123.5%22%20cy%3D%22100.6%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22127.9%22%20cy%3D%2269.9%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22392.5%22%20cy%3D%22184.8%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22347.6%22%20cy%3D%22115.8%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22252.5%22%20cy%3D%2277.7%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22269.4%22%20cy%3D%22211.4%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22335.9%22%20cy%3D%22117.8%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22344.0%22%20cy%3D%22178.0%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22297.6%22%20cy%3D%22112.8%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22373.7%22%20cy%3D%22134.4%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22293.9%22%20cy%3D%2284.7%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22368.2%22%20cy%3D%22100.0%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22374.6%22%20cy%3D%22100.0%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22389.5%22%20cy%3D%22153.3%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22332.5%22%20cy%3D%22132.6%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22246.9%22%20cy%3D%22348.1%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22135.8%22%20cy%3D%22291.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22176.6%22%20cy%3D%22407.7%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22187.0%22%20cy%3D%22335.5%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22158.0%22%20cy%3D%22336.5%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22168.1%22%20cy%3D%22237.2%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22190.5%22%20cy%3D%22316.3%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22239.4%22%20cy%3D%22325.1%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22284.4%22%20cy%3D%22374.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22211.0%22%20cy%3D%22253.7%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22268.6%22%20cy%3D%22368.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22167.3%22%20cy%3D%22307.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22157.2%22%20cy%3D%22305.3%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22369.4%22%20cy%3D%22379.0%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22423.3%22%20cy%3D%22473.5%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22424.5%22%20cy%3D%22414.0%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22444.0%22%20cy%3D%22361.0%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22415.9%22%20cy%3D%22423.9%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22327.3%22%20cy%3D%22419.7%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22413.9%22%20cy%3D%22419.2%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22454.6%22%20cy%3D%22381.4%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22374.1%22%20cy%3D%22370.8%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22433.5%22%20cy%3D%22371.4%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22452.3%22%20cy%3D%22465.9%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22385.6%22%20cy%3D%22369.0%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22399.6%22%20cy%3D%22419.7%22%20r%3D%227.5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");background-size:100% 100%,min(76vw,620px) min(76vw,620px);background-position:center,8% 12%;background-repeat:no-repeat;mask-image:radial-gradient(ellipse at 20% 35%,#000 0%,rgba(0,0,0,.82) 35%,transparent 76%)}
+.intro-layout{position:relative;display:grid;grid-template-columns:.9fr 1.1fr;grid-template-rows:minmax(620px,85vh) minmax(420px,65vh);grid-template-areas:"hero photo" "reveal .";gap:0 46px;align-items:stretch}
+.hero-copy{grid-area:hero;min-width:0;min-height:85vh;padding:42px 0;display:flex;flex-direction:column;justify-content:center}
+.eyebrow{font:700 10px var(--mono);letter-spacing:.13em;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.led{width:7px;height:7px;background:var(--green);display:inline-block;border-radius:50%}
+.hero-copy h1{font:600 clamp(48px,6.2vw,82px)/.98 var(--display);letter-spacing:-.055em;margin:24px 0 22px;max-width:590px}
+.hero-copy h1 span{color:var(--red)}
+.hero-copy>p{font-size:16px;max-width:460px;margin:0 0 30px;color:#45433f}
+.button{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:13px 18px;background:var(--red);color:white;border:1px solid var(--red);font:700 11px var(--mono);text-transform:uppercase;text-decoration:none;letter-spacing:.08em;transition:background .2s,color .2s}
+.button:hover{background:var(--black);border-color:var(--black)}
+.hero-art{grid-area:photo;position:relative;top:auto;align-self:center;height:min(72vh,680px);min-height:430px;display:flex;align-items:center;padding:20px 18px 26px;z-index:1}
+ .hero-art:before{content:"";position:absolute;inset:4% -7%;background:radial-gradient(ellipse at 48% 48%,rgba(227,59,50,.24),transparent 68%);filter:blur(10px);transform:rotate(-5deg);pointer-events:none}
+.hero-art:after{content:"";position:absolute;inset:3% -7%;z-index:0;pointer-events:none;opacity:.52;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%3Cfilter%20id%3D%22warp%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%22.018%22%20numOctaves%3D%222%22%20seed%3D%2217%22%20result%3D%22noise%22%2F%3E%3CfeDisplacementMap%20in%3D%22SourceGraphic%22%20in2%3D%22noise%22%20scale%3D%2213%22%20xChannelSelector%3D%22R%22%20yChannelSelector%3D%22G%22%2F%3E%3C%2Ffilter%3E%3Cg%20fill%3D%22%23e33b32%22%20filter%3D%22url%28%23warp%29%22%3E%3Ccircle%20cx%3D%2225.4%22%20cy%3D%2276.0%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%2274.9%22%20cy%3D%22144.5%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%2261.8%22%20cy%3D%2277.7%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%2290.5%22%20cy%3D%22151.2%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%2289.4%22%20cy%3D%22127.5%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%2255.3%22%20cy%3D%2242.8%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%224.0%22%20cy%3D%22160.1%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22130.7%22%20cy%3D%22134.1%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22122.8%22%20cy%3D%22130.7%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22107.5%22%20cy%3D%2233.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%2217.8%22%20cy%3D%2266.5%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22123.5%22%20cy%3D%22100.6%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22127.9%22%20cy%3D%2269.9%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22392.5%22%20cy%3D%22184.8%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22347.6%22%20cy%3D%22115.8%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22252.5%22%20cy%3D%2277.7%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22269.4%22%20cy%3D%22211.4%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22335.9%22%20cy%3D%22117.8%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22344.0%22%20cy%3D%22178.0%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22297.6%22%20cy%3D%22112.8%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22373.7%22%20cy%3D%22134.4%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22293.9%22%20cy%3D%2284.7%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22368.2%22%20cy%3D%22100.0%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22374.6%22%20cy%3D%22100.0%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22389.5%22%20cy%3D%22153.3%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22332.5%22%20cy%3D%22132.6%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22246.9%22%20cy%3D%22348.1%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22135.8%22%20cy%3D%22291.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22176.6%22%20cy%3D%22407.7%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22187.0%22%20cy%3D%22335.5%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22158.0%22%20cy%3D%22336.5%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22168.1%22%20cy%3D%22237.2%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22190.5%22%20cy%3D%22316.3%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22239.4%22%20cy%3D%22325.1%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22284.4%22%20cy%3D%22374.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22211.0%22%20cy%3D%22253.7%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22268.6%22%20cy%3D%22368.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22167.3%22%20cy%3D%22307.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22157.2%22%20cy%3D%22305.3%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22369.4%22%20cy%3D%22379.0%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22423.3%22%20cy%3D%22473.5%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22424.5%22%20cy%3D%22414.0%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22444.0%22%20cy%3D%22361.0%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22415.9%22%20cy%3D%22423.9%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22327.3%22%20cy%3D%22419.7%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22413.9%22%20cy%3D%22419.2%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22454.6%22%20cy%3D%22381.4%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22374.1%22%20cy%3D%22370.8%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22433.5%22%20cy%3D%22371.4%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22452.3%22%20cy%3D%22465.9%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22385.6%22%20cy%3D%22369.0%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22399.6%22%20cy%3D%22419.7%22%20r%3D%227.5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");background-size:440px 440px;background-position:55% 45%;mask-image:radial-gradient(ellipse at 50% 50%,#000 0%,rgba(0,0,0,.75) 42%,transparent 76%)}
+.photo-window{position:relative;z-index:1;width:100%;transform:rotate(-.6deg);background:var(--black);box-shadow:0 22px 55px rgba(21,21,21,.2)}
+.photo-frame{padding:15px;background:#171717;position:relative;overflow:hidden}
+@keyframes filmDevelop{0%{filter:grayscale(1) invert(1) contrast(1.08)}100%{filter:grayscale(1) invert(0) contrast(1.08)}}
+.photo-frame img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;filter:grayscale(1) invert(1) contrast(1.08);animation:filmDevelop 5s ease-in-out forwards;background:#555;will-change:filter}
+@media(prefers-reduced-motion:reduce){.photo-frame img{animation:none;filter:grayscale(1) contrast(1.08)}}
+.photo-caption{display:flex;justify-content:space-between;gap:12px;color:var(--white);padding-top:12px;font:700 9px var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.film-edge{display:flex;justify-content:space-between;gap:7px;padding:8px 10px;background:var(--black)}
+.film-edge span{height:12px;flex:1;border:1px solid rgba(245,243,235,.75);border-radius:2px;opacity:.75}
+.hero-status{position:absolute;right:0;bottom:12%;background:var(--green);color:white;padding:9px 13px;border:1px solid var(--green);font:700 10px var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.reveal-copy{grid-area:reveal;min-width:0;min-height:85vh;padding:45px 0;display:flex;flex-direction:column;justify-content:center;position:relative}
+.reveal-copy h2{font:600 clamp(40px,5vw,64px)/1.02 var(--display);letter-spacing:-.05em;margin:15px 0 20px;max-width:460px}
+.reveal-copy p{max-width:390px;color:#45433f}
+/* Secciones */
+section.content{padding:90px 0}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:38px}
+.section-head h2{font:600 clamp(40px,5vw,64px)/1.02 var(--display);letter-spacing:-.02em;margin:10px 0 0}
+.section-head p{max-width:390px;margin:0;font-size:14px;color:#55524c}
+.tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;display:inline-flex;align-items:center;gap:9px}
+.tag:before{content:"";width:20px;height:1px;background:var(--red)}
+/* Precios */
+.pricing{background:var(--paper)}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.price-card{border:1px solid rgba(21,21,21,.35);background-color:var(--white);background-image:radial-gradient(ellipse at 100% 100%,rgba(21,21,21,.10),transparent 70%),url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%3Cfilter%20id%3D%22warp%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%22.018%22%20numOctaves%3D%222%22%20seed%3D%2241%22%20result%3D%22noise%22%2F%3E%3CfeDisplacementMap%20in%3D%22SourceGraphic%22%20in2%3D%22noise%22%20scale%3D%2213%22%20xChannelSelector%3D%22R%22%20yChannelSelector%3D%22G%22%2F%3E%3C%2Ffilter%3E%3Cg%20fill%3D%22%23151515%22%20filter%3D%22url%28%23warp%29%22%3E%3Ccircle%20cx%3D%2270.9%22%20cy%3D%22102.7%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22119.0%22%20cy%3D%2264.5%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%2284.0%22%20cy%3D%22113.3%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%2290.4%22%20cy%3D%2280.1%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%2253.7%22%20cy%3D%2226.5%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22190.4%22%20cy%3D%2251.6%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%2278.3%22%20cy%3D%22110.2%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%2280.9%22%20cy%3D%2276.3%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22160.7%22%20cy%3D%2299.9%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22102.3%22%20cy%3D%22141.6%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%2244.7%22%20cy%3D%2292.1%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22146.7%22%20cy%3D%22140.8%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22108.3%22%20cy%3D%2271.9%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22313.8%22%20cy%3D%22177.8%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22297.0%22%20cy%3D%2297.1%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22331.9%22%20cy%3D%22144.3%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22347.9%22%20cy%3D%22125.3%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22294.3%22%20cy%3D%22121.9%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22355.8%22%20cy%3D%22129.4%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22294.1%22%20cy%3D%22152.5%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22249.0%22%20cy%3D%2296.8%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22312.3%22%20cy%3D%22126.4%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22324.7%22%20cy%3D%2248.8%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22393.7%22%20cy%3D%2266.1%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22411.0%22%20cy%3D%22114.0%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22297.5%22%20cy%3D%2257.1%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22125.6%22%20cy%3D%22330.0%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22209.5%22%20cy%3D%22332.8%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22150.4%22%20cy%3D%22374.3%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22142.2%22%20cy%3D%22363.8%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22175.4%22%20cy%3D%22367.8%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22180.3%22%20cy%3D%22379.7%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22137.5%22%20cy%3D%22422.5%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22188.0%22%20cy%3D%22306.9%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22176.8%22%20cy%3D%22311.8%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22186.6%22%20cy%3D%22368.4%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22172.5%22%20cy%3D%22327.1%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22125.6%22%20cy%3D%22323.2%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22166.0%22%20cy%3D%22365.8%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22398.9%22%20cy%3D%22328.5%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22366.8%22%20cy%3D%22359.1%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22415.0%22%20cy%3D%22356.8%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22459.0%22%20cy%3D%22351.3%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22432.9%22%20cy%3D%22437.5%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22384.0%22%20cy%3D%22359.2%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22440.3%22%20cy%3D%22373.3%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22458.1%22%20cy%3D%22403.0%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22379.6%22%20cy%3D%22430.7%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22404.5%22%20cy%3D%22415.4%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22361.8%22%20cy%3D%22349.1%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22401.8%22%20cy%3D%22433.9%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22377.9%22%20cy%3D%22412.3%22%20r%3D%223%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");background-size:cover,390px 390px;background-position:center,100% 100%;background-repeat:no-repeat;position:relative;overflow:hidden}
+.price-card:nth-child(2){background-image:radial-gradient(ellipse at 12% 15%,rgba(227,59,50,.18),transparent 68%),url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%3Cfilter%20id%3D%22warp%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%22.018%22%20numOctaves%3D%222%22%20seed%3D%2217%22%20result%3D%22noise%22%2F%3E%3CfeDisplacementMap%20in%3D%22SourceGraphic%22%20in2%3D%22noise%22%20scale%3D%2213%22%20xChannelSelector%3D%22R%22%20yChannelSelector%3D%22G%22%2F%3E%3C%2Ffilter%3E%3Cg%20fill%3D%22%23e33b32%22%20filter%3D%22url%28%23warp%29%22%3E%3Ccircle%20cx%3D%2225.4%22%20cy%3D%2276.0%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%2274.9%22%20cy%3D%22144.5%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%2261.8%22%20cy%3D%2277.7%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%2290.5%22%20cy%3D%22151.2%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%2289.4%22%20cy%3D%22127.5%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%2255.3%22%20cy%3D%2242.8%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%224.0%22%20cy%3D%22160.1%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22130.7%22%20cy%3D%22134.1%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22122.8%22%20cy%3D%22130.7%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22107.5%22%20cy%3D%2233.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%2217.8%22%20cy%3D%2266.5%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22123.5%22%20cy%3D%22100.6%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22127.9%22%20cy%3D%2269.9%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22392.5%22%20cy%3D%22184.8%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22347.6%22%20cy%3D%22115.8%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22252.5%22%20cy%3D%2277.7%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22269.4%22%20cy%3D%22211.4%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22335.9%22%20cy%3D%22117.8%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22344.0%22%20cy%3D%22178.0%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22297.6%22%20cy%3D%22112.8%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22373.7%22%20cy%3D%22134.4%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22293.9%22%20cy%3D%2284.7%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22368.2%22%20cy%3D%22100.0%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22374.6%22%20cy%3D%22100.0%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22389.5%22%20cy%3D%22153.3%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22332.5%22%20cy%3D%22132.6%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22246.9%22%20cy%3D%22348.1%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22135.8%22%20cy%3D%22291.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22176.6%22%20cy%3D%22407.7%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22187.0%22%20cy%3D%22335.5%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22158.0%22%20cy%3D%22336.5%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22168.1%22%20cy%3D%22237.2%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22190.5%22%20cy%3D%22316.3%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22239.4%22%20cy%3D%22325.1%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22284.4%22%20cy%3D%22374.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22211.0%22%20cy%3D%22253.7%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22268.6%22%20cy%3D%22368.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22167.3%22%20cy%3D%22307.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22157.2%22%20cy%3D%22305.3%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22369.4%22%20cy%3D%22379.0%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22423.3%22%20cy%3D%22473.5%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22424.5%22%20cy%3D%22414.0%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22444.0%22%20cy%3D%22361.0%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22415.9%22%20cy%3D%22423.9%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22327.3%22%20cy%3D%22419.7%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22413.9%22%20cy%3D%22419.2%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22454.6%22%20cy%3D%22381.4%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22374.1%22%20cy%3D%22370.8%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22433.5%22%20cy%3D%22371.4%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22452.3%22%20cy%3D%22465.9%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22385.6%22%20cy%3D%22369.0%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22399.6%22%20cy%3D%22419.7%22%20r%3D%227.5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");background-size:cover,390px 390px;background-position:center,0 0;background-repeat:no-repeat}
+.price-card:nth-child(3){background-image:radial-gradient(ellipse at 88% 18%,rgba(40,116,71,.19),transparent 68%),url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%3Cfilter%20id%3D%22warp%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%22.018%22%20numOctaves%3D%222%22%20seed%3D%2229%22%20result%3D%22noise%22%2F%3E%3CfeDisplacementMap%20in%3D%22SourceGraphic%22%20in2%3D%22noise%22%20scale%3D%2213%22%20xChannelSelector%3D%22R%22%20yChannelSelector%3D%22G%22%2F%3E%3C%2Ffilter%3E%3Cg%20fill%3D%22%23287447%22%20filter%3D%22url%28%23warp%29%22%3E%3Ccircle%20cx%3D%2258.3%22%20cy%3D%2275.1%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%2279.7%22%20cy%3D%22126.8%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%2284.5%22%20cy%3D%2289.4%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22121.0%22%20cy%3D%22108.7%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%2295.0%22%20cy%3D%2270.6%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%2266.5%22%20cy%3D%22128.3%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22102.4%22%20cy%3D%2264.4%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22102.0%22%20cy%3D%22146.9%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22102.3%22%20cy%3D%2240.4%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%2253.7%22%20cy%3D%2274.8%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%2264.7%22%20cy%3D%2283.1%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22129.3%22%20cy%3D%2274.5%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%2290.9%22%20cy%3D%2224.5%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22326.6%22%20cy%3D%2270.3%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22396.2%22%20cy%3D%2241.1%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22380.3%22%20cy%3D%22103.3%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22333.8%22%20cy%3D%22189.4%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22314.2%22%20cy%3D%22111.2%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22311.4%22%20cy%3D%2277.7%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22318.4%22%20cy%3D%2286.2%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22403.8%22%20cy%3D%22109.2%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22370.2%22%20cy%3D%22113.4%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22416.1%22%20cy%3D%22127.3%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22428.9%22%20cy%3D%2273.8%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22305.2%22%20cy%3D%22134.7%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22429.1%22%20cy%3D%2296.9%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22237.0%22%20cy%3D%22354.4%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22237.3%22%20cy%3D%22342.7%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22226.6%22%20cy%3D%22324.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22217.6%22%20cy%3D%22392.7%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22181.2%22%20cy%3D%22349.6%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22179.6%22%20cy%3D%22348.7%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22198.6%22%20cy%3D%22356.0%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22156.2%22%20cy%3D%22308.2%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22197.3%22%20cy%3D%22395.2%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22181.5%22%20cy%3D%22376.7%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22127.5%22%20cy%3D%22290.0%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22179.6%22%20cy%3D%22369.6%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22182.9%22%20cy%3D%22326.5%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22372.6%22%20cy%3D%22413.1%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22398.1%22%20cy%3D%22438.9%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22442.7%22%20cy%3D%22401.2%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22391.8%22%20cy%3D%22362.0%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22432.5%22%20cy%3D%22431.1%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22336.2%22%20cy%3D%22293.6%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22422.1%22%20cy%3D%22426.1%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22387.7%22%20cy%3D%22398.4%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22424.8%22%20cy%3D%22356.6%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22379.5%22%20cy%3D%22387.6%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22457.0%22%20cy%3D%22399.4%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22358.3%22%20cy%3D%22334.5%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22381.7%22%20cy%3D%22396.6%22%20r%3D%222.2%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");background-size:cover,390px 390px;background-position:center,100% 0;background-repeat:no-repeat}
+.card-top{padding:12px 16px;background:var(--black);color:white;font:700 9px var(--mono);letter-spacing:.12em;text-transform:uppercase;display:flex;justify-content:space-between}
+.card-body{padding:25px 22px 26px;min-height:195px;display:flex;flex-direction:column}
+.card-body h3{font:600 30px/1 var(--display);margin:0 0 10px}
+.card-body p{font-size:13px;margin:0;max-width:240px;color:#55524c}
+.price{font:600 43px/1 var(--display);margin-top:auto;padding-top:25px;letter-spacing:-.02em}
+.price small{font:500 16px var(--sans)}
+.card-bottom{height:9px;background:linear-gradient(90deg,rgba(21,21,21,.05),rgba(21,21,21,.18),rgba(21,21,21,.04))}
+/* Laboratorio */
+ .details{background:var(--black);color:var(--white);position:relative;overflow:hidden}
+.details:after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.42;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%3Cfilter%20id%3D%22warp%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%22.018%22%20numOctaves%3D%222%22%20seed%3D%2253%22%20result%3D%22noise%22%2F%3E%3CfeDisplacementMap%20in%3D%22SourceGraphic%22%20in2%3D%22noise%22%20scale%3D%2213%22%20xChannelSelector%3D%22R%22%20yChannelSelector%3D%22G%22%2F%3E%3C%2Ffilter%3E%3Cg%20fill%3D%22%23f5f3eb%22%20filter%3D%22url%28%23warp%29%22%3E%3Ccircle%20cx%3D%2233.9%22%20cy%3D%2234.2%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%2248.7%22%20cy%3D%2284.5%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%2231.9%22%20cy%3D%2277.5%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22171.2%22%20cy%3D%22101.1%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22122.7%22%20cy%3D%2280.4%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%2285.9%22%20cy%3D%22144.2%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22114.9%22%20cy%3D%2292.5%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%2292.6%22%20cy%3D%22104.5%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%2296.8%22%20cy%3D%2215.0%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%2235.5%22%20cy%3D%224.0%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%2279.7%22%20cy%3D%22103.0%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%2256.3%22%20cy%3D%2273.3%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%2278.5%22%20cy%3D%2267.6%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22259.5%22%20cy%3D%22147.6%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22392.0%22%20cy%3D%2288.0%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22354.5%22%20cy%3D%22108.5%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22426.2%22%20cy%3D%22179.0%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22390.0%22%20cy%3D%2291.6%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22344.3%22%20cy%3D%22164.7%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22352.5%22%20cy%3D%2293.6%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22319.2%22%20cy%3D%22158.2%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22285.2%22%20cy%3D%22128.9%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22354.1%22%20cy%3D%22147.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22394.5%22%20cy%3D%22157.8%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22325.9%22%20cy%3D%22131.7%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22380.8%22%20cy%3D%2298.5%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22103.7%22%20cy%3D%22286.1%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22212.1%22%20cy%3D%22423.1%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22137.8%22%20cy%3D%22348.3%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22207.1%22%20cy%3D%22295.2%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22182.2%22%20cy%3D%22307.0%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22161.7%22%20cy%3D%22377.8%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22185.9%22%20cy%3D%22338.1%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22230.3%22%20cy%3D%22368.2%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22163.2%22%20cy%3D%22360.4%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22138.2%22%20cy%3D%22320.4%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22125.5%22%20cy%3D%22433.3%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22214.6%22%20cy%3D%22257.4%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22229.6%22%20cy%3D%22371.1%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22350.5%22%20cy%3D%22417.2%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22372.4%22%20cy%3D%22407.3%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22440.8%22%20cy%3D%22430.3%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22397.3%22%20cy%3D%22370.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22434.8%22%20cy%3D%22398.6%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22411.6%22%20cy%3D%22350.3%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22436.0%22%20cy%3D%22393.6%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22395.7%22%20cy%3D%22347.6%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22459.4%22%20cy%3D%22307.8%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22365.3%22%20cy%3D%22426.4%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22381.6%22%20cy%3D%22349.1%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22409.2%22%20cy%3D%22372.3%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22456.1%22%20cy%3D%22425.7%22%20r%3D%229%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");background-size:560px 560px;background-position:78% 35%;background-repeat:no-repeat;mask-image:radial-gradient(ellipse at 78% 35%,#000 0%,rgba(0,0,0,.72) 42%,transparent 78%)}
+.details .section-head{position:relative;z-index:1}
+.details .section-head p{color:rgba(245,243,235,.68)}
+.details .tag:before{background:var(--green)}
+.detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 28px;position:relative;z-index:1;border-top:1px solid rgba(245,243,235,.28)}
+ .detail-card{position:relative;min-height:142px;margin:14px 0;padding:31px 34px;display:flex;align-items:center;background:radial-gradient(ellipse at 92% 15%,rgba(40,116,71,.24),transparent 68%),url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%3Cfilter%20id%3D%22warp%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%22.018%22%20numOctaves%3D%222%22%20seed%3D%2229%22%20result%3D%22noise%22%2F%3E%3CfeDisplacementMap%20in%3D%22SourceGraphic%22%20in2%3D%22noise%22%20scale%3D%2213%22%20xChannelSelector%3D%22R%22%20yChannelSelector%3D%22G%22%2F%3E%3C%2Ffilter%3E%3Cg%20fill%3D%22%23287447%22%20filter%3D%22url%28%23warp%29%22%3E%3Ccircle%20cx%3D%2258.3%22%20cy%3D%2275.1%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%2279.7%22%20cy%3D%22126.8%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%2284.5%22%20cy%3D%2289.4%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22121.0%22%20cy%3D%22108.7%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%2295.0%22%20cy%3D%2270.6%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%2266.5%22%20cy%3D%22128.3%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22102.4%22%20cy%3D%2264.4%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22102.0%22%20cy%3D%22146.9%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22102.3%22%20cy%3D%2240.4%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%2253.7%22%20cy%3D%2274.8%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%2264.7%22%20cy%3D%2283.1%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22129.3%22%20cy%3D%2274.5%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%2290.9%22%20cy%3D%2224.5%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22326.6%22%20cy%3D%2270.3%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22396.2%22%20cy%3D%2241.1%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22380.3%22%20cy%3D%22103.3%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22333.8%22%20cy%3D%22189.4%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22314.2%22%20cy%3D%22111.2%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22311.4%22%20cy%3D%2277.7%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22318.4%22%20cy%3D%2286.2%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22403.8%22%20cy%3D%22109.2%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22370.2%22%20cy%3D%22113.4%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22416.1%22%20cy%3D%22127.3%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22428.9%22%20cy%3D%2273.8%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22305.2%22%20cy%3D%22134.7%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22429.1%22%20cy%3D%2296.9%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22237.0%22%20cy%3D%22354.4%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22237.3%22%20cy%3D%22342.7%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22226.6%22%20cy%3D%22324.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22217.6%22%20cy%3D%22392.7%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22181.2%22%20cy%3D%22349.6%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22179.6%22%20cy%3D%22348.7%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22198.6%22%20cy%3D%22356.0%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22156.2%22%20cy%3D%22308.2%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22197.3%22%20cy%3D%22395.2%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22181.5%22%20cy%3D%22376.7%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22127.5%22%20cy%3D%22290.0%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22179.6%22%20cy%3D%22369.6%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22182.9%22%20cy%3D%22326.5%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22372.6%22%20cy%3D%22413.1%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22398.1%22%20cy%3D%22438.9%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22442.7%22%20cy%3D%22401.2%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22391.8%22%20cy%3D%22362.0%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22432.5%22%20cy%3D%22431.1%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22336.2%22%20cy%3D%22293.6%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22422.1%22%20cy%3D%22426.1%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22387.7%22%20cy%3D%22398.4%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22424.8%22%20cy%3D%22356.6%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22379.5%22%20cy%3D%22387.6%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22457.0%22%20cy%3D%22399.4%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22358.3%22%20cy%3D%22334.5%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22381.7%22%20cy%3D%22396.6%22%20r%3D%222.2%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");background-size:cover,330px 330px;background-position:center,100% 0;background-repeat:no-repeat;border:1px solid rgba(245,243,235,.52);box-shadow:inset 0 0 0 4px rgba(245,243,235,.025);overflow:hidden}
+.detail-card:nth-child(3n + 2){background-image:radial-gradient(ellipse at 8% 80%,rgba(227,59,50,.22),transparent 68%),url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%3Cfilter%20id%3D%22warp%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%22.018%22%20numOctaves%3D%222%22%20seed%3D%2217%22%20result%3D%22noise%22%2F%3E%3CfeDisplacementMap%20in%3D%22SourceGraphic%22%20in2%3D%22noise%22%20scale%3D%2213%22%20xChannelSelector%3D%22R%22%20yChannelSelector%3D%22G%22%2F%3E%3C%2Ffilter%3E%3Cg%20fill%3D%22%23e33b32%22%20filter%3D%22url%28%23warp%29%22%3E%3Ccircle%20cx%3D%2225.4%22%20cy%3D%2276.0%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%2274.9%22%20cy%3D%22144.5%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%2261.8%22%20cy%3D%2277.7%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%2290.5%22%20cy%3D%22151.2%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%2289.4%22%20cy%3D%22127.5%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%2255.3%22%20cy%3D%2242.8%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%224.0%22%20cy%3D%22160.1%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22130.7%22%20cy%3D%22134.1%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22122.8%22%20cy%3D%22130.7%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22107.5%22%20cy%3D%2233.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%2217.8%22%20cy%3D%2266.5%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22123.5%22%20cy%3D%22100.6%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22127.9%22%20cy%3D%2269.9%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22392.5%22%20cy%3D%22184.8%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22347.6%22%20cy%3D%22115.8%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22252.5%22%20cy%3D%2277.7%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22269.4%22%20cy%3D%22211.4%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22335.9%22%20cy%3D%22117.8%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22344.0%22%20cy%3D%22178.0%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22297.6%22%20cy%3D%22112.8%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22373.7%22%20cy%3D%22134.4%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22293.9%22%20cy%3D%2284.7%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22368.2%22%20cy%3D%22100.0%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22374.6%22%20cy%3D%22100.0%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22389.5%22%20cy%3D%22153.3%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22332.5%22%20cy%3D%22132.6%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22246.9%22%20cy%3D%22348.1%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22135.8%22%20cy%3D%22291.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22176.6%22%20cy%3D%22407.7%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22187.0%22%20cy%3D%22335.5%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22158.0%22%20cy%3D%22336.5%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22168.1%22%20cy%3D%22237.2%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22190.5%22%20cy%3D%22316.3%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22239.4%22%20cy%3D%22325.1%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22284.4%22%20cy%3D%22374.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22211.0%22%20cy%3D%22253.7%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22268.6%22%20cy%3D%22368.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22167.3%22%20cy%3D%22307.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22157.2%22%20cy%3D%22305.3%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22369.4%22%20cy%3D%22379.0%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22423.3%22%20cy%3D%22473.5%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22424.5%22%20cy%3D%22414.0%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22444.0%22%20cy%3D%22361.0%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22415.9%22%20cy%3D%22423.9%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22327.3%22%20cy%3D%22419.7%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22413.9%22%20cy%3D%22419.2%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22454.6%22%20cy%3D%22381.4%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22374.1%22%20cy%3D%22370.8%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22433.5%22%20cy%3D%22371.4%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22452.3%22%20cy%3D%22465.9%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22385.6%22%20cy%3D%22369.0%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22399.6%22%20cy%3D%22419.7%22%20r%3D%227.5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");background-position:center,0 100%}
+.detail-card:nth-child(3n){background-image:radial-gradient(ellipse at 82% 15%,rgba(245,243,235,.22),transparent 68%),url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%3Cfilter%20id%3D%22warp%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%22.018%22%20numOctaves%3D%222%22%20seed%3D%2253%22%20result%3D%22noise%22%2F%3E%3CfeDisplacementMap%20in%3D%22SourceGraphic%22%20in2%3D%22noise%22%20scale%3D%2213%22%20xChannelSelector%3D%22R%22%20yChannelSelector%3D%22G%22%2F%3E%3C%2Ffilter%3E%3Cg%20fill%3D%22%23f5f3eb%22%20filter%3D%22url%28%23warp%29%22%3E%3Ccircle%20cx%3D%2233.9%22%20cy%3D%2234.2%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%2248.7%22%20cy%3D%2284.5%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%2231.9%22%20cy%3D%2277.5%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22171.2%22%20cy%3D%22101.1%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22122.7%22%20cy%3D%2280.4%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%2285.9%22%20cy%3D%22144.2%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22114.9%22%20cy%3D%2292.5%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%2292.6%22%20cy%3D%22104.5%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%2296.8%22%20cy%3D%2215.0%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%2235.5%22%20cy%3D%224.0%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%2279.7%22%20cy%3D%22103.0%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%2256.3%22%20cy%3D%2273.3%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%2278.5%22%20cy%3D%2267.6%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22259.5%22%20cy%3D%22147.6%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22392.0%22%20cy%3D%2288.0%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22354.5%22%20cy%3D%22108.5%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22426.2%22%20cy%3D%22179.0%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22390.0%22%20cy%3D%2291.6%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22344.3%22%20cy%3D%22164.7%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22352.5%22%20cy%3D%2293.6%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22319.2%22%20cy%3D%22158.2%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22285.2%22%20cy%3D%22128.9%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22354.1%22%20cy%3D%22147.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22394.5%22%20cy%3D%22157.8%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22325.9%22%20cy%3D%22131.7%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22380.8%22%20cy%3D%2298.5%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22103.7%22%20cy%3D%22286.1%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22212.1%22%20cy%3D%22423.1%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22137.8%22%20cy%3D%22348.3%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22207.1%22%20cy%3D%22295.2%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22182.2%22%20cy%3D%22307.0%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22161.7%22%20cy%3D%22377.8%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22185.9%22%20cy%3D%22338.1%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22230.3%22%20cy%3D%22368.2%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22163.2%22%20cy%3D%22360.4%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22138.2%22%20cy%3D%22320.4%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22125.5%22%20cy%3D%22433.3%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22214.6%22%20cy%3D%22257.4%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22229.6%22%20cy%3D%22371.1%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22350.5%22%20cy%3D%22417.2%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22372.4%22%20cy%3D%22407.3%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22440.8%22%20cy%3D%22430.3%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22397.3%22%20cy%3D%22370.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22434.8%22%20cy%3D%22398.6%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22411.6%22%20cy%3D%22350.3%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22436.0%22%20cy%3D%22393.6%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22395.7%22%20cy%3D%22347.6%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22459.4%22%20cy%3D%22307.8%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22365.3%22%20cy%3D%22426.4%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22381.6%22%20cy%3D%22349.1%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22409.2%22%20cy%3D%22372.3%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22456.1%22%20cy%3D%22425.7%22%20r%3D%229%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");background-position:center,100% 0}
+.detail-card:before,.detail-card:after{content:"";position:absolute;left:14px;right:14px;height:8px;border:0;border-radius:2px;background:repeating-linear-gradient(to right,transparent 0 7px,rgba(245,243,235,.92) 7px 19px,transparent 19px 30px);opacity:.9}
+.detail-card:before{top:9px}.detail-card:after{bottom:9px}
+.detail-num{position:absolute;right:29px;top:13px;font:700 9px var(--mono);color:#8cc49b;letter-spacing:.1em}
+.detail-card p{margin:0;padding-right:34px;font-size:15px;line-height:1.55;color:rgba(245,243,235,.94);max-width:470px}
+/* Instagram */
+ .social{background:var(--white);color:var(--black);background-image:radial-gradient(ellipse at 8% 50%,rgba(21,21,21,.12),transparent 64%),url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%3Cfilter%20id%3D%22warp%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%22.018%22%20numOctaves%3D%222%22%20seed%3D%2241%22%20result%3D%22noise%22%2F%3E%3CfeDisplacementMap%20in%3D%22SourceGraphic%22%20in2%3D%22noise%22%20scale%3D%2213%22%20xChannelSelector%3D%22R%22%20yChannelSelector%3D%22G%22%2F%3E%3C%2Ffilter%3E%3Cg%20fill%3D%22%23151515%22%20filter%3D%22url%28%23warp%29%22%3E%3Ccircle%20cx%3D%2270.9%22%20cy%3D%22102.7%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22119.0%22%20cy%3D%2264.5%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%2284.0%22%20cy%3D%22113.3%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%2290.4%22%20cy%3D%2280.1%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%2253.7%22%20cy%3D%2226.5%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22190.4%22%20cy%3D%2251.6%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%2278.3%22%20cy%3D%22110.2%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%2280.9%22%20cy%3D%2276.3%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22160.7%22%20cy%3D%2299.9%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22102.3%22%20cy%3D%22141.6%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%2244.7%22%20cy%3D%2292.1%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22146.7%22%20cy%3D%22140.8%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22108.3%22%20cy%3D%2271.9%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22313.8%22%20cy%3D%22177.8%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22297.0%22%20cy%3D%2297.1%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22331.9%22%20cy%3D%22144.3%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22347.9%22%20cy%3D%22125.3%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22294.3%22%20cy%3D%22121.9%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22355.8%22%20cy%3D%22129.4%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22294.1%22%20cy%3D%22152.5%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22249.0%22%20cy%3D%2296.8%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22312.3%22%20cy%3D%22126.4%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22324.7%22%20cy%3D%2248.8%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22393.7%22%20cy%3D%2266.1%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22411.0%22%20cy%3D%22114.0%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22297.5%22%20cy%3D%2257.1%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22125.6%22%20cy%3D%22330.0%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22209.5%22%20cy%3D%22332.8%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22150.4%22%20cy%3D%22374.3%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22142.2%22%20cy%3D%22363.8%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22175.4%22%20cy%3D%22367.8%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22180.3%22%20cy%3D%22379.7%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22137.5%22%20cy%3D%22422.5%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22188.0%22%20cy%3D%22306.9%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22176.8%22%20cy%3D%22311.8%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22186.6%22%20cy%3D%22368.4%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22172.5%22%20cy%3D%22327.1%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22125.6%22%20cy%3D%22323.2%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22166.0%22%20cy%3D%22365.8%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22398.9%22%20cy%3D%22328.5%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22366.8%22%20cy%3D%22359.1%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22415.0%22%20cy%3D%22356.8%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22459.0%22%20cy%3D%22351.3%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22432.9%22%20cy%3D%22437.5%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22384.0%22%20cy%3D%22359.2%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22440.3%22%20cy%3D%22373.3%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22458.1%22%20cy%3D%22403.0%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22379.6%22%20cy%3D%22430.7%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22404.5%22%20cy%3D%22415.4%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22361.8%22%20cy%3D%22349.1%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22401.8%22%20cy%3D%22433.9%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22377.9%22%20cy%3D%22412.3%22%20r%3D%223%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");background-size:cover,440px 440px;background-position:center,4% 50%;background-repeat:no-repeat}
+.social-panel{display:grid;grid-template-columns:1fr auto;gap:35px;align-items:center;padding:38px 0;border-top:1px solid rgba(21,21,21,.35);border-bottom:1px solid rgba(21,21,21,.35);background:transparent;color:var(--black)}
+.social h2{font:600 clamp(38px,4.8vw,60px)/1.02 var(--display);letter-spacing:-.02em;margin:12px 0 16px;max-width:760px}
+.social p{max-width:550px;margin:0;font-size:14px;color:#55524c}
+.social .button{white-space:nowrap}
+/* Pedido */
+ .order{background:var(--paper);background-image:radial-gradient(ellipse at 0% 18%,rgba(227,59,50,.15),transparent 64%),url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%3E%3Cfilter%20id%3D%22warp%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%22.018%22%20numOctaves%3D%222%22%20seed%3D%2217%22%20result%3D%22noise%22%2F%3E%3CfeDisplacementMap%20in%3D%22SourceGraphic%22%20in2%3D%22noise%22%20scale%3D%2213%22%20xChannelSelector%3D%22R%22%20yChannelSelector%3D%22G%22%2F%3E%3C%2Ffilter%3E%3Cg%20fill%3D%22%23e33b32%22%20filter%3D%22url%28%23warp%29%22%3E%3Ccircle%20cx%3D%2225.4%22%20cy%3D%2276.0%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%2274.9%22%20cy%3D%22144.5%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%2261.8%22%20cy%3D%2277.7%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%2290.5%22%20cy%3D%22151.2%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%2289.4%22%20cy%3D%22127.5%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%2255.3%22%20cy%3D%2242.8%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%224.0%22%20cy%3D%22160.1%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22130.7%22%20cy%3D%22134.1%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22122.8%22%20cy%3D%22130.7%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22107.5%22%20cy%3D%2233.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%2217.8%22%20cy%3D%2266.5%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22123.5%22%20cy%3D%22100.6%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22127.9%22%20cy%3D%2269.9%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22392.5%22%20cy%3D%22184.8%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22347.6%22%20cy%3D%22115.8%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22252.5%22%20cy%3D%2277.7%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22269.4%22%20cy%3D%22211.4%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22335.9%22%20cy%3D%22117.8%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22344.0%22%20cy%3D%22178.0%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22297.6%22%20cy%3D%22112.8%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22373.7%22%20cy%3D%22134.4%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22293.9%22%20cy%3D%2284.7%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22368.2%22%20cy%3D%22100.0%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22374.6%22%20cy%3D%22100.0%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22389.5%22%20cy%3D%22153.3%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22332.5%22%20cy%3D%22132.6%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22246.9%22%20cy%3D%22348.1%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22135.8%22%20cy%3D%22291.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22176.6%22%20cy%3D%22407.7%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22187.0%22%20cy%3D%22335.5%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22158.0%22%20cy%3D%22336.5%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22168.1%22%20cy%3D%22237.2%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22190.5%22%20cy%3D%22316.3%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22239.4%22%20cy%3D%22325.1%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22284.4%22%20cy%3D%22374.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22211.0%22%20cy%3D%22253.7%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22268.6%22%20cy%3D%22368.5%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22167.3%22%20cy%3D%22307.1%22%20r%3D%224.2%22%2F%3E%3Ccircle%20cx%3D%22157.2%22%20cy%3D%22305.3%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22369.4%22%20cy%3D%22379.0%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22423.3%22%20cy%3D%22473.5%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22424.5%22%20cy%3D%22414.0%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22444.0%22%20cy%3D%22361.0%22%20r%3D%225.5%22%2F%3E%3Ccircle%20cx%3D%22415.9%22%20cy%3D%22423.9%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22327.3%22%20cy%3D%22419.7%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22413.9%22%20cy%3D%22419.2%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22454.6%22%20cy%3D%22381.4%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22374.1%22%20cy%3D%22370.8%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%22433.5%22%20cy%3D%22371.4%22%20r%3D%227.5%22%2F%3E%3Ccircle%20cx%3D%22452.3%22%20cy%3D%22465.9%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22385.6%22%20cy%3D%22369.0%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22399.6%22%20cy%3D%22419.7%22%20r%3D%227.5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");background-size:cover,480px 480px;background-position:center,100% 80%;background-repeat:no-repeat}
+.order-intro{max-width:620px;margin:-12px 0 35px;color:#55524c}
+.order-window{max-width:900px;margin:0 auto}
+.order-window .windowbar{background:var(--black)}
+.form-inner{padding:clamp(20px,4vw,38px)}
+.form-section{padding:27px 0;border-top:1px solid rgba(21,21,21,.22)}
+.form-section:first-child{border-top:0;padding-top:0}
+.form-section h3{font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;margin:0 0 20px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field.full{grid-column:1/-1}
+.field label,.field-label{font:700 10px var(--sans);text-transform:uppercase;letter-spacing:.09em}
+.field input,.field textarea,.field select{width:100%;border:1px solid #aaa;background:rgba(255,255,255,.72);padding:12px;color:var(--black);border-radius:0;min-height:46px;font:400 14px var(--sans)}
+.field input:focus,.field textarea:focus,.field select:focus{outline:1px solid var(--green);outline-offset:2px}
+.field textarea{min-height:88px;resize:vertical}
+.field small{font-size:11px;color:#666}
+.packs{display:grid;gap:10px}
+.pack{display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:center;padding:16px;border:1px solid #aaa;cursor:pointer;background:rgba(255,255,255,.72)}
+.pack:has(input:checked){border:1px solid var(--red);background:#f7efeb}
+.pack input{accent-color:var(--red)}
+.pack strong{font:600 21px var(--display)}
+.pack small{display:block;font-size:11px;color:#555}
+.pack b{font:600 23px var(--display);white-space:nowrap}
+.iso-panel{display:none;margin-top:18px;padding:18px;border:1px solid rgba(40,116,71,.45);background:rgba(40,116,71,.055)}
+.iso-panel.visible{display:block}
+.iso-panel h4{font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;margin:0 0 15px}
+.iso-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.summary{margin-top:22px;padding:20px;background:var(--black);color:white}
+.summary h4{font:600 11px var(--sans);margin:0 0 12px;text-transform:uppercase;letter-spacing:.1em}
+.summary-line,.summary-total{display:flex;justify-content:space-between;gap:16px;padding:6px 0;font-size:12px}
+.summary-line[hidden]{display:none}
+.summary-total{border-top:1px solid #777;margin-top:10px;padding-top:14px;font:600 25px var(--display)}
+.payment{padding:17px;border:1px solid rgba(227,59,50,.65);font-size:13px;line-height:1.7}
+.payment strong{display:block;font:700 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+.consent{display:flex;gap:10px;align-items:flex-start;margin-top:17px;font-size:11px;line-height:1.6}
+.consent input{margin-top:4px;accent-color:var(--green)}
+.submit{width:100%;margin-top:23px;padding:16px;background:var(--red);color:white;border:1px solid var(--red);font:700 11px var(--sans);text-transform:uppercase;letter-spacing:.1em;opacity:.55;cursor:not-allowed}
+.form-note{font-size:11px;color:#666;margin:12px 0 0}
+/* Pie */
+.footer{background:var(--black);color:var(--white);padding:35px 0}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.footer p{font:600 9px var(--sans);line-height:1.8;letter-spacing:.1em}
+.footer a{font-size:12px}
+.footer .brand{font-size:19px}
+.closing{padding:34px 20px;background:var(--red);color:var(--white);text-align:center;border-top:1px solid var(--black)}
+.closing p{margin:0;font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase}
+.closing .tomato{display:inline-block;margin-left:7px;font-size:22px;vertical-align:middle}
+/* Confirmación */
+.modal[hidden]{display:none}
+.modal{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.82);display:grid;place-items:center;padding:20px}
+.modal-box{width:min(620px,100%);background:var(--white);border:1px solid var(--black);padding:clamp(24px,5vw,42px)}
+.modal-box h2{font:600 clamp(38px,5vw,58px)/1.02 var(--display);margin:15px 0}
+.modal-box p,.modal-box li{font-size:14px;line-height:1.7}
+.modal-box ul{padding-left:20px;margin:16px 0}
+@media(max-width:800px){
+  .wrap{width:min(100% - 36px,620px)}
+  .intro-layout{grid-template-columns:1fr;grid-template-rows:auto auto auto;grid-template-areas:"hero" "photo" "reveal";gap:0}
+  .hero-copy{min-height:54vh;padding:42px 0 24px}
+  .hero-art{grid-row:auto;position:relative;top:auto;height:auto;min-height:0;align-self:center;margin:0 8px;padding:10px 10px 20px}
+  .reveal-copy{min-height:48vh;padding:48px 0 58px}
+  .intro-story{padding-bottom:0}
+  .section-head{display:block;text-align:left!important}
+  .section-head p{margin-top:16px;text-align:left!important}
+  .price-grid{grid-template-columns:1fr}
+  .card-body{min-height:150px}
+  .detail-grid{grid-template-columns:1fr}
+  .social-panel{grid-template-columns:1fr;gap:22px}
+  .social .button{justify-self:start}
+  .navlinks{display:none;position:absolute;top:69px;right:18px;background:var(--black);border:1px solid rgba(245,243,235,.5);padding:18px;flex-direction:column;gap:18px}
+  .navlinks.open{display:flex}
+  .menu{display:block}
+}
+@media(max-width:520px){
+  .wrap{width:calc(100% - 30px)}
+  .hero-copy h1{font-size:54px}
+  section.content{padding:68px 0}
+  .hero-copy{min-height:54vh}
+  .hero-art{top:auto}
+  .reveal-copy{min-height:44vh}
+  .fields{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .iso-grid{grid-template-columns:1fr}
+  .pack{grid-template-columns:20px 1fr auto;padding:12px}
+  .pack b{font-size:20px}
+  .photo-frame{padding:10px}
+  .photo-caption{font-size:8px}
+  .footer-inner{align-items:flex-start;flex-direction:column}
+}
+
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="wrap nav">
+    <a class="brand" href="#inicio">TOMATE<b>LAB</b></a>
+    <button class="menu" id="menuButton" aria-expanded="false" aria-controls="navLinks">MENÚ +</button>
+    <nav class="navlinks" id="navLinks">
+      <a href="#servicios">Servicios</a><a href="#laboratorio">El laboratorio</a><a href="#pedido">Pedir</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="intro-story" id="inicio-story">
+    <div class="wrap intro-layout">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="led"></span> LABORATORIO FOTOGRÁFICO / SEVILLA</div>
+        <h1>Tus fotos merecen salir <span>del carrete.</span></h1>
+        <p>Revelado y escaneado de fotografía analógica en blanco y negro. Tú disparas; nosotros nos encargamos del resto.</p>
+        <a class="button" href="#servicios">Explorar servicios <span>↘</span></a>
+      </div>
+      <div class="hero-art" id="revealStage">
+        <div class="window photo-window">
+          <div class="windowbar"><span>FOTOGRAMA / 001</span><span>35 MM</span></div>
+          <div class="photo-frame">
+            <img id="revealImage" src="Paula%20Lopez%20Bordallo_1094.JPG" alt="Fotografía analógica en blanco y negro que pasa de negativo a positivo">
+            <div class="photo-caption"><span>BLANCO Y NEGRO</span><span>35 MM / TOMATELAB</span></div>
+          </div>
+          <div class="film-edge"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="hero-status">FOTOGRAFÍA ANALÓGICA</div>
+      </div>
+      <div class="reveal-copy">
+        <div class="eyebrow">01 / DEL NEGATIVO AL POSITIVO</div>
+        <h2>El blanco y negro tiene mucho que decir.</h2>
+        <p>Del negativo a la imagen. El proceso de revelado transforma poco a poco lo que estaba oculto en el carrete.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="content pricing" id="servicios">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="tag">02 / NUESTROS PACKS</div><h2>No pares de disparar.<br>Sigue experimentando.</h2></div>
+        <p>Revelamos y escaneamos tus carretes en blanco y negro. Elige la opción que mejor encaje con tu próxima sesión.</p>
+      </div>
+      <div class="price-grid">
+        <article class="price-card">
+          <div class="card-top"><span>PACK 01</span><span>REVELADO + ESCANEADO</span></div>
+          <div class="card-body"><h3>Sin carrete</h3><p>Revelado y escaneado de tu propio carrete.</p><div class="price">16 <small>€</small></div></div>
+          <div class="card-bottom"></div>
+        </article>
+        <article class="price-card">
+          <div class="card-top"><span>PACK 02</span><span>+ 1 CARRETE</span></div>
+          <div class="card-body"><h3>+1 carrete</h3><p>Revelado, escaneado y un carrete nuevo.</p><div class="price">22 <small>€</small></div></div>
+          <div class="card-bottom"></div>
+        </article>
+        <article class="price-card">
+          <div class="card-top"><span>PACK 03</span><span>+ 3 CARRETES</span></div>
+          <div class="card-body"><h3>+3 carretes</h3><p>Revelado, escaneado y tres carretes nuevos.</p><div class="price">34 <small>€</small></div></div>
+          <div class="card-bottom"></div>
+        </article>
+      </div>
+      <p class="order-intro" style="margin:30px auto 0;text-align:center">¿Tienes más carretes? Cada revelado adicional cuesta <strong>13 €</strong>.</p>
+    </div>
+  </section>
+
+  <section class="content details" id="laboratorio">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="tag">03 / EL LABORATORIO</div><h2>El laboratorio, en pocas palabras.</h2></div>
+        <p>Información práctica para que sepas qué ocurre con tus carretes desde que llegan hasta que vuelven a casa.</p>
+      </div>
+      <div class="detail-grid">
+        <article class="detail-card"><span class="detail-num">01</span><p>La devolución de tus negativos está incluida.</p></article>
+        <article class="detail-card"><span class="detail-num">02</span><p>Recibirás tus fotografías escaneadas a través de un enlace de descarga.</p></article>
+        <article class="detail-card"><span class="detail-num">03</span><p>El plazo máximo es de una semana desde la recepción de tus carretes.</p></article>
+        <article class="detail-card"><span class="detail-num">04</span><p>Los carretes que ponemos a tu disposición son de 36 exposiciones, en blanco y negro, ISO 100, 200 y 400.</p></article>
+        <article class="detail-card"><span class="detail-num">05</span><p>Servicio para toda España, incluidas las islas y los territorios españoles fuera de la península.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="content social">
+    <div class="wrap">
+      <div class="social-panel">
+        <div><div class="tag">04 / SÍGUENOS</div><h2>Queremos ser tu excusa para salir a hacer fotos.</h2><p>Síguenos en Instagram, donde compartimos las historias de nuestros carretes. Que la tuya sea la siguiente.</p></div>
+        <a class="button" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="content order" id="pedido">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="tag">05 / TU PEDIDO</div><h2>REVELA <span style="color:var(--red)">+</span> REPITE.</h2></div>
+        <p>Elige tu pack y déjanos tus datos. Prepararemos el siguiente paso para que tu carrete llegue al laboratorio.</p>
+      </div>
+      <p class="order-intro">Completa el formulario para configurar tu pedido.</p>
+
+      <div class="window order-window">
+        <div class="windowbar"><span>TOMATELAB / PEDIDOS</span><span class="lights"><i></i><i></i><i></i></span></div>
+        <div class="form-inner">
+          <form id="orderForm">
+            <div class="form-section">
+              <h3>01 / Datos de contacto</h3>
+              <div class="fields">
+                <div class="field full"><label for="customerName">Nombre y apellidos</label><input id="customerName" name="nombre" autocomplete="name" required></div>
+                <div class="field"><label for="customerEmail">Correo electrónico</label><input id="customerEmail" name="correo" type="email" autocomplete="email" placeholder="nombre@correo.com" required><small>Te enviaremos la confirmación y las instrucciones de envío.</small></div>
+                <div class="field"><label for="customerPhone">Teléfono de contacto</label><input id="customerPhone" name="telefono" type="tel" autocomplete="tel" required></div>
+                <div class="field full"><label for="customerAddress">Dirección para la devolución de tus negativos</label><textarea id="customerAddress" name="direccion_devolucion" autocomplete="street-address" placeholder="Calle, número, piso, código postal, localidad y provincia" required></textarea></div>
+              </div>
+            </div>
+            <div class="form-section">
+              <h3>02 / Formato de los carretes que envías</h3>
+              <div class="field"><label for="filmFormat">Formato</label><input id="filmFormat" name="formato_carrete" placeholder="Ej. 35 mm" required><small>Indica el formato de los carretes que enviarás.</small></div>
+            </div>
+            <div class="form-section">
+              <h3>03 / Selecciona tu pack</h3>
+              <div class="packs">
+                <label class="pack"><input type="radio" name="pack" value="sin" required><span><strong>Sin carrete</strong><small>Revelado y escaneado de tu propio carrete.</small></span><b>16 €</b></label>
+                <label class="pack"><input type="radio" name="pack" value="uno"><span><strong>+1 carrete</strong><small>Revelado, escaneado y un carrete nuevo.</small></span><b>22 €</b></label>
+                <label class="pack"><input type="radio" name="pack" value="tres"><span><strong>+3 carretes</strong><small>Revelado, escaneado y tres carretes nuevos.</small></span><b>34 €</b></label>
+              </div>
+              <div class="field" style="margin-top:20px;max-width:420px">
+                <label for="extraFilms">¿Cuántos carretes adicionales quieres revelar? (+13 € cada uno)</label>
+                <input id="extraFilms" name="carretes_adicionales" type="number" min="0" step="1" value="0" inputmode="numeric">
+                <small>El pack ya incluye el revelado de un carrete. Aquí puedes añadir otros carretes propios.</small>
+              </div>
+              <div class="iso-panel" id="isoOne"><h4>Selecciona la sensibilidad del carrete nuevo</h4><div class="iso-grid"><div class="field"><label for="isoSingle">Carrete 1</label><select id="isoSingle" name="iso_uno"><option value="">Seleccionar ISO</option><option>100</option><option>200</option><option>400</option></select></div></div></div>
+              <div class="iso-panel" id="isoThree"><h4>Selecciona la sensibilidad de cada carrete nuevo</h4><div class="iso-grid">
+                <div class="field"><label for="isoThree1">Carrete 1</label><select id="isoThree1" name="iso_tres_1"><option value="">Seleccionar ISO</option><option>100</option><option>200</option><option>400</option></select></div>
+                <div class="field"><label for="isoThree2">Carrete 2</label><select id="isoThree2" name="iso_tres_2"><option value="">Seleccionar ISO</option><option>100</option><option>200</option><option>400</option></select></div>
+                <div class="field"><label for="isoThree3">Carrete 3</label><select id="isoThree3" name="iso_tres_3"><option value="">Seleccionar ISO</option><option>100</option><option>200</option><option>400</option></select></div>
+              </div></div>
+              <div class="summary">
+                <h4>Resumen del pedido</h4>
+                <div class="summary-line"><span>Pack</span><span id="summaryPack">—</span></div>
+                <div class="summary-line" id="summaryExtrasRow" hidden><span>Revelados adicionales</span><span id="summaryExtras">—</span></div>
+                <div class="summary-line"><span>Base imponible</span><span id="summaryBase">— €</span></div>
+                <div class="summary-line"><span>IVA (21 %, incluido)</span><span id="summaryVat">— €</span></div>
+                <div class="summary-total"><span>Total</span><span id="summaryTotal">— €</span></div>
+              </div>
+            </div>
+            <div class="form-section">
+              <h3>04 / Método de pago</h3>
+              <div class="payment"><strong>Transferencia bancaria</strong>El único método de pago disponible por el momento es la transferencia bancaria. Dispondrás de 24 horas para realizar el pago. Si no recibimos la transferencia dentro de ese plazo, el pedido quedará anulado.<br><br>Los datos bancarios y las instrucciones de pago aparecerán al finalizar el pedido.</div>
+              <label class="consent"><input type="checkbox" name="acepta_privacidad" required><span>He leído la <a href="privacidad.html" target="_blank" rel="noopener noreferrer">Política de privacidad</a> y entiendo cómo se tratarán mis datos para gestionar el pedido.</span></label>
+              <label class="consent"><input type="checkbox" name="acepta_pago" required><span>He leído y acepto las condiciones de pago y el plazo de 24 horas para realizar la transferencia.</span></label>
+              <button class="submit" type="button" disabled>Finalizar compra</button>
+              <p class="form-note">Formulario en preparación. Todavía no registra pedidos ni envía correos. La confirmación aparecerá cuando conectemos el sistema de pedidos.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="closing">
+    <p>Un saludo desde Los Palacios y Villafranca <span class="tomato" aria-label="tomate">🍅</span></p>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <a class="brand" href="#inicio">TOMATE<b>LAB</b></a>
+    <p>REVELADO ANALÓGICO EN BLANCO Y NEGRO<br>LOS PALACIOS Y VILLAFRANCA · SEVILLA</p>
+    <a href="privacidad.html">Política de privacidad</a>
+    <p>© TOMATELAB</p>
+  </div>
+</footer>
+
+<div class="modal" id="orderConfirmation" role="dialog" aria-modal="true" aria-labelledby="confirmationTitle" hidden>
+  <div class="modal-box">
+    <div class="eyebrow">TOMATELAB / PEDIDO RECIBIDO</div>
+    <h2 id="confirmationTitle">Tu próximo carrete ya está en marcha.</h2>
+    <p>Hemos registrado tu pedido <strong id="confirmationOrderNumber"></strong>.</p>
+    <ul>
+      <li>Recibirás en tu correo electrónico la confirmación y los datos para realizar la transferencia.</li>
+      <li>Cuando comprobemos el pago, te enviaremos por correo las instrucciones y la dirección a la que debes enviar tus carretes.</li>
+      <li>Conserva tu número de pedido: tendrás que incluirlo en el paquete.</li>
+    </ul>
+    <button class="button" id="closeConfirmation" type="button">Cerrar ventana</button>
+  </div>
+</div>
+
+<script>
+const menuButton=document.getElementById("menuButton");
+const navLinks=document.getElementById("navLinks");
+menuButton.addEventListener("click",()=>{
+  const opened=navLinks.classList.toggle("open");
+  menuButton.setAttribute("aria-expanded",String(opened));
+  menuButton.textContent=opened?"CERRAR −":"MENÚ +";
+});
+navLinks.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{
+  navLinks.classList.remove("open");
+  menuButton.setAttribute("aria-expanded","false");
+  menuButton.textContent="MENÚ +";
+}));
+
+// La fotografía se revela automáticamente en cinco segundos mediante la animación CSS.
+
+// Selección de pack, carretes adicionales e IVA incluido.
+const radios=[...document.querySelectorAll('input[name="pack"]')];
+const one=document.getElementById("isoOne"),three=document.getElementById("isoThree");
+const single=document.getElementById("isoSingle");
+const iso3=[document.getElementById("isoThree1"),document.getElementById("isoThree2"),document.getElementById("isoThree3")];
+const extraFilms=document.getElementById("extraFilms");
+const summaryPack=document.getElementById("summaryPack");
+const summaryExtrasRow=document.getElementById("summaryExtrasRow");
+const summaryExtras=document.getElementById("summaryExtras");
+const summaryBase=document.getElementById("summaryBase");
+const summaryVat=document.getElementById("summaryVat");
+const summaryTotal=document.getElementById("summaryTotal");
+const money=value=>value.toLocaleString("es-ES",{style:"currency",currency:"EUR"});
+function updatePack(){
+  const value=document.querySelector('input[name="pack"]:checked')?.value||"";
+  one.classList.toggle("visible",value==="uno");
+  three.classList.toggle("visible",value==="tres");
+  single.required=value==="uno";
+  iso3.forEach(el=>el.required=value==="tres");
+  if(value!=="uno")single.value="";
+  if(value!=="tres")iso3.forEach(el=>el.value="");
+  const data={
+    sin:{name:"Sin carrete",price:16},
+    uno:{name:"+1 carrete",price:22},
+    tres:{name:"+3 carretes",price:34}
+  }[value];
+  const extraCount=Math.max(0,Math.floor(Number(extraFilms.value)||0));
+  const total=data?data.price+(extraCount*13):0;
+  const base=total/1.21;
+  const vat=total-base;
+  summaryPack.textContent=data?data.name:"—";
+  summaryExtrasRow.hidden=!data||extraCount===0;
+  summaryExtras.textContent=extraCount?`${extraCount} × 13 € = ${money(extraCount*13)}`:"—";
+  summaryBase.textContent=data?money(base):"— €";
+  summaryVat.textContent=data?money(vat):"— €";
+  summaryTotal.textContent=data?money(total):"— €";
+}
+radios.forEach(r=>r.addEventListener("change",updatePack));
+extraFilms.addEventListener("input",()=>{
+  if(extraFilms.value!==""&&Number(extraFilms.value)<0)extraFilms.value="0";
+  updatePack();
+});
+updatePack();
+
+// Preparado para conectarse a un backend. No se debe mostrar hasta que el pedido
+// esté realmente registrado y el servidor devuelva un número de pedido.
+function showOrderConfirmation(orderNumber){
+  if(!orderNumber)return;
+  document.getElementById("confirmationOrderNumber").textContent=orderNumber;
+  document.getElementById("orderConfirmation").hidden=false;
+  document.getElementById("closeConfirmation").focus();
+}
+window.showOrderConfirmation=showOrderConfirmation;
+document.getElementById("closeConfirmation").addEventListener("click",()=>{
+  document.getElementById("orderConfirmation").hidden=true;
+});
+</script>
+</body>
+</html>
