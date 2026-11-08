@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -91,7 +90,7 @@ button,a{-webkit-tap-highlight-color:transparent}
 .button{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:13px 18px;background:var(--red);color:white;border:1px solid var(--red);font:700 11px var(--mono);text-transform:uppercase;text-decoration:none;letter-spacing:.08em;transition:background .2s,color .2s}
 .button:hover{background:var(--black);border-color:var(--black)}
 
-/* Fotografía: posición normal, sin sticky ni desplazamiento por scroll */
+/* Fotografía fija en el primer bloque */
 .hero-art{
   grid-area:photo;
   position:relative;
@@ -163,8 +162,7 @@ section.content{padding:90px 0}
 .section-head p{max-width:390px;margin:0;font-size:14px;color:#55524c}
 .tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;display:inline-flex;align-items:center;gap:9px}
 .tag:before{content:"";width:20px;height:1px;background:var(--red)}
-
-/* Precios */
+  /* Precios */
 .pricing{background:var(--paper)}
 .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .price-card{
@@ -238,14 +236,8 @@ section.content{padding:90px 0}
 .social h2{font:600 clamp(38px,4.8vw,60px)/1.02 var(--display);letter-spacing:-.02em;margin:12px 0 16px;max-width:760px}
 .social p{max-width:550px;margin:0;font-size:14px;color:#55524c}
 .social .button{white-space:nowrap}
-
-/* Pedido */
-.order{
-  background-color:var(--paper);
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 190 190' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='ordergrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.74' numOctaves='4' seed='61' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23ordergrain)' opacity='.20'/%3E%3C/svg%3E"),radial-gradient(ellipse at 0% 18%,rgba(227,59,50,.09),transparent 36%),radial-gradient(ellipse at 100% 82%,rgba(40,116,71,.10),transparent 38%);
-  background-size:170px 170px,cover,cover;
-  background-blend-mode:soft-light,normal,normal;
-}
+  /* Pedido */
+.order{background-color:var(--paper);background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 190 190' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='ordergrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.74' numOctaves='4' seed='61' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23ordergrain)' opacity='.20'/%3E%3C/svg%3E"),radial-gradient(ellipse at 0% 18%,rgba(227,59,50,.09),transparent 36%),radial-gradient(ellipse at 100% 82%,rgba(40,116,71,.10),transparent 38%);background-size:170px 170px,cover,cover;background-blend-mode:soft-light,normal,normal}
 .order-intro{max-width:620px;margin:-12px 0 35px;color:#55524c}
 .order-window{max-width:900px;margin:0 auto}
 .order-window .windowbar{background:var(--black)}
@@ -306,4 +298,296 @@ section.content{padding:90px 0}
   .wrap{width:min(100% - 36px,620px)}
   .intro-layout{grid-template-columns:1fr;grid-template-rows:auto auto auto;grid-template-areas:"hero" "photo" "reveal";gap:0}
   .hero-copy{min-height:54vh;padding:42px 0 24px}
-  .hero-art{grid-row:auto;position:relative;top:auto;height:auto;min-height:0;align-sel
+  .hero-art{grid-row:auto;position:relative;top:auto;height:auto;min-height:0;align-self:center;margin:0 8px;padding:10px 10px 20px}
+  .reveal-copy{min-height:48vh;padding:48px 0 58px}
+  .intro-story{padding-bottom:0}
+  .section-head{display:block;text-align:left!important}
+  .section-head p{margin-top:16px;text-align:left!important}
+  .price-grid{grid-template-columns:1fr}
+  .card-body{min-height:150px}
+  .detail-grid{grid-template-columns:1fr}
+  .social-panel{grid-template-columns:1fr;gap:22px}
+  .social .button{justify-self:start}
+  .navlinks{display:none;position:absolute;top:69px;right:18px;background:var(--black);border:1px solid rgba(245,243,235,.5);padding:18px;flex-direction:column;gap:18px}
+  .navlinks.open{display:flex}
+  .menu{display:block}
+}
+@media(max-width:520px){
+  .wrap{width:calc(100% - 30px)}
+  .hero-copy h1{font-size:54px}
+  section.content{padding:68px 0}
+  .hero-copy{min-height:54vh}
+  .hero-art{top:auto}
+  .reveal-copy{min-height:44vh}
+  .fields{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .iso-grid{grid-template-columns:1fr}
+  .pack{grid-template-columns:20px 1fr auto;padding:12px}
+  .pack b{font-size:20px}
+  .photo-frame{padding:10px}
+  .photo-caption{font-size:8px}
+  .footer-inner{align-items:flex-start;flex-direction:column}
+}
+
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="wrap nav">
+    <a class="brand" href="#inicio">TOMATE<b>LAB</b></a>
+    <button class="menu" id="menuButton" aria-expanded="false" aria-controls="navLinks">MENÚ +</button>
+    <nav class="navlinks" id="navLinks">
+      <a href="#servicios">Servicios</a><a href="#laboratorio">El laboratorio</a><a href="#pedido">Pedir</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="intro-story" id="inicio-story">
+    <div class="wrap intro-layout">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="led"></span> LABORATORIO FOTOGRÁFICO / SEVILLA</div>
+        <h1>Tus fotos merecen salir <span>del carrete.</span></h1>
+        <p>Revelado y escaneado de fotografía analógica en blanco y negro. Tú disparas; nosotros nos encargamos del resto.</p>
+        <a class="button" href="#servicios">Explorar servicios <span>↘</span></a>
+      </div>
+      <div class="hero-art" id="revealStage">
+        <div class="window photo-window">
+          <div class="windowbar"><span>FOTOGRAMA / 001</span><span>35 MM</span></div>
+          <div class="photo-frame">
+            <img id="revealImage" src="Paula%20Lopez%20Bordallo_1094.JPG" alt="Fotografía analógica en blanco y negro que pasa de negativo a positivo">
+            <div class="photo-caption"><span>BLANCO Y NEGRO</span><span>35 MM / TOMATELAB</span></div>
+          </div>
+          <div class="film-edge"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="hero-status">REVELADO EN CURSO</div>
+      </div>
+      <div class="reveal-copy">
+        <div class="eyebrow"><span class="led"></span> EL RESULTADO</div>
+        <h2>El blanco y negro tiene mucho que decir.</h2>
+        <p>Un laboratorio independiente especializado en revelar y digitalizar tus carretes en blanco y negro.</p>
+      </div>
+    </div>
+  </section>
+    <section class="content pricing" id="servicios">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="tag">02 / NUESTROS PACKS</div><h2>No pares de disparar.<br>Sigue experimentando.</h2></div>
+        <p>Revelamos y escaneamos tus carretes en blanco y negro. Elige la opción que mejor encaje con tu próxima sesión.</p>
+      </div>
+      <div class="price-grid">
+        <article class="price-card">
+          <div class="card-top"><span>PACK 01</span><span>REVELADO + ESCANEADO</span></div>
+          <div class="card-body"><h3>Sin carrete</h3><p>Revelado y escaneado de tu propio carrete.</p><div class="price">16 <small>€</small></div></div>
+          <div class="card-bottom"></div>
+        </article>
+        <article class="price-card">
+          <div class="card-top"><span>PACK 02</span><span>+ 1 CARRETE</span></div>
+          <div class="card-body"><h3>+1 carrete</h3><p>Revelado, escaneado y un carrete nuevo.</p><div class="price">22 <small>€</small></div></div>
+          <div class="card-bottom"></div>
+        </article>
+        <article class="price-card">
+          <div class="card-top"><span>PACK 03</span><span>+ 3 CARRETES</span></div>
+          <div class="card-body"><h3>+3 carretes</h3><p>Revelado, escaneado y tres carretes nuevos.</p><div class="price">34 <small>€</small></div></div>
+          <div class="card-bottom"></div>
+        </article>
+      </div>
+      <p class="order-intro" style="margin:30px auto 0;text-align:center">¿Tienes más carretes? Cada revelado adicional cuesta <strong>13 €</strong>.</p>
+    </div>
+  </section>
+
+  <section class="content details" id="laboratorio">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="tag">03 / EL LABORATORIO</div><h2>El laboratorio, en pocas palabras.</h2></div>
+        <p>Información práctica para que sepas qué ocurre con tus carretes desde que llegan hasta que vuelven a casa.</p>
+      </div>
+      <div class="detail-grid">
+        <article class="detail-card"><span class="detail-num">01</span><p>La devolución de tus negativos está incluida.</p></article>
+        <article class="detail-card"><span class="detail-num">02</span><p>Recibirás tus fotografías escaneadas a través de un enlace de descarga.</p></article>
+        <article class="detail-card"><span class="detail-num">03</span><p>El plazo máximo es de una semana desde la recepción de tus carretes.</p></article>
+        <article class="detail-card"><span class="detail-num">04</span><p>Los carretes que ponemos a tu disposición son de 36 exposiciones, en blanco y negro, ISO 100, 200 y 400.</p></article>
+        <article class="detail-card"><span class="detail-num">05</span><p>Servicio para toda España, incluidas las islas y los territorios españoles fuera de la península.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="content social">
+    <div class="wrap">
+      <div class="social-panel">
+        <div><div class="tag">04 / SÍGUENOS</div><h2>Queremos ser tu excusa para salir a hacer fotos.</h2><p>Síguenos en Instagram, donde compartimos las historias de nuestros carretes. Que la tuya sea la siguiente.</p></div>
+        <a class="button" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="content order" id="pedido">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="tag">05 / TU PEDIDO</div><h2>REVELA <span style="color:var(--red)">+</span> REPITE.</h2></div>
+        <p>Elige tu pack y déjanos tus datos. Prepararemos el siguiente paso para que tu carrete llegue al laboratorio.</p>
+      </div>
+      <p class="order-intro">Completa el formulario para configurar tu pedido.</p>
+
+      <div class="window order-window">
+        <div class="windowbar"><span>TOMATELAB / PEDIDOS</span><span class="lights"><i></i><i></i><i></i></span></div>
+        <div class="form-inner">
+          <form id="orderForm">
+            <div class="form-section">
+              <h3>01 / Datos de contacto</h3>
+              <div class="fields">
+                <div class="field full"><label for="customerName">Nombre y apellidos</label><input id="customerName" name="nombre" autocomplete="name" required></div>
+                <div class="field"><label for="customerEmail">Correo electrónico</label><input id="customerEmail" name="correo" type="email" autocomplete="email" placeholder="nombre@correo.com" required><small>Te enviaremos la confirmación y las instrucciones de envío.</small></div>
+                <div class="field"><label for="customerPhone">Teléfono de contacto</label><input id="customerPhone" name="telefono" type="tel" autocomplete="tel" required></div>
+                <div class="field full"><label for="customerAddress">Dirección para la devolución de tus negativos</label><textarea id="customerAddress" name="direccion_devolucion" autocomplete="street-address" placeholder="Calle, número, piso, código postal, localidad y provincia" required></textarea></div>
+              </div>
+            </div>
+            <div class="form-section">
+              <h3>02 / Formato de los carretes que envías</h3>
+              <div class="field"><label for="filmFormat">Formato</label><input id="filmFormat" name="formato_carrete" placeholder="Ej. 35 mm" required><small>Indica el formato de los carretes que enviarás.</small></div>
+            </div>
+            <div class="form-section">
+              <h3>03 / Selecciona tu pack</h3>
+              <div class="packs">
+                <label class="pack"><input type="radio" name="pack" value="sin" required><span><strong>Sin carrete</strong><small>Revelado y escaneado de tu propio carrete.</small></span><b>16 €</b></label>
+                <label class="pack"><input type="radio" name="pack" value="uno"><span><strong>+1 carrete</strong><small>Revelado, escaneado y un carrete nuevo.</small></span><b>22 €</b></label>
+                <label class="pack"><input type="radio" name="pack" value="tres"><span><strong>+3 carretes</strong><small>Revelado, escaneado y tres carretes nuevos.</small></span><b>34 €</b></label>
+              </div>
+              <div class="field" style="margin-top:20px;max-width:420px">
+                <label for="extraFilms">¿Cuántos carretes adicionales quieres revelar? (+13 € cada uno)</label>
+                <input id="extraFilms" name="carretes_adicionales" type="number" min="0" step="1" value="0" inputmode="numeric">
+                <small>El pack ya incluye el revelado de un carrete. Aquí puedes añadir otros carretes propios.</small>
+              </div>
+                            </div>
+              <div class="iso-panel" id="isoOne"><h4>Selecciona la sensibilidad del carrete nuevo</h4><div class="iso-grid"><div class="field"><label for="isoSingle">Carrete 1</label><select id="isoSingle" name="iso_uno"><option value="">Seleccionar ISO</option><option>100</option><option>200</option><option>400</option></select></div></div></div>
+              <div class="iso-panel" id="isoThree"><h4>Selecciona la sensibilidad de cada carrete nuevo</h4><div class="iso-grid">
+                <div class="field"><label for="isoThree1">Carrete 1</label><select id="isoThree1" name="iso_tres_1"><option value="">Seleccionar ISO</option><option>100</option><option>200</option><option>400</option></select></div>
+                <div class="field"><label for="isoThree2">Carrete 2</label><select id="isoThree2" name="iso_tres_2"><option value="">Seleccionar ISO</option><option>100</option><option>200</option><option>400</option></select></div>
+                <div class="field"><label for="isoThree3">Carrete 3</label><select id="isoThree3" name="iso_tres_3"><option value="">Seleccionar ISO</option><option>100</option><option>200</option><option>400</option></select></div>
+              </div></div>
+              <div class="summary">
+                <h4>Resumen del pedido</h4>
+                <div class="summary-line"><span>Pack</span><span id="summaryPack">—</span></div>
+                <div class="summary-line" id="summaryExtrasRow" hidden><span>Revelados adicionales</span><span id="summaryExtras">—</span></div>
+                <div class="summary-line"><span>Base imponible</span><span id="summaryBase">— €</span></div>
+                <div class="summary-line"><span>IVA (21 %, incluido)</span><span id="summaryVat">— €</span></div>
+                <div class="summary-total"><span>Total</span><span id="summaryTotal">— €</span></div>
+              </div>
+            </div>
+            <div class="form-section">
+              <h3>04 / Método de pago</h3>
+              <div class="payment"><strong>Transferencia bancaria</strong>El único método de pago disponible por el momento es la transferencia bancaria. Dispondrás de 24 horas para realizar el pago. Si no recibimos la transferencia dentro de ese plazo, el pedido quedará anulado.<br><br>Los datos bancarios y las instrucciones de pago aparecerán al finalizar el pedido.</div>
+              <label class="consent"><input type="checkbox" name="acepta_privacidad" required><span>He leído la <a href="privacidad.html" target="_blank" rel="noopener noreferrer">Política de privacidad</a> y entiendo cómo se tratarán mis datos para gestionar el pedido.</span></label>
+              <label class="consent"><input type="checkbox" name="acepta_pago" required><span>He leído y acepto las condiciones de pago y el plazo de 24 horas para realizar la transferencia.</span></label>
+              <button class="submit" type="button" disabled>Finalizar compra</button>
+              <p class="form-note">Formulario en preparación. Todavía no registra pedidos ni envía correos. La confirmación aparecerá cuando conectemos el sistema de pedidos.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="closing">
+    <p>Un saludo desde Los Palacios y Villafranca <span class="tomato" aria-label="tomate">🍅</span></p>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <a class="brand" href="#inicio">TOMATE<b>LAB</b></a>
+    <p>REVELADO ANALÓGICO EN BLANCO Y NEGRO<br>LOS PALACIOS Y VILLAFRANCA · SEVILLA</p>
+    <a href="privacidad.html">Política de privacidad</a>
+    <p>© TOMATELAB</p>
+  </div>
+</footer>
+
+<div class="modal" id="orderConfirmation" role="dialog" aria-modal="true" aria-labelledby="confirmationTitle" hidden>
+  <div class="modal-box">
+    <div class="eyebrow">TOMATELAB / PEDIDO RECIBIDO</div>
+    <h2 id="confirmationTitle">Tu próximo carrete ya está en marcha.</h2>
+    <p>Hemos registrado tu pedido <strong id="confirmationOrderNumber"></strong>.</p>
+    <ul>
+      <li>Recibirás en tu correo electrónico la confirmación y los datos para realizar la transferencia.</li>
+      <li>Cuando comprobemos el pago, te enviaremos por correo las instrucciones y la dirección a la que debes enviar tus carretes.</li>
+      <li>Conserva tu número de pedido: tendrás que incluirlo en el paquete.</li>
+    </ul>
+    <button class="button" id="closeConfirmation" type="button">Cerrar ventana</button>
+  </div>
+</div>
+<script>
+const menuButton=document.getElementById("menuButton");
+const navLinks=document.getElementById("navLinks");
+menuButton.addEventListener("click",()=>{
+  const opened=navLinks.classList.toggle("open");
+  menuButton.setAttribute("aria-expanded",String(opened));
+  menuButton.textContent=opened?"CERRAR −":"MENÚ +";
+});
+navLinks.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{
+  navLinks.classList.remove("open");
+  menuButton.setAttribute("aria-expanded","false");
+  menuButton.textContent="MENÚ +";
+}));
+
+// La fotografía se revela automáticamente en cinco segundos mediante la animación CSS.
+
+// Selección de pack, carretes adicionales e IVA incluido.
+const radios=[...document.querySelectorAll('input[name="pack"]')];
+const one=document.getElementById("isoOne"),three=document.getElementById("isoThree");
+const single=document.getElementById("isoSingle");
+const iso3=[document.getElementById("isoThree1"),document.getElementById("isoThree2"),document.getElementById("isoThree3")];
+const extraFilms=document.getElementById("extraFilms");
+const summaryPack=document.getElementById("summaryPack");
+const summaryExtrasRow=document.getElementById("summaryExtrasRow");
+const summaryExtras=document.getElementById("summaryExtras");
+const summaryBase=document.getElementById("summaryBase");
+const summaryVat=document.getElementById("summaryVat");
+const summaryTotal=document.getElementById("summaryTotal");
+const money=value=>value.toLocaleString("es-ES",{style:"currency",currency:"EUR"});
+function updatePack(){
+  const value=document.querySelector('input[name="pack"]:checked')?.value||"";
+  one.classList.toggle("visible",value==="uno");
+  three.classList.toggle("visible",value==="tres");
+  single.required=value==="uno";
+  iso3.forEach(el=>el.required=value==="tres");
+  if(value!=="uno")single.value="";
+  if(value!=="tres")iso3.forEach(el=>el.value="");
+  const data={
+    sin:{name:"Sin carrete",price:16},
+    uno:{name:"+1 carrete",price:22},
+    tres:{name:"+3 carretes",price:34}
+  }[value];
+  const extraCount=Math.max(0,Math.floor(Number(extraFilms.value)||0));
+  const total=data?data.price+(extraCount*13):0;
+  const base=total/1.21;
+  const vat=total-base;
+  summaryPack.textContent=data?data.name:"—";
+  summaryExtrasRow.hidden=!data||extraCount===0;
+  summaryExtras.textContent=extraCount?`${extraCount} × 13 € = ${money(extraCount*13)}`:"—";
+  summaryBase.textContent=data?money(base):"— €";
+  summaryVat.textContent=data?money(vat):"— €";
+  summaryTotal.textContent=data?money(total):"— €";
+}
+radios.forEach(r=>r.addEventListener("change",updatePack));
+extraFilms.addEventListener("input",()=>{
+  if(extraFilms.value!==""&&Number(extraFilms.value)<0)extraFilms.value="0";
+  updatePack();
+});
+updatePack();
+
+// Preparado para conectarse a un backend. No se debe mostrar hasta que el pedido
+// esté realmente registrado y el servidor devuelva un número de pedido.
+function showOrderConfirmation(orderNumber){
+  if(!orderNumber)return;
+  document.getElementById("confirmationOrderNumber").textContent=orderNumber;
+  document.getElementById("orderConfirmation").hidden=false;
+  document.getElementById("closeConfirmation").focus();
+}
+window.showOrderConfirmation=showOrderConfirmation;
+document.getElementById("closeConfirmation").addEventListener("click",()=>{
+  document.getElementById("orderConfirmation").hidden=true;
+});
+</script>
+</body>
+</html>
